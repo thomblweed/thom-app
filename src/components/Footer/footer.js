@@ -3,12 +3,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 import { useStyles } from '../../hooks/useStyles';
-import { usePropStyles } from '../../hooks/usePropStyles';
+import { propStyles } from '../../props';
 
 const Footer = () => {
   const classes = useStyles();
-  const propStyles = usePropStyles();
-
   return (
     <footer className={classes.footer}>
       <Container maxWidth={propStyles.container.maxWidth}>
