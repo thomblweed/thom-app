@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { useStyles } from '../src/hooks/useStyles';
-import Footer from './components/Footer/footer';
+import Footer from './components/Footer';
 import Main from './views/main';
 
 const App = () => {

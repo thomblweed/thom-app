@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
+import Form from '../components/Form';
 import { useStyles } from '../hooks/useStyles';
 import { propStyles } from '../props';
 
@@ -13,6 +14,7 @@ const Main = () => {
       maxWidth={propStyles.container.maxWidth}
     >
       <h1>thom app</h1>
+      <Form />
     </Container>
   );
 };

@@ -10,6 +10,10 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2)
   },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
+  },
   footer: {
     padding: theme.spacing(3, 1),
     marginTop: 'auto',
