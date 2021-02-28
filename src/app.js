@@ -1,15 +1,21 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import { useStyles } from '../src/hooks/useStyles';
 import Footer from './components/Footer/footer';
 import Main from './views/main';
 
-const App = () => (
-  <React.StrictMode>
-    <CssBaseline />
-    <Main />
-    <Footer />
-  </React.StrictMode>
-);
+const App = () => {
+  const classes = useStyles();
+  return (
+    <React.StrictMode>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Main />
+        <Footer />
+      </div>
+    </React.StrictMode>
+  );
+};
 
 export default App;
