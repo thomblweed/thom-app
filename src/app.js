@@ -1,21 +1,14 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { useStyles } from '../src/hooks/useStyles';
-import Footer from './components/Footer';
-import Main from './views/main';
+import Layout from './components/Layout';
+import Router from './router';
 
-const App = () => {
-  const classes = useStyles();
-  return (
-    <React.StrictMode>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Main />
-        <Footer />
-      </div>
-    </React.StrictMode>
-  );
-};
+const App = () => (
+  <React.StrictMode>
+    <Layout>
+      <Router />
+    </Layout>
+  </React.StrictMode>
+);
 
 export default App;
