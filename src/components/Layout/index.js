@@ -3,7 +3,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
 import { useStyles } from '../../hooks/useStyles';
-import { propStyles } from '../../props';
 import Footer from '../Footer';
 
 const Layout = ({ children }) => {
@@ -11,11 +10,7 @@ const Layout = ({ children }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Container
-        component='main'
-        className={classes.main}
-        maxWidth={propStyles.container.maxWidth}
-      >
+      <Container component='main' className={classes.main} maxWidth='lg'>
         {children}
       </Container>
       <Footer />

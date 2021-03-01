@@ -29,9 +29,11 @@ const Form = () => {
         required={true}
         error={errors.password && errors.password}
       />
-      <Button variant='contained' color='primary' type='submit'>
-        Login
-      </Button>
+      <div className={classes.container}>
+        <Button fullWidth variant='contained' color='primary' type='submit'>
+          Login
+        </Button>
+      </div>
     </form>
   );
 };

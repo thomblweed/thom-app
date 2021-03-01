@@ -8,18 +8,26 @@ export const useStyles = makeStyles((theme) => ({
   },
   main: {
     marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2)
+    marginBottom: 'auto'
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1)
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   footer: {
     padding: theme.spacing(3, 1),
-    marginTop: 'auto',
     backgroundColor:
       theme.palette.type === 'light'
         ? theme.palette.grey[200]
         : theme.palette.grey[800]
+  },
+  container: {
+    margin: theme.spacing(3, 0, 2)
   }
 }));
