@@ -5,18 +5,26 @@ import { AuthContext } from './state/user-provider';
 import Main from './views/main';
 import Login from './views/login';
 
+const PageNotFound = () => (
+  <div>
+    <p>Page not found</p>
+  </div>
+);
+
 const Router = () => (
   <BrowserRouter>
     <Routes>
-      <Route path='/login' element={<Login />} />
       <AuthRoute path='/' element={<Main />}></AuthRoute>
+      <Route path='/login' element={<Login />} />
+      <Route path='/*' element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>
 );
 
 const AuthRoute = ({ path, element, children }) => {
-  const auth = useContext(AuthContext);
-  return auth.user ? (
+  const authContext = useContext(AuthContext);
+  console.log('auth route :>> ', authContext);
+  return authContext.user ? (
     <Route path={path} element={element}>
       {children}
     </Route>

@@ -3,8 +3,9 @@ import { useState } from 'react';
 const useAuth = () => {
   const [user, setUser] = useState(null);
 
-  const login = () => {
-    setUser('User');
+  const login = async (data) => {
+    console.log('user login:>> ', data);
+    setUser(data);
     console.log('LOGIN');
   };
 
@@ -13,11 +14,9 @@ const useAuth = () => {
     console.log('LOGOUT');
   };
 
-  return {
-    user,
-    login,
-    logout
-  };
+  console.log('user hook :>> ', user);
+
+  return { user, login, logout };
 };
 
 export { useAuth };

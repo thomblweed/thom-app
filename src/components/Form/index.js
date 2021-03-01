@@ -5,16 +5,12 @@ import Button from '@material-ui/core/Button';
 import { useStyles } from '../../hooks/useStyles';
 import Field from './Field';
 
-const Form = () => {
+const Form = ({ formSubmit }) => {
   const classes = useStyles();
   const { control, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('data :>> ', data);
-  };
-
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={classes.form} onSubmit={handleSubmit(formSubmit)}>
       <Field
         control={control}
         name='email'
