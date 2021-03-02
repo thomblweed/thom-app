@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 
 import { useAuth } from '../hooks/useAuth';
 
-export const AuthContext = createContext({
+export const UserContext = createContext({
   user: null,
   login: () => {},
   logout: () => {}
@@ -10,8 +10,7 @@ export const AuthContext = createContext({
 
 const UserProvider = ({ children }) => {
   const auth = useAuth();
-  console.log('auth Provider:>> ', auth);
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  return <UserContext.Provider value={auth}>{children}</UserContext.Provider>;
 };
 
 export default UserProvider;

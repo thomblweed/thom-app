@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { AuthContext } from './state/user-provider';
+import { UserContext } from './state/user-provider';
 import Main from './views/main';
 import Login from './views/login';
 
@@ -22,9 +22,11 @@ const Router = () => (
 );
 
 const AuthRoute = ({ path, element, children }) => {
-  const authContext = useContext(AuthContext);
-  console.log('auth route :>> ', authContext);
-  return authContext.user ? (
+  const { user, userStatus } = useContext(UserContext);
+
+  if (userStatus !== 'DONE') return null;
+
+  return user ? (
     <Route path={path} element={element}>
       {children}
     </Route>

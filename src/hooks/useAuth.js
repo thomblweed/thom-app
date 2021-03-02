@@ -1,22 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { useAxios } from './useAxios';
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
+  const [
+    { response: userResponse, status: userStatus },
+    getCurrentUser
+  ] = useAxios('/api/users/currentuser', true, 'GET');
+  const [{ response: signinResponse }, signin] = useAxios(
+    '/api/users/signin',
+    true,
+    'POST'
+  );
+  const [{ response: signoutResponse }, signout] = useAxios(
+    '/api/users/signout',
+    true,
+    'POST'
+  );
 
-  const login = async (data) => {
-    console.log('user login:>> ', data);
-    setUser(data);
-    console.log('LOGIN');
+  useEffect(() => {
+    !userResponse && getCurrentUser();
+    userResponse && setUser(userResponse.data);
+  }, [userResponse]);
+
+  useEffect(() => {
+    signinResponse && setUser(signinResponse.data);
+  }, [signinResponse]);
+
+  useEffect(() => {
+    signoutResponse && setUser(null);
+  }, [signoutResponse]);
+
+  const login = (data) => {
+    signin(data);
   };
 
   const logout = () => {
-    setUser(null);
-    console.log('LOGOUT');
+    signout();
   };
 
-  console.log('user hook :>> ', user);
-
-  return { user, login, logout };
+  return { user, userStatus, login, logout };
 };
 
 export { useAuth };

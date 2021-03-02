@@ -4,21 +4,21 @@ import { useNavigate } from 'react-router-dom';
 
 import Form from '../components/Form';
 import { useStyles } from '../hooks/useStyles';
-import { AuthContext } from '../state/user-provider';
+import { UserContext } from '../state/user-provider';
 
 const Login = () => {
   const classes = useStyles();
-  const authContext = useContext(AuthContext);
+  const { login, user } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    authContext.user && navigate('/');
-  }, [authContext.user]);
+    user && navigate('/');
+  }, [user]);
 
   return (
     <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
-        <Form formSubmit={authContext.login} />
+        <Form formSubmit={login} />
       </div>
     </Container>
   );
