@@ -4,33 +4,29 @@ import { useAxios } from './useAxios';
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
-  const [
-    { response: userResponse, status: userStatus },
-    getCurrentUser
-  ] = useAxios('/api/users/currentuser', true, 'GET');
-  const [{ response: signinResponse }, signin] = useAxios(
+  const [{ axiosState: userState }] = useAxios('/api/users/currentuser', 'GET');
+  const [{ axiosState: signinState }, signin] = useAxios(
     '/api/users/signin',
-    true,
-    'POST'
+    'POST',
+    true
   );
-  const [{ response: signoutResponse }, signout] = useAxios(
+  const [{ axiosState: signoutState }, signout] = useAxios(
     '/api/users/signout',
-    true,
-    'POST'
+    'POST',
+    true
   );
 
   useEffect(() => {
-    !userResponse && getCurrentUser();
-    userResponse && setUser(userResponse.data);
-  }, [userResponse]);
+    userState.response && setUser(userState.response.data);
+  }, [userState.response]);
 
   useEffect(() => {
-    signinResponse && setUser(signinResponse.data);
-  }, [signinResponse]);
+    signinState.response && setUser(signinState.response.data);
+  }, [signinState.response]);
 
   useEffect(() => {
-    signoutResponse && setUser(null);
-  }, [signoutResponse]);
+    signoutState.response && setUser(null);
+  }, [signoutState.response]);
 
   const login = (data) => {
     signin(data);
@@ -40,7 +36,7 @@ const useAuth = () => {
     signout();
   };
 
-  return { user, userStatus, login, logout };
+  return { user, login, logout };
 };
 
 export { useAuth };

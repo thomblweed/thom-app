@@ -2,11 +2,7 @@ import React, { createContext } from 'react';
 
 import { useAuth } from '../hooks/useAuth';
 
-export const UserContext = createContext({
-  user: null,
-  login: () => {},
-  logout: () => {}
-});
+export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const auth = useAuth();

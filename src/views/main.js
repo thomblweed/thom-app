@@ -1,9 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { UserContext } from '../state/user-provider';
+import { UserContext } from '../state/userProvider';
 
 const Main = () => {
   const { user, logout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    !user && navigate('/login');
+  }, [user]);
+
   return (
     <div>
       <h1>thom app</h1>

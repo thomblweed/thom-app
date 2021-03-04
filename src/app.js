@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserProvider from './state/user-provider';
+import UserProvider from './state/userProvider';
 import Layout from './components/Layout';
 import Router from './router';
 

@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import Form from '../components/Form';
 import { useStyles } from '../hooks/useStyles';
-import { UserContext } from '../state/user-provider';
+import { UserContext } from '../state/userProvider';
 
 const Login = () => {
   const classes = useStyles();
   const { login, user } = useContext(UserContext);
   const navigate = useNavigate();
+  console.log('user LOGIN :>> ', user);
 
   useEffect(() => {
     user && navigate('/');

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { UserContext } from './state/user-provider';
+import { UserContext } from './state/userProvider';
 import Main from './views/main';
 import Login from './views/login';
 
@@ -22,9 +22,8 @@ const Router = () => (
 );
 
 const AuthRoute = ({ path, element, children }) => {
-  const { user, userStatus } = useContext(UserContext);
-
-  if (userStatus !== 'DONE') return null;
+  const { user } = useContext(UserContext);
+  console.log('user :>> ', user);
 
   return user ? (
     <Route path={path} element={element}>
