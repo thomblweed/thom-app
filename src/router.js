@@ -22,8 +22,9 @@ const Router = () => (
 );
 
 const AuthRoute = ({ path, element, children }) => {
-  const { user } = useContext(UserContext);
-  console.log('user :>> ', user);
+  const { user, userStatus } = useContext(UserContext);
+
+  if (!userStatus) return null;
 
   return user ? (
     <Route path={path} element={element}>

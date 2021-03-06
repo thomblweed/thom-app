@@ -2,34 +2,35 @@ import { useEffect, useReducer, useRef, useState } from 'react';
 import axios from 'axios';
 
 import config from '../config';
-import {
-  dataReducer,
-  initialState,
-  LOADING,
-  DONE,
-  ERROR
-} from '../state/dataReducer';
 
 const env = process.env.NODE_ENV || 'development';
 const baseUrl = config[env].api.baseUrl;
 
+export const INITIAL = 'INITIAL';
+export const LOADING = 'LOADING';
+export const DONE = 'DONE';
+export const ERROR = 'ERROR';
+
 const useAxios = (relativeUrl, type, manual = false) => {
   const axiosPost = useRef(null);
-  const [axiosState, dispatch] = useReducer(dataReducer, initialState);
+  const [axiosState, setAxiosState] = useState({
+    response: null,
+    status: INITIAL
+  });
 
   useEffect(() => {
     axiosPost.current = async (data) => {
       try {
-        dispatch({ type: LOADING });
+        setAxiosState((state) => ({ ...state, status: LOADING }));
         const res = await axios({
           method: type,
           url: new URL(relativeUrl, baseUrl),
           withCredentials: true,
           data: data
         });
-        dispatch({ type: DONE, payload: res });
+        setAxiosState({ response: res, status: DONE });
       } catch (error) {
-        dispatch({ type: ERROR });
+        setAxiosState((state) => ({ ...state, status: ERROR }));
       }
     };
     !axiosState.response && !manual && axiosPost.current();

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, memo } from 'react';
 import Container from '@material-ui/core/Container';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,9 +8,8 @@ import { UserContext } from '../state/userProvider';
 
 const Login = () => {
   const classes = useStyles();
-  const { login, user } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log('user LOGIN :>> ', user);
+  const { user, login } = useContext(UserContext);
 
   useEffect(() => {
     user && navigate('/');

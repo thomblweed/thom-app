@@ -9,10 +9,11 @@ const initialState = {
 };
 
 const dataReducer = (state, action) => {
+  console.log('state reducer :>> ', state);
   switch (action.type) {
     case LOADING:
       return {
-        response: null,
+        ...state,
         status: LOADING
       };
     case DONE:
@@ -22,7 +23,7 @@ const dataReducer = (state, action) => {
       };
     case ERROR:
       return {
-        response: null,
+        ...state,
         status: ERROR
       };
     default:
