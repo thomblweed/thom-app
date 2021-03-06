@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UserContext } from './state/userProvider';
 import Main from './views/main';
 import Login from './views/login';
+import { DONE, ERROR } from './hooks/useAxios';
 
 const PageNotFound = () => (
   <div>
@@ -24,7 +25,7 @@ const Router = () => (
 const AuthRoute = ({ path, element, children }) => {
   const { user, userStatus } = useContext(UserContext);
 
-  if (!userStatus) return null;
+  if (userStatusBusy(userStatus)) return null;
 
   return user ? (
     <Route path={path} element={element}>
@@ -33,6 +34,10 @@ const AuthRoute = ({ path, element, children }) => {
   ) : (
     <Navigate to={'/login'} />
   );
+};
+
+const userStatusBusy = (userStatus) => {
+  return userStatus !== DONE && userStatus !== ERROR;
 };
 
 export default Router;

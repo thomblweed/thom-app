@@ -1,48 +1,34 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 
-import { useAxios, DONE, ERROR } from './useAxios';
+import { useAxios, INITIAL } from './useAxios';
+import { useLogin } from './useLogin';
+import { useLogout } from './useLogout';
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
-  const [userStatus, setUserStatus] = useState(false);
+  const [userStatus, setUserStatus] = useState(INITIAL);
   const [
     {
       axiosState: { response: userResponse, status }
     }
   ] = useAxios('/api/users/currentuser', 'GET');
-  const [
-    {
-      axiosState: { response: signinResponse }
-    },
-    signin
-  ] = useAxios('/api/users/signin', 'POST', true);
-  const [
-    {
-      axiosState: { response: signoutResponse }
-    },
-    signout
-  ] = useAxios('/api/users/signout', 'POST', true);
+  const { loginUser, loginStatus, login } = useLogin();
+  const { logoutUser, logoutStatus, logout } = useLogout();
 
-  useEffect(() => {
-    (status === DONE || status === ERROR) && setUserStatus(true);
+  useMemo(() => {
+    status && setUserStatus(status);
     userResponse && setUser(userResponse.data);
   }, [userResponse, status]);
 
-  useEffect(() => {
-    signinResponse && setUser(signinResponse.data);
-  }, [signinResponse]);
+  useMemo(() => {
+    loginStatus && setUserStatus(loginStatus);
+    loginUser && setUser(loginUser);
+  }, [loginUser, loginStatus]);
 
-  useEffect(() => {
-    signoutResponse && setUser(null);
-  }, [signoutResponse]);
-
-  const login = (data) => {
-    signin(data);
-  };
-
-  const logout = () => {
-    signout();
-  };
+  useMemo(() => {
+    logoutStatus && setUserStatus(logoutStatus);
+    logoutUser && setUser(null);
+  }, [logoutUser, logoutStatus]);
 
   return useMemo(() => {
     return { user, userStatus, login, logout };

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
 import { useStyles } from '../../hooks/useStyles';
 import Field from './Field';
 
-const Form = ({ formSubmit }) => {
+const Form = ({ formSubmit, formSubmitting }) => {
   const classes = useStyles();
   const { control, handleSubmit, errors } = useForm();
 
@@ -26,7 +26,13 @@ const Form = ({ formSubmit }) => {
         error={errors.password && errors.password}
       />
       <div className={classes.container}>
-        <Button fullWidth variant='contained' color='primary' type='submit'>
+        <Button
+          fullWidth
+          variant='contained'
+          color='primary'
+          type='submit'
+          disabled={formSubmitting}
+        >
           Login
         </Button>
       </div>
