@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     minHeight: '100vh'
   },
   main: {
-    marginTop: theme.spacing(8),
+    marginTop: 'auto',
     marginBottom: 'auto'
   },
   form: {
