@@ -1,17 +1,22 @@
 import { useState, useMemo } from 'react';
+import { User } from '../types/user';
 
-import { useAxios, INITIAL } from './useAxios';
+import { useAxios, Status } from './useAxios';
 import { useLogin } from './useLogin';
 import { useLogout } from './useLogout';
 
+const emptyUser: User = {
+  id: '',
+  email: ''
+};
+
 const useAuth = () => {
-  const [user, setUser] = useState(null);
-  const [userStatus, setUserStatus] = useState(INITIAL);
-  const [
-    {
-      axiosState: { response: userResponse, status }
-    }
-  ] = useAxios('/api/users/currentuser', 'GET');
+  const [user, setUser] = useState<User>(emptyUser);
+  const [userStatus, setUserStatus] = useState<Status>(Status.INITIAL);
+  const [{ axiosResponse: userResponse, status }] = useAxios(
+    '/api/users/currentuser',
+    'GET'
+  );
   const { loginUser, loginStatus, login } = useLogin();
   const { logoutUser, logoutStatus, logout } = useLogout();
 
@@ -27,7 +32,7 @@ const useAuth = () => {
 
   useMemo(() => {
     logoutStatus && setUserStatus(logoutStatus);
-    logoutUser && setUser(null);
+    logoutUser && setUser(emptyUser);
   }, [logoutUser, logoutStatus]);
 
   return useMemo(() => {
