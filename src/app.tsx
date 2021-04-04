@@ -1,15 +1,15 @@
 import React from 'react';
 
-import UserProvider from './state/userProvider';
-// import Layout from './components/Layout';
-// import Router from './router';
+import UserProvider from './state/authProvider';
+import Layout from './components/Layout';
+import Router from './router';
 
 const App = () => (
   <React.StrictMode>
     <UserProvider>
-      {/* <Layout>
+      <Layout>
         <Router />
-      </Layout> */}
+      </Layout>
     </UserProvider>
   </React.StrictMode>
 );

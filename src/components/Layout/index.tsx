@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
 import { useStyles } from '../../hooks/useStyles';
 import Footer from '../Footer';
 
-const Layout = ({ children }) => {
+interface Layout {
+  children?: ReactNode;
+}
+
+const Layout: FC<Layout> = ({ children }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>

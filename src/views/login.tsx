@@ -4,22 +4,26 @@ import { useNavigate } from 'react-router-dom';
 
 import Form from '../components/Form';
 import { useStyles } from '../hooks/useStyles';
-import { UserContext } from '../state/userProvider';
-import { LOADING } from '../hooks/useAxios';
+import { AuthContext } from '../state/authProvider';
+import { Status } from '../hooks/useAxios';
+import { Credentials } from '../types/credentials';
 
 const Login = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { user, userStatus, login } = useContext(UserContext);
+  const { user, userStatus, login } = useContext(AuthContext);
 
   useEffect(() => {
-    user && navigate('/');
-  }, [user]);
+    user.id.length > 0 && navigate('/');
+  }, [user.id]);
 
   return (
     <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
-        <Form formSubmit={login} formSubmitting={userStatus === LOADING} />
+        <Form<Credentials>
+          formSubmit={login}
+          formSubmitting={userStatus === Status.LOADING}
+        />
       </div>
     </Container>
   );

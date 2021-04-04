@@ -3,4 +3,9 @@ interface User {
   email: string;
 }
 
-export { User };
+const emptyUser: User = {
+  id: '',
+  email: ''
+};
+
+export { User, emptyUser };

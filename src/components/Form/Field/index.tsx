@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldError } from 'react-hook-form';
 
-const Field = ({ name, label, required, error, control }) => (
+interface Field {
+  name: string;
+  label: string;
+  required: boolean;
+  error: FieldError | undefined;
+  control: Control<Record<string, any>> | undefined;
+}
+
+const Field: FC<Field> = ({ name, label, required, error, control }) => (
   <Controller
     name={name}
     as={

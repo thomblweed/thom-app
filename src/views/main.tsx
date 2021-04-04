@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { UserContext } from '../state/userProvider';
+import { AuthContext } from '../state/authProvider';
 
 const Main = () => {
-  const { user, logout } = useContext(UserContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div>
