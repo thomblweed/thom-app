@@ -4,9 +4,10 @@
   "description": "app for demoing tech learnings",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run clean && parcel serve ./src/index.html",
+    "serve": "webpack serve --open --hot --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf .parcel-cache dist build"
+    "build": "webpack --mode production",
+    "compile": "tsc"
   },
   "repository": {
     "type": "git",
@@ -17,24 +18,30 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
     "axios": "^0.21.1",
     "history": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^6.15.5",
-    "react-router-dom": "^6.0.0-beta.0",
-    "typescript": "^4.2.3"
+    "react-router-dom": "^6.0.0-beta.0"
   },
   "devDependencies": {
-    "@parcel/optimizer-htmlnano": "^2.0.0-nightly.636",
-    "@parcel/packager-html": "^2.0.0-nightly.636",
-    "@parcel/transformer-html": "^2.0.0-nightly.636",
-    "@parcel/transformer-posthtml": "^2.0.0-nightly.636",
-    "@parcel/transformer-typescript-tsc": "2.0.0-beta.1",
-    "@parcel/validator-typescript": "^2.0.0-alpha.3",
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/node": "^14.14.37",
-    "parcel": "^2.0.0-nightly.634"
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "terser-webpack-plugin": "^5.1.1",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.30.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
