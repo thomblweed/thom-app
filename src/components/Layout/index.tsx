@@ -6,10 +6,10 @@ import { useStyles } from '../../hooks/useStyles';
 import Footer from '../Footer';
 
 interface Layout {
-  children?: ReactNode;
+  children?: any;
 }
 
-const Layout: FC<Layout> = ({ children }) => {
+const Layout: FC<Layout> = ({ children }): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
