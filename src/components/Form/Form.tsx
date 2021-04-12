@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
 import { useStyles } from '../../hooks/useStyles';
-import Field from './Field';
+import Field from './Fields/Field';
 
 interface FormProps<T> {
   formSubmit: SubmitHandler<T>;
