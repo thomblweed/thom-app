@@ -3,41 +3,32 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
 import { useStyles } from '../../hooks/useStyles';
-import Field from './Fields/Field';
+import { FormSchema } from '../../types/form';
 
 interface FormProps<T> {
   formSubmit: SubmitHandler<T>;
   formSubmitting: boolean;
+  schema: FormSchema;
 }
-
-type FieldValues = {
-  email: string;
-  password: string;
-};
 
 const Form = <T,>({
   formSubmit,
-  formSubmitting
+  formSubmitting,
+  schema
 }: FormProps<T>): ReactElement => {
   const classes = useStyles();
-  const { control, handleSubmit, errors } = useForm<FieldValues>();
+  const { register, handleSubmit } = useForm<T>();
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(formSubmit)}>
-      <Field
-        control={control}
-        name='email'
-        label='Email Address'
-        required={true}
-        error={errors.email && errors.email}
-      />
-      <Field
-        control={control}
-        name='password'
-        label='Password'
-        required={true}
-        error={errors.password && errors.password}
-      />
+      {schema.fields.map((field) => (
+        <input
+          key={field.name}
+          ref={register}
+          type={field.type}
+          name={field.name}
+        />
+      ))}
       <div className={classes.container}>
         <Button
           fullWidth
