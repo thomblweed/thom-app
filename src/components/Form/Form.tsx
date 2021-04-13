@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Button from '@material-ui/core/Button';
 
 import { useStyles } from '../../hooks/useStyles';
-import { FormSchema } from '../../types/form';
+import { FormSchema } from '../../types/form-schema';
 
 interface FormProps<T> {
   formSubmit: SubmitHandler<T>;
@@ -29,17 +28,13 @@ const Form = <T,>({
           name={field.name}
         />
       ))}
-      <div className={classes.container}>
-        <Button
-          fullWidth
-          variant='contained'
-          color='primary'
-          type='submit'
-          disabled={formSubmitting}
-        >
-          Login
-        </Button>
-      </div>
+      {schema.buttons?.map((button) => (
+        <div className={classes.container}>
+          <button type={button.type} disabled={formSubmitting}>
+            {button.label}
+          </button>
+        </div>
+      ))}
     </form>
   );
 };
