@@ -20,8 +20,9 @@ const Form = <T,>({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(formSubmit)}>
-      {schema.fields.map((field) => (
+      {schema.fields?.map((field) => (
         <input
+          disabled={formSubmitting}
           key={field.name}
           ref={register}
           type={field.type}
