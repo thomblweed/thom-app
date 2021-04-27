@@ -5,6 +5,7 @@ import { emptyUser, User } from '../types/user';
 import { useAxios, Status } from './useAxios';
 import { useLogin } from './useLogin';
 import { useLogout } from './useLogout';
+import { useMemoState } from './useMemoState';
 
 interface Auth {
   user: User;
@@ -23,20 +24,18 @@ const useAuth = (): Auth => {
   const { loginUser, loginStatus, login } = useLogin();
   const { logoutResponse, logoutStatus, logout } = useLogout();
 
+  useMemoState<Status>(status, setUserStatus);
+  useMemoState<Status>(loginStatus, setUserStatus);
+  useMemoState<Status>(logoutStatus, setUserStatus);
+  useMemoState<User>(loginUser, setUser);
+
   useMemo(() => {
-    status && setUserStatus(status);
     userResponse && setUser(userResponse.data);
-  }, [userResponse, status]);
+  }, [userResponse]);
 
   useMemo(() => {
-    loginStatus && setUserStatus(loginStatus);
-    loginUser && setUser(loginUser);
-  }, [loginUser, loginStatus]);
-
-  useMemo(() => {
-    logoutStatus && setUserStatus(logoutStatus);
     logoutResponse && setUser(emptyUser);
-  }, [logoutResponse, logoutStatus]);
+  }, [logoutResponse]);
 
   return useMemo(() => {
     return { user, userStatus, login, logout };

@@ -30,7 +30,7 @@ const Form = <T,>({
         />
       ))}
       {schema.buttons?.map((button) => (
-        <div className={classes.container}>
+        <div key={button.label} className={classes.container}>
           <button type={button.type} disabled={formSubmitting}>
             {button.label}
           </button>

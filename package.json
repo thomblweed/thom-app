@@ -4,7 +4,7 @@
   "description": "app for demoing tech learnings",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack serve --open --hot --mode development",
+    "serve": "webpack serve --hot --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
     "compile": "tsc"
