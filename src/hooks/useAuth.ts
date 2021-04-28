@@ -3,8 +3,8 @@ import { Credentials } from '../types/credentials';
 import { emptyUser, User } from '../types/user';
 
 import { useAxios, Status } from './useAxios';
-import { useLogin } from './useLogin';
-import { useLogout } from './useLogout';
+import { Login, useLogin } from './useLogin';
+import { Logout, useLogout } from './useLogout';
 import { useMemoState } from './useMemoState';
 
 interface Auth {
@@ -21,8 +21,8 @@ const useAuth = (): Auth => {
     '/api/users/currentuser',
     'GET'
   );
-  const { loginUser, loginStatus, login } = useLogin();
-  const { logoutResponse, logoutStatus, logout } = useLogout();
+  const { loginUser, loginStatus, login }: Login = useLogin();
+  const { logoutResponse, logoutStatus, logout }: Logout = useLogout();
 
   useMemoState<Status>(status, setUserStatus);
   useMemoState<Status>(loginStatus, setUserStatus);

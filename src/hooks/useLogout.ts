@@ -29,4 +29,4 @@ const useLogout = (): Logout => {
   }, [logoutStatus, logoutResponse]);
 };
 
-export { useLogout };
+export { useLogout, Logout };

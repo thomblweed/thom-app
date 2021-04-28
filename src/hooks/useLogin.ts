@@ -33,4 +33,4 @@ const useLogin = (): Login => {
   }, [loginUser, loginStatus]);
 };
 
-export { useLogin };
+export { useLogin, Login };
