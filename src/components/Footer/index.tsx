@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 
 import { useStyles } from '../../hooks/useStyles';
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
