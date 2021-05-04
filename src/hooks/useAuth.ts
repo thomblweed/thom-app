@@ -21,13 +21,24 @@ const useAuth = (): Auth => {
     '/api/users/currentuser',
     'GET'
   );
-  const { loginUser, loginStatus, login }: Login = useLogin();
+  const { loginResponse, loginStatus, login }: Login = useLogin();
   const { logoutResponse, logoutStatus, logout }: Logout = useLogout();
 
-  useMemoState<Status>(status, setUserStatus);
-  useMemoState<Status>(loginStatus, setUserStatus);
-  useMemoState<Status>(logoutStatus, setUserStatus);
-  useMemoState<User>(loginUser, setUser);
+  useMemo(() => {
+    setUserStatus(status);
+  }, [status]);
+
+  useMemo(() => {
+    setUserStatus(loginStatus);
+  }, [loginStatus]);
+
+  useMemo(() => {
+    setUserStatus(logoutStatus);
+  }, [logoutStatus]);
+
+  useMemo(() => {
+    loginResponse && setUser(loginResponse.data);
+  }, [loginResponse]);
 
   useMemo(() => {
     userResponse && setUser(userResponse.data);
