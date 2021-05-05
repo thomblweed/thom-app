@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useAxios, Status } from './useAxios';
 

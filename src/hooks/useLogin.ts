@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Credentials } from '../types/credentials';
-import { emptyUser, User } from '../types/user';
 
 import { useAxios, Status } from './useAxios';
 
@@ -23,7 +22,7 @@ const useLogin = (): Login => {
 
   return useMemo(() => {
     return { loginResponse, loginStatus, login };
-  }, [loginResponse, loginStatus]);
+  }, [loginResponse, loginStatus, login]);
 };
 
 export { useLogin, Login };

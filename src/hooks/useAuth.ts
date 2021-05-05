@@ -1,11 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Credentials } from '../types/credentials';
 import { emptyUser, User } from '../types/user';
 
 import { useAxios, Status } from './useAxios';
 import { Login, useLogin } from './useLogin';
 import { Logout, useLogout } from './useLogout';
-import { useMemoState } from './useMemoState';
 
 interface Auth {
   user: User;
@@ -24,33 +23,28 @@ const useAuth = (): Auth => {
   const { loginResponse, loginStatus, login }: Login = useLogin();
   const { logoutResponse, logoutStatus, logout }: Logout = useLogout();
 
-  useMemo(() => {
+  useEffect(() => {
     setUserStatus(status);
   }, [status]);
-
-  useMemo(() => {
+  useEffect(() => {
     setUserStatus(loginStatus);
   }, [loginStatus]);
-
-  useMemo(() => {
+  useEffect(() => {
     setUserStatus(logoutStatus);
   }, [logoutStatus]);
-
-  useMemo(() => {
+  useEffect(() => {
     loginResponse && setUser(loginResponse.data);
   }, [loginResponse]);
-
-  useMemo(() => {
+  useEffect(() => {
     userResponse && setUser(userResponse.data);
   }, [userResponse]);
-
-  useMemo(() => {
+  useEffect(() => {
     logoutResponse && setUser(emptyUser);
   }, [logoutResponse]);
 
   return useMemo(() => {
     return { user, userStatus, login, logout };
-  }, [user, userStatus]);
+  }, [user, userStatus, login, logout]);
 };
 
 export { useAuth, Auth };
