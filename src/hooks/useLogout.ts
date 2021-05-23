@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useAxios, Status } from './useAxios';
 
@@ -10,15 +10,10 @@ interface Logout {
 }
 
 const useLogout = (): Logout => {
-  const [logoutStatus, setLogoutStatus] = useState<Status>(Status.INITIAL);
   const [
-    { axiosResponse: logoutResponse, status },
+    { axiosResponse: logoutResponse, status: logoutStatus },
     signout
   ] = useAxios<undefined>('/api/users/signout', 'POST', true);
-
-  useEffect(() => {
-    status && setLogoutStatus(status);
-  }, [status]);
 
   const logout = () => {
     signout(undefined);
@@ -29,4 +24,4 @@ const useLogout = (): Logout => {
   }, [logoutStatus, logoutResponse]);
 };
 
-export { useLogout };
+export { useLogout, Logout };

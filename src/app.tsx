@@ -4,7 +4,7 @@ import UserProvider from './state/authProvider';
 import Layout from './components/Layout';
 import Router from './router';
 
-const App = () => (
+const App = (): JSX.Element => (
   <React.StrictMode>
     <UserProvider>
       <Layout>

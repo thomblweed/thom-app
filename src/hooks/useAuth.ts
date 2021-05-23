@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Credentials } from '../types/credentials';
 import { emptyUser, User } from '../types/user';
 
 import { useAxios, Status } from './useAxios';
-import { useLogin } from './useLogin';
-import { useLogout } from './useLogout';
+import { Login, useLogin } from './useLogin';
+import { Logout, useLogout } from './useLogout';
 
 interface Auth {
   user: User;
@@ -20,27 +20,31 @@ const useAuth = (): Auth => {
     '/api/users/currentuser',
     'GET'
   );
-  const { loginUser, loginStatus, login } = useLogin();
-  const { logoutResponse, logoutStatus, logout } = useLogout();
+  const { loginResponse, loginStatus, login }: Login = useLogin();
+  const { logoutResponse, logoutStatus, logout }: Logout = useLogout();
 
-  useMemo(() => {
-    status && setUserStatus(status);
+  useEffect(() => {
+    setUserStatus(status);
+  }, [status]);
+  useEffect(() => {
+    setUserStatus(loginStatus);
+  }, [loginStatus]);
+  useEffect(() => {
+    setUserStatus(logoutStatus);
+  }, [logoutStatus]);
+  useEffect(() => {
+    loginResponse && setUser(loginResponse.data);
+  }, [loginResponse]);
+  useEffect(() => {
     userResponse && setUser(userResponse.data);
-  }, [userResponse, status]);
-
-  useMemo(() => {
-    loginStatus && setUserStatus(loginStatus);
-    loginUser && setUser(loginUser);
-  }, [loginUser, loginStatus]);
-
-  useMemo(() => {
-    logoutStatus && setUserStatus(logoutStatus);
+  }, [userResponse]);
+  useEffect(() => {
     logoutResponse && setUser(emptyUser);
-  }, [logoutResponse, logoutStatus]);
+  }, [logoutResponse]);
 
   return useMemo(() => {
     return { user, userStatus, login, logout };
-  }, [user, userStatus]);
+  }, [user, userStatus, login, logout]);
 };
 
 export { useAuth, Auth };
