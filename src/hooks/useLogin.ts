@@ -11,10 +11,8 @@ interface Login {
 }
 
 const useLogin = (): Login => {
-  const [
-    { axiosResponse: loginResponse, status: loginStatus },
-    signin
-  ] = useAxios<Credentials>('/api/users/signin', 'POST', true);
+  const [{ axiosResponse: loginResponse, status: loginStatus }, signin] =
+    useAxios<Credentials>('/api/users/signin', 'POST', true);
 
   const login = (data: Credentials) => {
     signin(data);
