@@ -1,0 +1,16 @@
+version: '3'
+services:
+  thom-auth:
+    image: thom-auth
+    ports:
+      - '3001:3001'
+    env_file:
+      - .env
+    environment:
+      - MONGO_URI=mongodb://mongo-auth
+    depends_on:
+      - 'mongo-auth'
+  mongo-auth:
+    image: mongo
+    ports:
+      - '27017:27017'
