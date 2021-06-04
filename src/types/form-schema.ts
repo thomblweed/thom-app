@@ -6,21 +6,21 @@ enum ButtonType {
   SUBMIT = 'submit'
 }
 
-type FormFields = {
+type FormField = {
   type: FieldType;
   name: string;
   label: string;
   required: boolean;
-}[];
+};
 
-type FormButtons = {
+type FormButton = {
   type: ButtonType;
   label: string;
-}[];
+};
 
 interface FormSchema {
-  fields: FormFields;
-  buttons?: FormButtons;
+  fields: FormField[];
+  buttons?: FormButton[];
 }
 
-export { FormSchema, FieldType, ButtonType };
+export { FormSchema, FormField, FieldType, ButtonType };

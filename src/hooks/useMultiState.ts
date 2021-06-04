@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 
 const usePreviousState = <T>(fn: (currentState: T[]) => void, state: T[]) => {
-  const previousState = useRef<T[]>([...state]);
+  const previousState: MutableRefObject<T[]> = useRef<T[]>([...state]);
 
   useEffect(() => {
     fn(previousState.current);
