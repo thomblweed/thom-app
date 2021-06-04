@@ -6,17 +6,17 @@ enum ButtonType {
   SUBMIT = 'submit'
 }
 
-type FormField = {
+interface FormField {
   type: FieldType;
   name: string;
   label: string;
   required: boolean;
-};
+}
 
-type FormButton = {
+interface FormButton {
   type: ButtonType;
   label: string;
-};
+}
 
 interface FormSchema {
   fields: FormField[];

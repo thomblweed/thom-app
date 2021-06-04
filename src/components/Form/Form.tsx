@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 
 import { useStyles } from '../../hooks/useStyles';
-import { FormField, FormSchema } from '../../types/form-schema';
+import { FormField, FormSchema } from '../../interfaces/form-schema';
 import { FieldFactory } from './FieldFactory';
 
 interface FormProps<T> {

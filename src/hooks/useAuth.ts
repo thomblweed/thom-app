@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Credentials } from '../types/credentials';
-import { emptyUser, User } from '../types/user';
+import { Credentials } from '../interfaces/credentials';
+import { emptyUser, User } from '../interfaces/user';
 
 import { useAxios, Status } from './useAxios';
 import { Login, useLogin } from './useLogin';

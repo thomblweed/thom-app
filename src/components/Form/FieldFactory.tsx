@@ -1,7 +1,7 @@
 import React from 'react';
 import { Ref } from 'react-hook-form';
 
-import { FormField, FieldType } from '../../types/form-schema';
+import { FormField, FieldType } from '../../interfaces/form-schema';
 import TextField from './Fields/TextField';
 
 const FieldFactory = (

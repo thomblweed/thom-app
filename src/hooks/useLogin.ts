@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { useMemo } from 'react';
-import { Credentials } from '../types/credentials';
+import { Credentials } from '../interfaces/credentials';
 
 import { useAxios, Status } from './useAxios';
 
