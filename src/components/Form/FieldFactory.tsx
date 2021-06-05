@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react';
-import { Ref } from 'react-hook-form';
+import React, { LegacyRef, ReactElement } from 'react';
 
 import { FormField, FieldType } from '../../interfaces/form-schema';
 import TextField from './Fields/TextField';
@@ -7,7 +6,7 @@ import TextField from './Fields/TextField';
 interface FieldFactoryProps {
   field: FormField;
   disabled: boolean;
-  register: (ref: Ref) => void;
+  register: LegacyRef<HTMLInputElement> | undefined;
 }
 
 const FieldFactory = ({

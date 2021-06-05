@@ -1,13 +1,12 @@
+import React, { LegacyRef, ReactElement } from 'react';
 import { FormControl, FormLabel, Input } from '@chakra-ui/react';
-import React, { ReactElement } from 'react';
-import { Ref } from 'react-hook-form/dist/types';
 
 type TextFieldProps = {
   name: string;
   label: string;
   type: string;
   disabled: boolean;
-  register: (ref: Ref) => void;
+  register: LegacyRef<HTMLInputElement> | undefined;
 };
 
 const TextField = ({
@@ -16,7 +15,7 @@ const TextField = ({
   type,
   disabled,
   register
-}: TextFieldProps): JSX.Element => (
+}: TextFieldProps): ReactElement => (
   <FormControl id={name}>
     <FormLabel>{label}</FormLabel>
     <Input
@@ -24,11 +23,7 @@ const TextField = ({
       type={type}
       id={name}
       name={name}
-      ref={(ref) => {
-        if (ref) {
-          register(ref);
-        }
-      }}
+      ref={register}
     />
   </FormControl>
 );
