@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 
@@ -23,9 +23,12 @@ const Form = <T,>({
   return (
     <form className={classes.form} onSubmit={handleSubmit(formSubmit)}>
       {schema.fields?.map((field: FormField) => (
-        <Fragment key={field.name}>
-          {FieldFactory(field, formSubmitting, register)}
-        </Fragment>
+        <FieldFactory
+          key={field.name}
+          field={field}
+          disabled={formSubmitting}
+          register={register}
+        />
       ))}
       {schema.buttons?.map((button) => (
         <ButtonGroup key={button.label}>
