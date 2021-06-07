@@ -17,7 +17,7 @@ const Layout: FC<Layout> = ({ children }): JSX.Element => {
       <Container component='main' className={classes.main} maxWidth='lg'>
         {children}
       </Container>
-      <Footer />
+      <Footer footerText={'thom app footer'} />
     </div>
   );
 };

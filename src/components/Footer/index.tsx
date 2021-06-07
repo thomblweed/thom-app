@@ -1,20 +1,25 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import React, { ReactElement } from 'react';
+import { chakra, Container, Text } from '@chakra-ui/react';
 
-import { useStyles } from '../../hooks/useStyles';
+interface FooterProps {
+  footerText: string;
+}
 
-const Footer = (): JSX.Element => {
-  const classes = useStyles();
+const FooterWrapper = chakra('footer', {
+  baseStyle: {
+    background: '#eeeeee;',
+    padding: [4]
+  }
+});
+
+const Footer = ({ footerText }: FooterProps): ReactElement => {
   return (
-    <footer className={classes.footer}>
-      <Container maxWidth='lg'>
-        <Typography variant='body1'>thom app footer</Typography>
-        <Typography variant='body2'>
-          Copyright &copy; {new Date().getFullYear()}
-        </Typography>
+    <FooterWrapper>
+      <Container maxW='container.xl'>
+        <Text fontSize='md'>{footerText}</Text>
+        <Text fontSize='sm'>Copyright &copy; {new Date().getFullYear()}</Text>
       </Container>
-    </footer>
+    </FooterWrapper>
   );
 };
 
