@@ -11,6 +11,11 @@ const config: Config = {
     api: {
       baseUrl: 'http://localhost:3001'
     }
+  },
+  test: {
+    api: {
+      baseUrl: ''
+    }
   }
 };
 

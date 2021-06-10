@@ -19,7 +19,7 @@ const Login = () => {
   }, [user.id]);
 
   return (
-    <Container>
+    <Container data-testid='login-container'>
       <Form<Credentials>
         formSubmit={login}
         formSubmitting={userStatus === Status.LOADING}
