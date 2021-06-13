@@ -38,7 +38,11 @@ const Form = <T,>({
       ))}
       {schema.buttons?.map((button) => (
         <ButtonGroup key={button.label}>
-          <Button type={button.type} isLoading={formSubmitting}>
+          <Button
+            data-testid={`${button.label.toLowerCase()}-button`}
+            type={button.type}
+            isLoading={formSubmitting}
+          >
             {button.label}
           </Button>
         </ButtonGroup>
