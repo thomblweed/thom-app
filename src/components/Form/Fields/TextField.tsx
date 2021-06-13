@@ -17,8 +17,9 @@ const TextField = ({
   register
 }: TextFieldProps): ReactElement => (
   <FormControl id={name}>
-    <FormLabel>{label}</FormLabel>
+    <FormLabel data-testid={`${name}-label-testId`}>{label}</FormLabel>
     <Input
+      data-testid={`${name}-testId`}
       disabled={disabled}
       type={type}
       id={name}

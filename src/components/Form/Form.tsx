@@ -7,12 +7,14 @@ import { FormField, FormSchema } from '../../interfaces/form-schema';
 import { FieldFactory } from './FieldFactory';
 
 interface FormProps<T> {
+  testId: string | undefined;
   formSubmit: SubmitHandler<T>;
   formSubmitting: boolean;
   schema: FormSchema;
 }
 
 const Form = <T,>({
+  testId,
   formSubmit,
   formSubmitting,
   schema
@@ -21,7 +23,11 @@ const Form = <T,>({
   const { register, handleSubmit } = useForm<T>();
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(formSubmit)}>
+    <form
+      data-testid={testId}
+      className={classes.form}
+      onSubmit={handleSubmit(formSubmit)}
+    >
       {schema.fields?.map((field: FormField) => (
         <FieldFactory
           key={field.name}

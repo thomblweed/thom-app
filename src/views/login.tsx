@@ -21,6 +21,7 @@ const Login = () => {
   return (
     <Container data-testid='login-container'>
       <Form<Credentials>
+        testId='login-form'
         formSubmit={login}
         formSubmitting={userStatus === Status.LOADING}
         schema={loginSchema}
