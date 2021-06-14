@@ -6,9 +6,9 @@ const Main = () => {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <div>
+    <div data-testid='main-container'>
       <h1>thom app</h1>
-      <p>
+      <p data-testid='welcome-email'>
         Welcome <strong>{user.email}</strong>
       </p>
       <button onClick={logout}>Logout</button>

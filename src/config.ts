@@ -14,7 +14,7 @@ const config: Config = {
   },
   test: {
     api: {
-      baseUrl: ''
+      baseUrl: 'http://testurl'
     }
   }
 };
