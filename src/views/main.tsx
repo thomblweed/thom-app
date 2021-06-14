@@ -11,7 +11,9 @@ const Main = () => {
       <p data-testid='welcome-email'>
         Welcome <strong>{user.email}</strong>
       </p>
-      <button onClick={logout}>Logout</button>
+      <button data-testid='logout-button' onClick={logout}>
+        Logout
+      </button>
     </div>
   );
 };

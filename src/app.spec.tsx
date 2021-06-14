@@ -15,19 +15,19 @@ jest.mock('axios', () => jest.fn());
 const mockedAxios = axios as unknown as jest.Mock; //axios as jest.Mocked<typeof axios>;
 
 describe('Acceptance Tests', () => {
-  let login: HTMLElement | null;
+  let loginContainer: HTMLElement | null;
 
   it('should load the login page when user is not authorised', async () => {
     render(<App />);
-    login = await screen.findByTestId('login-container');
-    expect(login).toBeTruthy();
+    loginContainer = await screen.findByTestId('login-container');
+    expect(loginContainer).toBeTruthy();
   });
 
   describe('View and use Login form', () => {
     beforeEach(async () => {
       mockedAxios.mockResolvedValue(axiosResponse<User>(emptyUser, 404));
       render(<App />);
-      login = await screen.findByTestId('login-container');
+      loginContainer = await screen.findByTestId('login-container');
     });
 
     it('should have login elements visable', () => {
@@ -47,16 +47,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('should be able to enter username and password', () => {
-      const emailInput: HTMLInputElement = screen.getByTestId(
-        'email-testId'
-      ) as HTMLInputElement;
-      const passwordInput: HTMLInputElement = screen.getByTestId(
-        'password-testId'
-      ) as HTMLInputElement;
-
-      userEvent.type(emailInput, 'thom@test.com');
-      userEvent.type(passwordInput, 'password');
-
+      const { emailInput, passwordInput } = enterCredentials();
       expect(emailInput.value).toBe('thom@test.com');
       expect(passwordInput.value).toBe('password');
     });
@@ -73,19 +64,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('should be able to login to main view page', async () => {
-      const emailInput: HTMLInputElement = screen.getByTestId(
-        'email-testId'
-      ) as HTMLInputElement;
-      const passwordInput: HTMLInputElement = screen.getByTestId(
-        'password-testId'
-      ) as HTMLInputElement;
-      const loginButton: HTMLButtonElement = screen.getByTestId(
-        'login-button'
-      ) as HTMLButtonElement;
-
-      userEvent.type(emailInput, 'thom@test.com');
-      userEvent.type(passwordInput, 'password');
-      userEvent.click(loginButton);
+      login();
 
       await waitFor(() =>
         expect(screen.queryByText('Loading...')).toBeTruthy()
@@ -93,12 +72,40 @@ describe('Acceptance Tests', () => {
       await waitFor(() =>
         expect(screen.queryByTestId('main-container')).toBeTruthy()
       );
+
       const welcomeText: HTMLParagraphElement | null = screen.queryByTestId(
         'welcome-email'
       ) as HTMLParagraphElement;
+      const logoutButton: HTMLButtonElement | null = screen.queryByTestId(
+        'logout-button'
+      ) as HTMLButtonElement;
       expect(welcomeText.textContent).toBe('Welcome thom@test.com');
+      expect(logoutButton.textContent).toBe('Logout');
     });
   });
+
+  const login = () => {
+    enterCredentials();
+    const loginButton: HTMLButtonElement = screen.getByTestId(
+      'login-button'
+    ) as HTMLButtonElement;
+    userEvent.click(loginButton);
+  };
+
+  const enterCredentials = (): {
+    emailInput: HTMLInputElement;
+    passwordInput: HTMLInputElement;
+  } => {
+    const emailInput: HTMLInputElement = screen.getByTestId(
+      'email-testId'
+    ) as HTMLInputElement;
+    const passwordInput: HTMLInputElement = screen.getByTestId(
+      'password-testId'
+    ) as HTMLInputElement;
+    userEvent.type(emailInput, 'thom@test.com');
+    userEvent.type(passwordInput, 'password');
+    return { emailInput, passwordInput };
+  };
 });
 
 const axiosResponse = <T,>(
