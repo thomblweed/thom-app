@@ -11,8 +11,8 @@ import userEvent from '@testing-library/user-event';
 import App from './app';
 import { emptyUser, User } from './interfaces/user';
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+jest.mock('axios', () => jest.fn());
+const mockedAxios = axios as unknown as jest.Mock; //axios as jest.Mocked<typeof axios>;
 
 describe('Acceptance Tests', () => {
   let login: HTMLElement | null;
