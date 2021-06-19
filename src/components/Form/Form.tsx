@@ -21,7 +21,7 @@ const Form = <T,>({
 }: FormProps<T>): ReactElement => {
   const classes = useStyles();
   const { register, handleSubmit } = useForm<T>();
-  debugger;
+
   return (
     <form
       data-testid={testId}
