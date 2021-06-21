@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/react';
+import { Button } from 'thom-components';
 
 import { useStyles } from '../../hooks/useStyles';
 import { FormField, FormSchema } from '../../interfaces/form-schema';
@@ -39,13 +40,11 @@ const Form = <T,>({
       {schema.buttons?.map((button) => (
         <ButtonGroup key={button.label}>
           <Button
-            data-testid={`${button.label.toLowerCase()}-button`}
+            label={button.label}
+            size={'medium'}
             type={button.type}
-            isLoading={formSubmitting}
-            disabled={formSubmitting}
-          >
-            {button.label}
-          </Button>
+            data-testid={`${button.label.toLowerCase()}-button`}
+          />
         </ButtonGroup>
       ))}
     </form>
