@@ -9,7 +9,7 @@ const loginSchema: FormSchema = {
       required: true
     },
     {
-      type: FieldType.TEXT,
+      type: FieldType.PASSWORD,
       name: 'password',
       label: 'Password',
       required: true

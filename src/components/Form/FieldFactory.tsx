@@ -16,6 +16,7 @@ const FieldFactory = ({
 }: FieldFactoryProps): ReactElement | null => {
   switch (field.type) {
     case FieldType.TEXT:
+    case FieldType.PASSWORD:
       return (
         <TextField
           name={field.name}

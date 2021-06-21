@@ -1,5 +1,6 @@
 enum FieldType {
-  TEXT = 'text'
+  TEXT = 'text',
+  PASSWORD = 'password'
 }
 
 enum ButtonType {
