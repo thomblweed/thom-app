@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
+import { Button } from 'thom-components';
+import { Status } from '../hooks/useAxios';
 
 import { AuthContext } from '../state/authProvider';
 
 const Main = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, userStatus, logout } = useContext(AuthContext);
+  const busy = userStatus === Status.LOADING;
 
   return (
     <div data-testid='main-container'>
@@ -11,9 +14,13 @@ const Main = () => {
       <p data-testid='welcome-email'>
         Welcome <strong>{user.email}</strong>
       </p>
-      <button data-testid='logout-button' onClick={logout}>
-        Logout
-      </button>
+      <Button
+        label='Logout'
+        data-testid='logout-button'
+        onClick={logout}
+        disabled={busy}
+        loading={busy}
+      />
     </div>
   );
 };

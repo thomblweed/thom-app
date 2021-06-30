@@ -41,7 +41,8 @@ const Form = <T,>({
         <ButtonGroup key={button.label}>
           <Button
             label={button.label}
-            size={'medium'}
+            loading={formSubmitting}
+            disabled={formSubmitting}
             type={button.type}
             data-testid={`${button.label.toLowerCase()}-button`}
           />
