@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     environment:
-      - MONGO_URI=mongodb://mongo-auth
+      - MONGO_HOST=mongodb
     depends_on:
       - 'mongo-auth'
   mongo-auth:
