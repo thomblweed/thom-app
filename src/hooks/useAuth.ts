@@ -3,8 +3,6 @@ import { Credentials } from '../interfaces/credentials';
 import { emptyUser, User } from '../interfaces/user';
 
 import { useAxios, Status } from './useAxios';
-import { Login, useLogin } from './useLogin';
-import { Logout, useLogout } from './useLogout';
 
 interface Auth {
   user: User;
@@ -20,8 +18,18 @@ const useAuth = (): Auth => {
     '/api/users/currentuser',
     'GET'
   );
-  const { loginResponse, loginStatus, login }: Login = useLogin();
-  const { logoutResponse, logoutStatus, logout }: Logout = useLogout();
+  const [{ axiosResponse: loginResponse, status: loginStatus }, signin] =
+    useAxios<Credentials>('/api/users/signin', 'POST', true);
+  const [{ axiosResponse: logoutResponse, status: logoutStatus }, signout] =
+    useAxios<undefined>('/api/users/signout', 'POST', true);
+
+  const login = (data: Credentials) => {
+    signin(data);
+  };
+
+  const logout = () => {
+    signout(undefined);
+  };
 
   useEffect(() => {
     setUserStatus(status);
