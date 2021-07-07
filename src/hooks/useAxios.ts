@@ -18,14 +18,14 @@ interface Response {
   status: Status;
 }
 
-type Axios<T> = [Response, (data: T) => void];
+type Axios<T> = [Response, (data?: T) => void];
 
 const useAxios = <T>(
   relativeUrl: string,
   type: Method,
   manual?: boolean
 ): Axios<T> => {
-  const axiosRef = useRef<(data: T) => Promise<void>>();
+  const axiosRef = useRef<(data?: T) => Promise<void>>();
   const [axiosState, setAxiosState] = useState<Response>({
     axiosResponse: null,
     status: Status.INITIAL
@@ -46,12 +46,12 @@ const useAxios = <T>(
         setAxiosState((state) => ({ ...state, status: Status.ERROR }));
       }
     };
-    !axiosState.axiosResponse && !manual && axiosRef.current(undefined!);
+    !axiosState.axiosResponse && !manual && axiosRef.current();
   }, [axiosState.axiosResponse, relativeUrl, manual]);
 
   return [
     axiosState,
-    (data: T) => {
+    (data?: T) => {
       axiosRef.current && axiosRef.current(data);
     }
   ];

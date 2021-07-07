@@ -7,8 +7,8 @@ import { useAxios, Status } from './useAxios';
 interface Auth {
   user: User;
   userStatus: Status;
-  login: (data: Credentials) => void;
-  logout: () => void;
+  signin: (data: Credentials) => void;
+  signout: () => void;
 }
 
 const useAuth = (): Auth => {
@@ -22,14 +22,6 @@ const useAuth = (): Auth => {
     useAxios<Credentials>('/api/users/signin', 'POST', true);
   const [{ axiosResponse: logoutResponse, status: logoutStatus }, signout] =
     useAxios<undefined>('/api/users/signout', 'POST', true);
-
-  const login = (data: Credentials) => {
-    signin(data);
-  };
-
-  const logout = () => {
-    signout(undefined);
-  };
 
   useEffect(() => {
     setUserStatus(status);
@@ -51,8 +43,8 @@ const useAuth = (): Auth => {
   }, [logoutResponse]);
 
   return useMemo(() => {
-    return { user, userStatus, login, logout };
-  }, [user, userStatus, login, logout]);
+    return { user, userStatus, signin, signout };
+  }, [user, userStatus, signin, signout]);
 };
 
 export { useAuth, Auth };
