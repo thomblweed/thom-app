@@ -1,11 +1,6 @@
 import React from 'react';
 import axios, { AxiosResponse } from 'axios';
-import {
-  render,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved
-} from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from './app';
@@ -16,6 +11,10 @@ const mockedAxios = axios as unknown as jest.Mock; //axios as jest.Mocked<typeof
 
 describe('Acceptance Tests', () => {
   let loginContainer: HTMLElement | null;
+
+  afterEach(() => {
+    cleanup();
+  });
 
   it('should load the login page when user is not authorised', async () => {
     render(<App />);
@@ -57,7 +56,11 @@ describe('Acceptance Tests', () => {
     beforeEach(async () => {
       mockedAxios.mockResolvedValue(axiosResponse<User>(emptyUser, 404));
       render(<App />);
-      await waitForElementToBeRemoved(screen.queryByText('Loading...'));
+
+      await waitFor(() => {
+        expect(screen.getByRole('submit')).toBeTruthy();
+      });
+
       mockedAxios.mockResolvedValue(
         axiosResponse<User>({ id: 'userid', email: 'thom@test.com' }, 200)
       );
@@ -65,9 +68,10 @@ describe('Acceptance Tests', () => {
 
     it('should be able to login to main view page', async () => {
       login();
+      const loginButton = screen.queryByRole('submit') as HTMLButtonElement;
 
       await waitFor(() =>
-        expect(screen.queryByText('Loading...')).toBeTruthy()
+        expect(loginButton.getAttribute('loading')).toBe('1')
       );
       await waitFor(() =>
         expect(screen.queryByTestId('main-container')).toBeTruthy()

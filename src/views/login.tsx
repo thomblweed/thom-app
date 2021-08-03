@@ -12,7 +12,7 @@ import { Auth } from '../hooks/useAuth';
 
 const Login = () => {
   const navigate: NavigateFunction = useNavigate();
-  const { user, userStatus, login }: Auth = useContext<Auth>(AuthContext);
+  const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
 
   useEffect(() => {
     user.id.length > 0 && navigate('/');
@@ -22,7 +22,7 @@ const Login = () => {
     <Container data-testid='login-container'>
       <Form<Credentials>
         testId='login-form'
-        formSubmit={login}
+        formSubmit={signin}
         formSubmitting={userStatus === Status.LOADING}
         schema={loginSchema}
       />

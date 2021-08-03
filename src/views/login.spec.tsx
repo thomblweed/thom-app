@@ -16,8 +16,8 @@ jest.mock('react-router-dom', () => ({
 
 const renderWithAuthProvider = (element: JSX.Element, user: User) => {
   const auth: Auth = {
-    login: jest.fn(),
-    logout: jest.fn(),
+    signin: jest.fn(),
+    signout: jest.fn(),
     user,
     userStatus: Status.INITIAL
   };

@@ -44,6 +44,7 @@ const Form = <T,>({
             loading={formSubmitting}
             disabled={formSubmitting}
             type={button.type}
+            role={button.type}
             data-testid={`${button.label.toLowerCase()}-button`}
           />
         </ButtonGroup>
