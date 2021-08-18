@@ -29,11 +29,12 @@ module.exports = {
     publicPath: '/'
   },
   devServer: {
-    compress: true,
+    // compress: true,
     historyApiFallback: true,
     open: true,
     overlay: true,
-    port: 1234
+    port: 1234,
+    liveReload: true
   },
   plugins: [
     new HtmlWebpackPlugin({

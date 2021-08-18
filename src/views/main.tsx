@@ -5,7 +5,7 @@ import { Status } from '../hooks/useAxios';
 import { AuthContext } from '../state/authProvider';
 
 const Main = () => {
-  const { user, userStatus, logout } = useContext(AuthContext);
+  const { user, userStatus, signout } = useContext(AuthContext);
   const busy = userStatus === Status.LOADING;
 
   return (
@@ -17,7 +17,7 @@ const Main = () => {
       <Button
         label='Logout'
         data-testid='logout-button'
-        onClick={logout}
+        onClick={() => signout()}
         disabled={busy}
         loading={busy}
       />

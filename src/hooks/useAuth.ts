@@ -23,6 +23,9 @@ const useAuth = (): Auth => {
   const [{ axiosResponse: logoutResponse, status: logoutStatus }, signout] =
     useAxios<undefined>('/api/users/signout', 'POST', true);
 
+  console.log(`logoutResponse`, logoutResponse);
+  console.log(`logoutStatus`, logoutStatus);
+
   useEffect(() => {
     setUserStatus(status);
   }, [status]);
