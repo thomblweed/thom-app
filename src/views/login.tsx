@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateFunction } from 'react-router';
-import { Container } from '@chakra-ui/react';
 
+import Container from '../components/Container';
 import Form from '../components/Form/Form';
 import { AuthContext } from '../state/authProvider';
 import { Status } from '../hooks/useAxios';

@@ -41,13 +41,11 @@ const useAxios = <T>(
           withCredentials: true,
           ...(data && { data: data })
         });
-        console.log(`res`, res);
         setAxiosState({ axiosResponse: res, status: Status.DONE });
       } catch (error) {
         setAxiosState((state) => ({ ...state, status: Status.ERROR }));
       }
     };
-    debugger;
     !axiosState.axiosResponse && !manual && axiosRef.current();
   }, [axiosState.axiosResponse, relativeUrl, manual]);
 
