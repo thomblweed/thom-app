@@ -11,7 +11,7 @@ const containerCss = (size: SizeValues) => ({
   'padding-inline-end': '1rem'
 });
 
-const Size: Record<string, SizeValues> = {
+const sizes: Record<string, SizeValues> = {
   large: '165ch',
   medium: '90ch',
   small: '60ch'
@@ -23,7 +23,7 @@ interface ContainerProps {
 }
 
 const Container = ({ children, size }: ContainerProps): JSX.Element => (
-  <div style={containerCss(size ? Size[size] : '90ch')}>{children}</div>
+  <div style={containerCss(size ? sizes[size] : '90ch')}>{children}</div>
 );
 
 export default Container;

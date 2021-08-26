@@ -1,5 +1,7 @@
 import React, { LegacyRef, ReactElement } from 'react';
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+
+import './formControl.css';
+import './input.css';
 
 type TextFieldProps = {
   name: string;
@@ -9,6 +11,17 @@ type TextFieldProps = {
   register: LegacyRef<HTMLInputElement> | undefined;
 };
 
+const labelCss = {
+  display: 'block',
+  'text-align': 'start',
+  'font-size': '1rem',
+  'margin-inline-end': '0.75rem',
+  'margin-bottom': '0.5rem',
+  'font-weight': '500',
+  transition: 'all 0.2s',
+  opacity: 1
+};
+
 const TextField = ({
   name,
   label,
@@ -16,9 +29,12 @@ const TextField = ({
   disabled,
   register
 }: TextFieldProps): ReactElement => (
-  <FormControl id={name}>
-    <FormLabel data-testid={`${name}-label-testId`}>{label}</FormLabel>
-    <Input
+  <div className='formControlCss' id={name}>
+    <label style={labelCss} data-testid={`${name}-label-testId`}>
+      {label}
+    </label>
+    <input
+      className='inputCss'
       data-testid={`${name}-testId`}
       disabled={disabled}
       type={type}
@@ -26,7 +42,7 @@ const TextField = ({
       name={name}
       ref={register}
     />
-  </FormControl>
+  </div>
 );
 
 export default TextField;

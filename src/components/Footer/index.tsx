@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { Text } from '@chakra-ui/react';
 
 import Container from '../Container';
 
@@ -12,11 +11,19 @@ const footerCss = {
   padding: '1rem'
 };
 
+const footerNameCss = {
+  fontSize: '1rem'
+};
+
+const footerCopyCss = {
+  fontSize: '0.875rem'
+};
+
 const Footer = ({ footerText }: FooterProps): ReactElement => (
   <footer style={footerCss}>
     <Container size='large'>
-      <Text fontSize='md'>{footerText}</Text>
-      <Text fontSize='sm'>Copyright &copy; {new Date().getFullYear()}</Text>
+      <p style={footerNameCss}>{footerText}</p>
+      <p style={footerCopyCss}>Copyright &copy; {new Date().getFullYear()}</p>
     </Container>
   </footer>
 );
