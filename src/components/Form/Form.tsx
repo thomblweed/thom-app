@@ -1,40 +1,52 @@
 import React, { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Button } from 'thom-components';
 
-import { useStyles } from '../../hooks/useStyles';
-import { FormSchema } from '../../types/form-schema';
+import { FormField, FormSchema } from '../../interfaces/form-schema';
+import { FieldFactory } from './FieldFactory';
 
 interface FormProps<T> {
+  testId: string | undefined;
   formSubmit: SubmitHandler<T>;
   formSubmitting: boolean;
   schema: FormSchema;
 }
 
+const formCss = {
+  width: '100%'
+};
+
 const Form = <T,>({
+  testId,
   formSubmit,
   formSubmitting,
   schema
 }: FormProps<T>): ReactElement => {
-  const classes = useStyles();
   const { register, handleSubmit } = useForm<T>();
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(formSubmit)}>
-      {schema.fields?.map((field) => (
-        <input
-          disabled={formSubmitting}
+    <form
+      style={formCss}
+      data-testid={testId}
+      onSubmit={handleSubmit(formSubmit)}
+    >
+      {schema.fields?.map((field: FormField) => (
+        <FieldFactory
           key={field.name}
-          ref={register}
-          type={field.type}
-          name={field.name}
+          field={field}
+          disabled={formSubmitting}
+          register={register}
         />
       ))}
       {schema.buttons?.map((button) => (
-        <div key={button.label} className={classes.container}>
-          <button type={button.type} disabled={formSubmitting}>
-            {button.label}
-          </button>
-        </div>
+        <Button
+          label={button.label}
+          loading={formSubmitting}
+          disabled={formSubmitting}
+          type={button.type}
+          role={button.type}
+          data-testid={`${button.label.toLowerCase()}-button`}
+        />
       ))}
     </form>
   );

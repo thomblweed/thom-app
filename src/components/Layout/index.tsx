@@ -1,25 +1,20 @@
 import React, { FC } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 
-import { useStyles } from '../../hooks/useStyles';
+import './layout.css';
 import Footer from '../Footer';
+import Container from '../Container';
 
 interface Layout {
   children?: any;
 }
 
-const Layout: FC<Layout> = ({ children }): JSX.Element => {
-  const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Container component='main' className={classes.main} maxWidth='lg'>
-        {children}
-      </Container>
-      <Footer />
-    </div>
-  );
-};
+const Layout: FC<Layout> = ({ children }): JSX.Element => (
+  <div className='root'>
+    <Container type='main' size='large'>
+      {children}
+    </Container>
+    <Footer footerText={'thom app footer'} />
+  </div>
+);
 
 export default Layout;

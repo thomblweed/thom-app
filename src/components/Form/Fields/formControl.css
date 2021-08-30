@@ -1,0 +1,10 @@
+.formControlCss {
+  width: 100%;
+  position: relative;
+}
+
+.formControlCss::before,
+.formControlCss::after {
+  border-color: #e2e8f0;
+  word-wrap: break-word;
+}

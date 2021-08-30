@@ -1,0 +1,17 @@
+version: '3'
+services:
+  thom-auth:
+    image: thom-auth
+    ports:
+      - '3001:3001'
+    env_file:
+      - .env
+    environment:
+      - MONGO_HOST=mongo-auth
+      - SEED=true
+    depends_on:
+      - 'mongo-auth'
+  mongo-auth:
+    image: mongo
+    ports:
+      - '27017:27017'

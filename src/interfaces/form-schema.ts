@@ -1,26 +1,27 @@
 enum FieldType {
-  TEXT = 'text'
+  TEXT = 'text',
+  PASSWORD = 'password'
 }
 
 enum ButtonType {
   SUBMIT = 'submit'
 }
 
-type FormFields = {
+interface FormField {
   type: FieldType;
   name: string;
   label: string;
   required: boolean;
-}[];
-
-type FormButtons = {
-  type: ButtonType;
-  label: string;
-}[];
-
-interface FormSchema {
-  fields: FormFields;
-  buttons?: FormButtons;
 }
 
-export { FormSchema, FieldType, ButtonType };
+interface FormButton {
+  type: ButtonType;
+  label: string;
+}
+
+interface FormSchema {
+  fields: FormField[];
+  buttons?: FormButton[];
+}
+
+export { FormSchema, FormField, FieldType, ButtonType };

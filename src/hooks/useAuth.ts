@@ -1,16 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Credentials } from '../types/credentials';
-import { emptyUser, User } from '../types/user';
+import { Credentials } from '../interfaces/credentials';
+import { emptyUser, User } from '../interfaces/user';
 
 import { useAxios, Status } from './useAxios';
-import { Login, useLogin } from './useLogin';
-import { Logout, useLogout } from './useLogout';
 
 interface Auth {
   user: User;
   userStatus: Status;
-  login: (data: Credentials) => void;
-  logout: () => void;
+  signin: (data: Credentials) => void;
+  signout: () => void;
 }
 
 const useAuth = (): Auth => {
@@ -20,8 +18,10 @@ const useAuth = (): Auth => {
     '/api/users/currentuser',
     'GET'
   );
-  const { loginResponse, loginStatus, login }: Login = useLogin();
-  const { logoutResponse, logoutStatus, logout }: Logout = useLogout();
+  const [{ axiosResponse: loginResponse, status: loginStatus }, signin] =
+    useAxios<Credentials>('/api/users/signin', 'POST', true);
+  const [{ axiosResponse: logoutResponse, status: logoutStatus }, signout] =
+    useAxios<undefined>('/api/users/signout', 'POST', true);
 
   useEffect(() => {
     setUserStatus(status);
@@ -43,8 +43,8 @@ const useAuth = (): Auth => {
   }, [logoutResponse]);
 
   return useMemo(() => {
-    return { user, userStatus, login, logout };
-  }, [user, userStatus, login, logout]);
+    return { user, userStatus, signin, signout };
+  }, [user, userStatus, signin, signout]);
 };
 
 export { useAuth, Auth };

@@ -2,14 +2,14 @@ import React, { Context, createContext, FC } from 'react';
 
 import { Auth, useAuth } from '../hooks/useAuth';
 import { Status } from '../hooks/useAxios';
-import { Credentials } from '../types/credentials';
-import { emptyUser } from '../types/user';
+import { Credentials } from '../interfaces/credentials';
+import { emptyUser } from '../interfaces/user';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
   user: emptyUser,
   userStatus: Status.INITIAL,
-  login: (data: Credentials) => {},
-  logout: () => {}
+  signin: (data: Credentials) => {},
+  signout: () => {}
 });
 
 const UserProvider: FC = ({ children }) => {
