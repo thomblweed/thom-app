@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
-import { useStyles } from '../../hooks/useStyles';
 import { FormField, FormSchema } from '../../interfaces/form-schema';
 import { FieldFactory } from './FieldFactory';
 
@@ -13,19 +12,22 @@ interface FormProps<T> {
   schema: FormSchema;
 }
 
+const formCss = {
+  width: '100%'
+};
+
 const Form = <T,>({
   testId,
   formSubmit,
   formSubmitting,
   schema
 }: FormProps<T>): ReactElement => {
-  const classes = useStyles();
   const { register, handleSubmit } = useForm<T>();
 
   return (
     <form
+      style={formCss}
       data-testid={testId}
-      className={classes.form}
       onSubmit={handleSubmit(formSubmit)}
     >
       {schema.fields?.map((field: FormField) => (
