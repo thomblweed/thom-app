@@ -13,7 +13,7 @@ const Layout: FC<Layout> = ({ children }): JSX.Element => (
     <Container type='main' size='large'>
       {children}
     </Container>
-    <Footer footerText={'thom app footer'} />
+    <Footer footerText={'thom app'} />
   </div>
 );
 
