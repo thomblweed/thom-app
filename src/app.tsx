@@ -8,11 +8,11 @@ import Router from './router';
 const App = (): JSX.Element => (
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <UserProvider>
-        <Layout>
+      <Layout>
+        <UserProvider>
           <Router />
-        </Layout>
-      </UserProvider>
+        </UserProvider>
+      </Layout>
     </ThemeProvider>
   </React.StrictMode>
 );
