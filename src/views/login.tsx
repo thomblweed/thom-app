@@ -10,13 +10,13 @@ import { Credentials } from '../interfaces/credentials';
 import { loginSchema } from '../schema/loginSchema';
 import { Auth } from '../hooks/useAuth';
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
   const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
 
   useEffect(() => {
     user.id && navigate('/');
-  }, [user.id]);
+  }, [user.id, navigate]);
 
   return (
     <Container data-testid='login-container'>

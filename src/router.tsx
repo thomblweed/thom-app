@@ -12,7 +12,7 @@ const PageNotFound = () => (
   </div>
 );
 
-const Router = () => (
+const Router = (): JSX.Element => (
   <BrowserRouter>
     <Routes>
       <AuthRoute path='/' element={<Main />} />

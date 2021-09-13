@@ -4,7 +4,7 @@ import { Status } from '../hooks/useAxios';
 
 import { AuthContext } from '../state/authProvider';
 
-const Main = () => {
+const Main = (): JSX.Element => {
   const { user, userStatus, signout } = useContext(AuthContext);
   const busy = userStatus === Status.LOADING;
 

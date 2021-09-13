@@ -14,7 +14,7 @@ export enum Status {
 }
 
 interface Response {
-  axiosResponse: AxiosResponse<any> | null;
+  axiosResponse: AxiosResponse<unknown> | null;
   status: Status;
 }
 
@@ -47,7 +47,7 @@ const useAxios = <T>(
       }
     };
     !axiosState.axiosResponse && !manual && axiosRef.current();
-  }, [axiosState.axiosResponse, relativeUrl, manual]);
+  }, [axiosState.axiosResponse, relativeUrl, manual, type]);
 
   return [
     axiosState,
