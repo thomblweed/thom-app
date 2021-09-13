@@ -31,4 +31,4 @@ const FieldFactory = ({
   }
 };
 
-export { FieldFactory };
+export { FieldFactory, FieldFactoryProps };

@@ -29,7 +29,7 @@ const TextField = ({
   disabled,
   register
 }: TextFieldProps): ReactElement => (
-  <div className='formControlCss' id={name}>
+  <div className='formControlCss' id={name} role='group'>
     <label style={labelCss} data-testid={`${name}-label-testId`}>
       {label}
     </label>

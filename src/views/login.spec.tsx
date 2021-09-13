@@ -1,5 +1,11 @@
-import React from 'react';
-import { render, within } from '@testing-library/react';
+import React, { ReactNode } from 'react';
+import {
+  Matcher,
+  MatcherOptions,
+  render,
+  SelectorMatcherOptions,
+  within
+} from '@testing-library/react';
 
 import Login from './login';
 import { emptyUser, User } from '../interfaces/user';
@@ -13,6 +19,12 @@ jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as any),
   useNavigate: () => mockedNavigator
 }));
+interface children {
+  children: ReactNode;
+}
+jest.mock('../components/Container', () => ({ children }: children) => (
+  <div>Test Container{children}</div>
+));
 
 const renderWithAuthProvider = (element: JSX.Element, user: User) => {
   const auth: Auth = {
@@ -28,8 +40,13 @@ const renderWithAuthProvider = (element: JSX.Element, user: User) => {
 
 describe('<Login />', () => {
   describe('when the user id is empty', () => {
-    const { getByTestId } = renderWithAuthProvider(<Login />, emptyUser);
-    const container: HTMLElement = getByTestId('login-container');
+    const { getByText } = renderWithAuthProvider(<Login />, emptyUser);
+    const container: HTMLElement = getByText('Test Container');
+
+    it('should NOT call useNavigate once with "/"', () => {
+      expect(mockedNavigator).not.toHaveBeenCalledWith('/');
+      expect(mockedNavigator).toHaveBeenCalledTimes(0);
+    });
 
     it('should render the Container div', () => {
       expect(container).toBeTruthy();
@@ -47,14 +64,9 @@ describe('<Login />', () => {
         expect(form).toBeTruthy();
       });
 
-      it('should render the group divs within the login form', () => {
-        const groupDivs: HTMLElement[] = within(form).getAllByRole('group');
-        expect(groupDivs).toHaveLength(3);
-      });
-
       it('should render the correct amount of group div elements within the login form', () => {
         const groupDivs: HTMLElement[] = within(form).getAllByRole('group');
-        expect(groupDivs).toHaveLength(3);
+        expect(groupDivs).toHaveLength(2);
       });
 
       it('should render the email address label within the first group div', () => {
@@ -89,9 +101,8 @@ describe('<Login />', () => {
         expect(emailInput).toBeTruthy();
       });
 
-      it('should render the login button input within the third group div', () => {
-        const loginGroup: HTMLElement = within(form).getAllByRole('group')[2];
-        const loginButton = within(loginGroup).getByTestId('login-button');
+      it('should render the login button input within the form', () => {
+        const loginButton = within(form).getByTestId('login-button');
         expect(loginButton).toBeTruthy();
         expect(loginButton.textContent).toBe('Login');
       });
@@ -99,25 +110,33 @@ describe('<Login />', () => {
   });
 
   describe('when the user id is populated', () => {
-    const user: User = {
-      email: 'some@email.com',
-      id: 'aUserId'
-    };
-    const { queryByTestId } = renderWithAuthProvider(<Login />, user);
+    let queryText: (
+      text: Matcher,
+      options?: SelectorMatcherOptions | undefined,
+      waitForElementOptions?: unknown
+    ) => HTMLElement | null;
+    let queryTestId: (
+      text: Matcher,
+      options?: MatcherOptions | undefined,
+      waitForElementOptions?: unknown
+    ) => HTMLElement | null;
+
+    beforeEach(() => {
+      const user: User = {
+        email: 'some@email.com',
+        id: 'aUserId'
+      };
+      const { queryByText, queryByTestId } = renderWithAuthProvider(
+        <Login />,
+        user
+      );
+      queryText = queryByText;
+      queryTestId = queryByTestId;
+    });
 
     it('should call useNavigate once with "/"', () => {
       expect(mockedNavigator).toHaveBeenCalledWith('/');
       expect(mockedNavigator).toHaveBeenCalledTimes(1);
-    });
-
-    it('should NOT render the Container', () => {
-      const container: HTMLElement | null = queryByTestId('login-container');
-      expect(container).toBeFalsy();
-    });
-
-    it('should NOT render the login form', () => {
-      const form: HTMLElement | null = queryByTestId('login-form');
-      expect(form).toBeFalsy();
     });
   });
 });

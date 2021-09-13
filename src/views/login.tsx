@@ -15,11 +15,11 @@ const Login = () => {
   const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
 
   useEffect(() => {
-    user.id.length > 0 && navigate('/');
+    user.id && navigate('/');
   }, [user.id]);
 
   return (
-    <Container data-testid='login-container'>
+    <Container>
       <Form<Credentials>
         testId='login-form'
         formSubmit={signin}
