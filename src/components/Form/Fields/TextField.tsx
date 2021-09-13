@@ -13,14 +13,14 @@ type TextFieldProps = {
 
 const labelCss = {
   display: 'block',
-  'text-align': 'start',
-  'font-size': '1rem',
-  'margin-inline-end': '0.75rem',
-  'margin-bottom': '0.5rem',
-  'font-weight': '500',
+  extAlign: 'start',
+  fontSize: '1rem',
+  marginInlineEnd: '0.75rem',
+  MarginBottom: '0.5rem',
+  fontWeight: 500,
   transition: 'all 0.2s',
   opacity: 1
-};
+} as const;
 
 const TextField = ({
   name,

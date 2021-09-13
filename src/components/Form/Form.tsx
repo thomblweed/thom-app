@@ -40,6 +40,7 @@ const Form = <T,>({
       ))}
       {schema.buttons?.map((button) => (
         <Button
+          key={button.label}
           label={button.label}
           loading={formSubmitting}
           disabled={formSubmitting}
