@@ -1,11 +1,5 @@
 import React, { ReactNode } from 'react';
-import {
-  Matcher,
-  MatcherOptions,
-  render,
-  SelectorMatcherOptions,
-  within
-} from '@testing-library/react';
+import { render, within } from '@testing-library/react';
 
 import Login from './login';
 import { emptyUser, User } from '../interfaces/user';
@@ -16,15 +10,17 @@ import { Status } from '../hooks/useAxios';
 const mockedNavigator = jest.fn();
 
 jest.mock('react-router-dom', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...(jest.requireActual('react-router-dom') as any),
   useNavigate: () => mockedNavigator
 }));
 interface children {
   children: ReactNode;
 }
-jest.mock('../components/Container', () => ({ children }: children) => (
+const MockContainer = ({ children }: children) => (
   <div>Test Container{children}</div>
-));
+);
+jest.mock('../components/Container', () => MockContainer);
 
 const renderWithAuthProvider = (element: JSX.Element, user: User) => {
   const auth: Auth = {
@@ -110,28 +106,12 @@ describe('<Login />', () => {
   });
 
   describe('when the user id is populated', () => {
-    let queryText: (
-      text: Matcher,
-      options?: SelectorMatcherOptions | undefined,
-      waitForElementOptions?: unknown
-    ) => HTMLElement | null;
-    let queryTestId: (
-      text: Matcher,
-      options?: MatcherOptions | undefined,
-      waitForElementOptions?: unknown
-    ) => HTMLElement | null;
-
     beforeEach(() => {
       const user: User = {
         email: 'some@email.com',
         id: 'aUserId'
       };
-      const { queryByText, queryByTestId } = renderWithAuthProvider(
-        <Login />,
-        user
-      );
-      queryText = queryByText;
-      queryTestId = queryByTestId;
+      renderWithAuthProvider(<Login />, user);
     });
 
     it('should call useNavigate once with "/"', () => {

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
-import { FormField, FormSchema } from '../../interfaces/form-schema';
+import { FormField, FormSchema } from './form-schema';
 import { FieldFactory } from './FieldFactory';
 
 interface FormProps<T> {
@@ -40,13 +40,13 @@ const Form = <T,>({
       ))}
       {schema.buttons?.map((button) => (
         <Button
-          key={button.label}
+          key={button.id}
           label={button.label}
           loading={formSubmitting}
           disabled={formSubmitting}
           type={button.type}
           role={button.type}
-          data-testid={`${button.label.toLowerCase()}-button`}
+          data-testid={button.id}
         />
       ))}
     </form>

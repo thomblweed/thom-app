@@ -1,10 +1,11 @@
 import React, { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { FieldType } from '../../interfaces/form-schema';
+import { FieldType } from './form-schema';
 import { FieldFactory, FieldFactoryProps } from './FieldFactory';
 
-jest.mock('./Fields/TextField', () => () => <div>Text Field</div>);
+const MockTextField = () => <div>Text Field</div>;
+jest.mock('./Fields/TextField', () => MockTextField);
 
 describe('FieldFactory', () => {
   const fieldFactoryTests = [

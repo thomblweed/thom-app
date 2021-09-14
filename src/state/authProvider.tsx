@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { Context, createContext, FC } from 'react';
 
 import { Auth, useAuth } from '../hooks/useAuth';
 import { Status } from '../hooks/useAxios';
-import { Credentials } from '../interfaces/credentials';
 import { emptyUser } from '../interfaces/user';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
   user: emptyUser,
   userStatus: Status.INITIAL,
-  signin: (data: Credentials) => {},
+  signin: () => {},
   signout: () => {}
 });
 

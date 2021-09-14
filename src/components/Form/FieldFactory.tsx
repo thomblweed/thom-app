@@ -1,6 +1,6 @@
 import React, { LegacyRef, ReactElement } from 'react';
 
-import { FormField, FieldType } from '../../interfaces/form-schema';
+import { FormField, FieldType } from './form-schema';
 import TextField from './Fields/TextField';
 
 interface FieldFactoryProps {

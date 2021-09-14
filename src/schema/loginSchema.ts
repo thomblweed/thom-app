@@ -1,4 +1,8 @@
-import { ButtonType, FieldType, FormSchema } from '../interfaces/form-schema';
+import {
+  ButtonType,
+  FieldType,
+  FormSchema
+} from '../components/Form/form-schema';
 
 const loginSchema: FormSchema = {
   fields: [
@@ -18,7 +22,8 @@ const loginSchema: FormSchema = {
   buttons: [
     {
       label: 'Login',
-      type: ButtonType.SUBMIT
+      type: ButtonType.SUBMIT,
+      id: 'login-button'
     }
   ]
 };
