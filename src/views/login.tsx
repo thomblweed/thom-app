@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateFunction } from 'react-router';
+import { Container } from 'thom-components';
 
-import Container from '../components/Container';
 import Form from '../components/Form/Form';
 import { AuthContext } from '../state/authProvider';
 import { Status } from '../hooks/useAxios';
@@ -19,7 +19,7 @@ const Login = (): JSX.Element => {
   }, [user.id, navigate]);
 
   return (
-    <Container data-testid='login-container'>
+    <Container data-testid='login-container' size='small'>
       <Form<Credentials>
         testId='login-form'
         formSubmit={signin}

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { render, within } from '@testing-library/react';
 
 import Login from './login';
@@ -14,13 +14,6 @@ jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as any),
   useNavigate: () => mockedNavigator
 }));
-interface children {
-  children: ReactNode;
-}
-const MockContainer = ({ children }: children) => (
-  <div>Test Container{children}</div>
-);
-jest.mock('../components/Container', () => MockContainer);
 
 const renderWithAuthProvider = (element: JSX.Element, user: User) => {
   const auth: Auth = {
@@ -36,8 +29,8 @@ const renderWithAuthProvider = (element: JSX.Element, user: User) => {
 
 describe('<Login />', () => {
   describe('when the user id is empty', () => {
-    const { getByText } = renderWithAuthProvider(<Login />, emptyUser);
-    const container: HTMLElement = getByText('Test Container');
+    const { getByTestId } = renderWithAuthProvider(<Login />, emptyUser);
+    const container: HTMLElement = getByTestId('login-container');
 
     it('should NOT call useNavigate once with "/"', () => {
       expect(mockedNavigator).not.toHaveBeenCalledWith('/');

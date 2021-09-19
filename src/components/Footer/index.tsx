@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
-
-import Container from '../Container';
+import { Container } from 'thom-components';
 
 interface FooterProps {
   footerText: string;

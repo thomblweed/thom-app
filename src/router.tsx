@@ -42,7 +42,7 @@ const AuthRoute: FC<AuthRoute> = ({ path, element, children }) => {
   );
 };
 
-const userStatusBusy = (userStatus: Status) => {
+const userStatusBusy = (userStatus: Status): boolean => {
   return userStatus !== Status.DONE && userStatus !== Status.ERROR;
 };
 
