@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { AuthContext } from './state/authProvider';
@@ -15,31 +15,19 @@ const PageNotFound = () => (
 const Router = (): JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <AuthRoute path='/' element={<Main />} />
+      <Route index element={<AuthRoute />} />
       <Route path='/login' element={<Login />} />
       <Route path='/*' element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>
 );
 
-interface AuthRoute {
-  path: string;
-  element: JSX.Element;
-  children?: ReactNode;
-}
-
-const AuthRoute: FC<AuthRoute> = ({ path, element, children }) => {
+const AuthRoute: FC = () => {
   const { user, userStatus } = useContext(AuthContext);
-
+  console.log(`userStatus`, userStatus);
   if (userStatusBusy(userStatus)) return null;
 
-  return user.id.length > 0 ? (
-    <Route path={path} element={element}>
-      {children}
-    </Route>
-  ) : (
-    <Navigate to={'/login'} />
-  );
+  return user.id ? <Main /> : <Navigate to={'/login'} />;
 };
 
 const userStatusBusy = (userStatus: Status): boolean => {

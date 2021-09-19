@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -33,7 +34,6 @@ module.exports = {
     publicPath: '/'
   },
   devServer: {
-    // compress: true,
     historyApiFallback: true,
     open: true,
     overlay: true,
