@@ -1,4 +1,4 @@
-import React, { LegacyRef, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 import { FormField, FieldType } from './form-schema';
 import TextField from './Fields/TextField';
@@ -6,13 +6,11 @@ import TextField from './Fields/TextField';
 interface FieldFactoryProps {
   field: FormField;
   disabled: boolean;
-  register: LegacyRef<HTMLInputElement> | undefined;
 }
 
 const FieldFactory = ({
   field,
-  disabled,
-  register
+  disabled
 }: FieldFactoryProps): ReactElement | null => {
   switch (field.type) {
     case FieldType.TEXT:
@@ -23,7 +21,6 @@ const FieldFactory = ({
           label={field.label}
           type={field.type}
           disabled={disabled}
-          register={register}
         />
       );
     default:

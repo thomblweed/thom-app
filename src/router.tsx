@@ -24,7 +24,6 @@ const Router = (): JSX.Element => (
 
 const AuthRoute: FC = () => {
   const { user, userStatus } = useContext(AuthContext);
-  console.log(`userStatus`, userStatus);
   if (userStatusBusy(userStatus)) return null;
 
   return user.id ? <Main /> : <Navigate to={'/login'} />;

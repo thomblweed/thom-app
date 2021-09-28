@@ -1,14 +1,14 @@
-import React, { LegacyRef, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { Input, InputType } from 'thom-components';
 
 import './formControl.css';
-import './input.css';
 
 type TextFieldProps = {
   name: string;
   label: string;
-  type: string;
+  type: InputType;
   disabled: boolean;
-  register: LegacyRef<HTMLInputElement> | undefined;
 };
 
 const labelCss = {
@@ -26,23 +26,25 @@ const TextField = ({
   name,
   label,
   type,
-  disabled,
-  register
-}: TextFieldProps): ReactElement => (
-  <div className='formControlCss' id={name} role='group'>
-    <label style={labelCss} data-testid={`${name}-label-testId`}>
-      {label}
-    </label>
-    <input
-      className='inputCss'
-      data-testid={`${name}-testId`}
-      disabled={disabled}
-      type={type}
-      id={name}
-      name={name}
-      ref={register}
-    />
-  </div>
-);
+  disabled
+}: TextFieldProps): ReactElement => {
+  const { register } = useFormContext();
+  const input = register(name);
+  return (
+    <div className='formControlCss' id={name} role='group'>
+      <label style={labelCss} data-testid={`${name}-label-testId`}>
+        {label}
+      </label>
+      <Input
+        type={type}
+        name={name}
+        disabled={disabled}
+        ref={input.ref}
+        onChange={input.onChange}
+        onBlur={input.onBlur}
+      />
+    </div>
+  );
+};
 
 export default TextField;

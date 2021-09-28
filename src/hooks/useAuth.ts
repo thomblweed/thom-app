@@ -33,10 +33,10 @@ const useAuth = (): Auth => {
     setUserStatus(logoutStatus);
   }, [logoutStatus]);
   useEffect(() => {
-    loginResponse && setUser(loginResponse.data);
+    loginResponse && setUser(loginResponse.data as User);
   }, [loginResponse]);
   useEffect(() => {
-    userResponse && setUser(userResponse.data);
+    userResponse && setUser(userResponse.data as User);
   }, [userResponse]);
   useEffect(() => {
     logoutResponse && setUser(emptyUser);
