@@ -6,7 +6,7 @@ interface FooterProps {
 }
 
 const footerCss = {
-  background: '#eeeeee',
+  background: '#935D7E',
   padding: '1rem'
 };
 

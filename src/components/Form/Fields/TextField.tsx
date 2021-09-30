@@ -37,7 +37,7 @@ const TextField = ({
       </label>
       <Input
         type={type}
-        name={name}
+        name={input.name}
         disabled={disabled}
         ref={input.ref}
         onChange={input.onChange}

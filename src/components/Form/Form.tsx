@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
+import './form.css';
 import { FormField, FormSchema } from './form-schema';
 import { FieldFactory } from './FieldFactory';
 
@@ -11,10 +12,6 @@ interface FormProps<T> {
   formSubmitting: boolean;
   schema: FormSchema;
 }
-
-const formCss = {
-  width: '100%'
-};
 
 const Form = <T,>({
   testId,
@@ -27,7 +24,7 @@ const Form = <T,>({
   return (
     <FormProvider {...methods}>
       <form
-        style={formCss}
+        className={'form'}
         data-testid={testId}
         onSubmit={methods.handleSubmit(formSubmit)}
       >
