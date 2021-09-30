@@ -1,5 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Loading } from 'thom-components';
 
 import { AuthContext } from './state/authProvider';
 import Main from './views/main';
@@ -24,7 +25,7 @@ const Router = (): JSX.Element => (
 
 const AuthRoute: FC = () => {
   const { user, userStatus } = useContext(AuthContext);
-  if (userStatusBusy(userStatus)) return null;
+  if (userStatusBusy(userStatus)) return <Loading />;
 
   return user.id ? <Main /> : <Navigate to={'/login'} />;
 };
