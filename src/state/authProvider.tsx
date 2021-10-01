@@ -9,12 +9,13 @@ export const AuthContext: Context<Auth> = createContext<Auth>({
   user: emptyUser,
   userStatus: Status.INITIAL,
   signin: () => {},
-  signout: () => {}
+  signout: () => {},
+  getUser: () => {}
 });
 
-const UserProvider: FC = ({ children }) => {
+const AuthProvider: FC = ({ children }) => {
   const auth: Auth = useAuth();
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
 
-export default UserProvider;
+export default AuthProvider;

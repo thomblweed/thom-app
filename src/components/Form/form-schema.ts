@@ -1,5 +1,6 @@
 enum FieldType {
   TEXT = 'text',
+  EMAIL = 'email',
   PASSWORD = 'password'
 }
 

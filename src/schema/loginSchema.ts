@@ -7,7 +7,7 @@ import {
 const loginSchema: FormSchema = {
   fields: [
     {
-      type: FieldType.TEXT,
+      type: FieldType.EMAIL,
       name: 'email',
       label: 'Email Address',
       required: true

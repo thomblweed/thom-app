@@ -4,7 +4,7 @@ import { Button } from 'thom-components';
 
 import './form.css';
 import { FormField, FormSchema } from './form-schema';
-import { FieldFactory } from './FieldFactory';
+import Field from './Fields/Field';
 
 interface FormProps<T> {
   testId: string | undefined;
@@ -29,9 +29,11 @@ const Form = <T,>({
         onSubmit={methods.handleSubmit(formSubmit)}
       >
         {schema.fields?.map((field: FormField) => (
-          <FieldFactory
+          <Field
             key={field.name}
-            field={field}
+            name={field.name}
+            label={field.label}
+            type={field.type}
             disabled={formSubmitting}
           />
         ))}
@@ -43,7 +45,6 @@ const Form = <T,>({
             disabled={formSubmitting}
             type={button.type}
             role={button.type}
-            data-testid={button.id}
           />
         ))}
       </form>

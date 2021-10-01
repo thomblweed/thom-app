@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import Login from './login';
 import { emptyUser, User } from '../interfaces/user';
@@ -29,8 +29,11 @@ const renderWithAuthProvider = (element: JSX.Element, user: User) => {
 
 describe('<Login />', () => {
   describe('when the user id is empty', () => {
-    const { getByTestId } = renderWithAuthProvider(<Login />, emptyUser);
-    const container: HTMLElement = getByTestId('login-container');
+    let container: HTMLElement;
+    beforeEach(async () => {
+      renderWithAuthProvider(<Login />, emptyUser);
+      container = await screen.findByTestId('login-container');
+    });
 
     it('should NOT call useNavigate once with "/"', () => {
       expect(mockedNavigator).not.toHaveBeenCalledWith('/');
@@ -38,19 +41,22 @@ describe('<Login />', () => {
     });
 
     it('should render the Container div', () => {
-      expect(container).toBeTruthy();
+      expect(container).toBeInTheDocument();
     });
 
     it('should render the login form within the container', () => {
       const form: HTMLElement = within(container).getByTestId('login-form');
-      expect(form).toBeTruthy();
+      expect(form).toBeInTheDocument();
     });
 
     describe('<form />', () => {
-      const form: HTMLElement = within(container).getByTestId('login-form');
+      let form: HTMLElement;
+      beforeEach(() => {
+        form = within(container).getByTestId('login-form');
+      });
 
       it('should render the login form within the container div', () => {
-        expect(form).toBeTruthy();
+        expect(form).toBeInTheDocument();
       });
 
       it('should render the correct amount of group div elements within the login form', () => {
@@ -61,49 +67,45 @@ describe('<Login />', () => {
       it('should render the email address label within the first group div', () => {
         const emailFormControl: HTMLElement =
           within(form).getAllByRole('group')[0];
-        const emailLabel =
-          within(emailFormControl).getByTestId('email-label-testId');
-        expect(emailLabel.textContent).toBe('Email Address');
+        const emailLabel = within(emailFormControl).getByText('Email Address');
+        expect(emailLabel).toBeInTheDocument();
       });
 
       it('should render the email address input within the first group div', () => {
         const emailFormControl: HTMLElement =
           within(form).getAllByRole('group')[0];
-        const emailInput = within(emailFormControl).getByTestId('email-testId');
-        expect(emailInput).toBeTruthy();
+        const emailInput = within(emailFormControl).getByRole('email');
+        expect(emailInput).toBeInTheDocument();
       });
 
       it('should render the password label within the second group div', () => {
         const passwordFormControl: HTMLElement =
           within(form).getAllByRole('group')[1];
-        const emailLabel = within(passwordFormControl).getByTestId(
-          'password-label-testId'
-        );
-        expect(emailLabel.textContent).toBe('Password');
+        const passwordLabel = within(passwordFormControl).getByText('Password');
+        expect(passwordLabel).toBeInTheDocument();
       });
 
       it('should render the password input within the second group div', () => {
         const passwordFormControl: HTMLElement =
           within(form).getAllByRole('group')[1];
-        const emailInput =
-          within(passwordFormControl).getByTestId('password-testId');
-        expect(emailInput).toBeTruthy();
+        const passwordInput = within(passwordFormControl).getByRole('password');
+        expect(passwordInput).toBeInTheDocument();
       });
 
       it('should render the login button input within the form', () => {
-        const loginButton = within(form).getByTestId('login-button');
-        expect(loginButton).toBeTruthy();
+        const loginButton = within(form).getByRole('submit');
+        expect(loginButton).toBeInTheDocument();
         expect(loginButton.textContent).toBe('Login');
       });
     });
   });
 
   describe('when the user id is populated', () => {
+    const user: User = {
+      email: 'some@email.com',
+      id: 'aUserId'
+    };
     beforeEach(() => {
-      const user: User = {
-        email: 'some@email.com',
-        id: 'aUserId'
-      };
       renderWithAuthProvider(<Login />, user);
     });
 

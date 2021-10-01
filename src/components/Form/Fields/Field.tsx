@@ -4,7 +4,7 @@ import { Input, InputType } from 'thom-components';
 
 import './formControl.css';
 
-type TextFieldProps = {
+type FieldProps = {
   name: string;
   label: string;
   type: InputType;
@@ -22,21 +22,15 @@ const labelCss = {
   opacity: 1
 } as const;
 
-const TextField = ({
-  name,
-  label,
-  type,
-  disabled
-}: TextFieldProps): ReactElement => {
+const Field = ({ name, label, type, disabled }: FieldProps): ReactElement => {
   const { register } = useFormContext();
   const input = register(name);
   return (
     <div className='formControlCss' id={name} role='group'>
-      <label style={labelCss} data-testid={`${name}-label-testId`}>
-        {label}
-      </label>
+      <label style={labelCss}>{label}</label>
       <Input
         type={type}
+        role={type}
         name={input.name}
         disabled={disabled}
         ref={input.ref}
@@ -47,4 +41,4 @@ const TextField = ({
   );
 };
 
-export default TextField;
+export default Field;
