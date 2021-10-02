@@ -20,9 +20,7 @@ const Main = (): JSX.Element => {
   ) : (
     <Container data-testid='main-view' size='large'>
       <h1>thom app</h1>
-      <p data-testid='welcome-email'>
-        Welcome <strong>{authenticated ? user.email : 'Guest'}</strong>
-      </p>
+      <p>Welcome {authenticated ? user.email : 'Guest'}</p>
       {authenticated ? (
         <Button
           label='Logout'
