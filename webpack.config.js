@@ -36,7 +36,6 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     open: true,
-    overlay: true,
     port: 1234,
     liveReload: true
   },
