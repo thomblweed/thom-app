@@ -22,8 +22,8 @@ const Main = (): JSX.Element => {
         loadingSchema={[
           {
             lines: [
-              { width: '25%', id: 'line-1' },
-              { width: '25%', id: 'line-2' }
+              { width: '25%', id: 'line1' },
+              { width: '25%', id: 'line2' }
             ],
             buttons: [{ id: 'button1' }]
           }

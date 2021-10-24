@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
-import './form.css';
+import './form.scss';
 import { FormField, FormSchema } from './form-schema';
 import Field from './Fields/Field';
 

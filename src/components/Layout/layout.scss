@@ -29,6 +29,14 @@ body {
 
 .root {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   flex-direction: column;
+
+  .main {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: auto;
+    height: 100%;
+  }
 }

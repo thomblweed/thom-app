@@ -1,8 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 
-import './layout.css';
+import './layout.scss';
 import Footer from '../Footer';
-import Container from '../Container';
 
 interface Layout {
   children?: ReactNode;
@@ -10,9 +9,7 @@ interface Layout {
 
 const Layout: FC<Layout> = ({ children }): JSX.Element => (
   <div className='root'>
-    <Container type='main' size='large'>
-      {children}
-    </Container>
+    <main className='main'>{children}</main>
     <Footer footerText={'thom app'} />
   </div>
 );
