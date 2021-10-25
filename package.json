@@ -4,11 +4,11 @@
   "description": "app for demoing tech learnings",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --mode development",
+    "dev": "npm run build && node ./esbuild.serve.js",
+    "build": "npm run clean && node ./esbuild.config.js",
     "test": "jest",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
-    "build": "npm run clean && webpack --mode production",
     "clean": "if [ -d dist ]; then rm -r dist; fi",
     "compile": "tsc",
     "lint": "eslint --ignore-pattern webpack* --ignore-path .gitignore ."
@@ -54,22 +54,14 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "babel-loader": "^8.2.2",
-    "css-loader": "^6.4.0",
-    "eslint": "^8.0.1",
+    "esbuild": "^0.13.9",
+    "esbuild-sass-plugin": "^1.7.0",
+    "eslint": "7.32.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^4.12.4",
-    "html-webpack-plugin": "^5.4.0",
     "jest": "^27.3.0",
-    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "sass": "^1.43.2",
-    "sass-loader": "^12.2.0",
-    "style-loader": "^3.3.0",
-    "terser-webpack-plugin": "^5.2.4",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.4.4",
-    "webpack": "^5.58.2",
-    "webpack-cli": "^4.9.0",
-    "webpack-dev-server": "^4.3.1"
+    "typescript": "^4.4.4"
   }
 }
