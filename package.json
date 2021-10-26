@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "description": "app for demoing tech learnings",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "npm run build && node ./esbuild.serve.js",
-    "build": "npm run clean && node ./esbuild.config.js",
+    "dev": "node ./esbuild.serve.js",
+    "build": "npm run clean && node ./esbuild.build.js",
     "test": "jest",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
