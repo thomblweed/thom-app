@@ -1,11 +1,10 @@
 import { build } from 'esbuild';
 import { sassPlugin } from 'esbuild-sass-plugin';
-import serve from 'create-serve';
+import { start, refresh } from 'thom-dev-server';
 
-const dev = async (buildOptions, serverOptions) => {
+const devBuild = async (buildOptions) => {
   try {
     await build(buildOptions);
-    serve.start(serverOptions);
   } catch (error) {
     console.error(`dev build error ::>>`, error);
     process.exit(1);
@@ -14,7 +13,7 @@ const dev = async (buildOptions, serverOptions) => {
 
 const buildOptions = {
   entryPoints: ['src/index.tsx'],
-  outdir: 'www/dist',
+  outdir: 'www/',
   bundle: true,
   minify: true,
   define: { 'process.env.NODE_ENV': '"development"' },
@@ -23,19 +22,20 @@ const buildOptions = {
   watch: {
     onRebuild(error, result) {
       if (error) {
-        console.info(`rebuild error ::>>`, error);
+        console.error(`rebuild error ::>>`, error);
         return;
       }
       console.info(`watch rebuild result ::`, result);
-      serve.update();
+      refresh();
     }
   }
 };
 
 const serverOptions = {
-  port: 8000,
+  port: 2000,
   root: 'www',
-  live: true
+  rootFilename: 'index.html'
 };
 
-dev(buildOptions, serverOptions);
+devBuild(buildOptions);
+start(serverOptions);
