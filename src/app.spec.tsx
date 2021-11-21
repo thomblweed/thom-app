@@ -1,116 +1,151 @@
 import React from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+  within
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from './app';
 import { emptyUser, User } from './interfaces/user';
 
 jest.mock('axios', () => jest.fn());
-const mockedAxios = axios as unknown as jest.Mock; //axios as jest.Mocked<typeof axios>;
+const mockedAxios = axios as unknown as jest.Mock;
 
-describe('Acceptance Tests', () => {
-  let loginContainer: HTMLElement | null;
+describe('when user is not logged in', () => {
+  let mainViewContainer: HTMLElement;
+
+  beforeEach(async () => {
+    mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
+    render(<App />);
+    await waitForElementToBeRemoved(() => screen.queryByRole('status'));
+    mainViewContainer = screen.getByTestId('main-view');
+  });
 
   afterEach(() => {
-    cleanup();
+    jest.clearAllMocks();
   });
 
-  it('should load the login page when user is not authorised', async () => {
-    render(<App />);
-    loginContainer = await screen.findByTestId('login-container');
-    expect(loginContainer).toBeTruthy();
+  it('should render the main view container', () => {
+    expect(mainViewContainer).toBeInTheDocument();
   });
 
-  describe('View and use Login form', () => {
-    beforeEach(async () => {
-      mockedAxios.mockResolvedValue(axiosResponse<User>(emptyUser, 404));
-      render(<App />);
-      loginContainer = await screen.findByTestId('login-container');
-    });
-
-    it('should have login elements visable', () => {
-      const emailInput: HTMLInputElement | null = screen.queryByTestId(
-        'email-testId'
-      ) as HTMLInputElement;
-      const passwordInput: HTMLInputElement | null = screen.queryByTestId(
-        'password-testId'
-      ) as HTMLInputElement;
-      const loginButton: HTMLButtonElement | null = screen.queryByTestId(
-        'login-button'
-      ) as HTMLButtonElement;
-
-      expect(emailInput).toBeTruthy();
-      expect(passwordInput).toBeTruthy();
-      expect(loginButton).toBeTruthy();
-    });
-
-    it('should be able to enter username and password', () => {
-      const { emailInput, passwordInput } = enterCredentials();
-      expect(emailInput.value).toBe('thom@test.com');
-      expect(passwordInput.value).toBe('password');
-    });
+  it('should render the title within the view container', () => {
+    const title = within(mainViewContainer).getByText('thom app');
+    expect(title).toBeInTheDocument();
   });
 
-  describe('Can login to main view page', () => {
-    beforeEach(async () => {
-      mockedAxios.mockResolvedValue(axiosResponse<User>(emptyUser, 404));
-      render(<App />);
-
-      await waitFor(() => {
-        expect(screen.getByRole('submit')).toBeTruthy();
-      });
-
-      mockedAxios.mockResolvedValue(
-        axiosResponse<User>({ id: 'userid', email: 'thom@test.com' }, 200)
-      );
-    });
-
-    it('should be able to login to main view page', async () => {
-      login();
-      const loginButton = screen.queryByRole('submit') as HTMLButtonElement;
-
-      await waitFor(() =>
-        expect(loginButton.getAttribute('loading')).toBe('1')
-      );
-      await waitFor(() =>
-        expect(screen.queryByTestId('main-container')).toBeTruthy()
-      );
-
-      const welcomeText: HTMLParagraphElement | null = screen.queryByTestId(
-        'welcome-email'
-      ) as HTMLParagraphElement;
-      const logoutButton: HTMLButtonElement | null = screen.queryByTestId(
-        'logout-button'
-      ) as HTMLButtonElement;
-      expect(welcomeText.textContent).toBe('Welcome thom@test.com');
-      expect(logoutButton.textContent).toBe('Logout');
-    });
+  it('should render the welcome text for a guest user within the view container', () => {
+    const welcomeText = within(mainViewContainer).getByText('Welcome Guest');
+    expect(welcomeText).toBeInTheDocument();
   });
 
-  const login = () => {
-    enterCredentials();
-    const loginButton: HTMLButtonElement = screen.getByTestId(
-      'login-button'
-    ) as HTMLButtonElement;
-    userEvent.click(loginButton);
-  };
-
-  const enterCredentials = (): {
-    emailInput: HTMLInputElement;
-    passwordInput: HTMLInputElement;
-  } => {
-    const emailInput: HTMLInputElement = screen.getByTestId(
-      'email-testId'
-    ) as HTMLInputElement;
-    const passwordInput: HTMLInputElement = screen.getByTestId(
-      'password-testId'
-    ) as HTMLInputElement;
-    userEvent.type(emailInput, 'thom@test.com');
-    userEvent.type(passwordInput, 'password');
-    return { emailInput, passwordInput };
-  };
+  it('should render a link to Sign In within the view container', () => {
+    const signInLink = within(mainViewContainer).getByText('Sign In');
+    expect(signInLink).toBeInTheDocument();
+  });
 });
+
+describe('when the user navigates to the login view', () => {
+  let loginViewContainer: HTMLElement;
+
+  beforeEach(async () => {
+    mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
+    render(<App />);
+    await waitForElementToBeRemoved(() => screen.queryByRole('status'));
+
+    navigateToLoginView();
+    loginViewContainer = await screen.findByTestId('login-container');
+  });
+
+  afterEach(() => {
+    resetToHomeRoute();
+    jest.clearAllMocks();
+  });
+
+  it('should render the login view container', () => {
+    expect(loginViewContainer).toBeInTheDocument();
+  });
+
+  it('should have login elements visable', () => {
+    const emailInput = within(loginViewContainer).getByRole('email');
+    const passwordInput = within(loginViewContainer).getByRole('password');
+    const loginButton = within(loginViewContainer).getByText('Login');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(loginButton).toBeInTheDocument();
+  });
+
+  it('should be able to enter username and password', () => {
+    const { emailInput, passwordInput } = enterCredentials();
+    expect(emailInput.value).toBe('thom@test.com');
+    expect(passwordInput.value).toBe('password');
+  });
+});
+
+describe('Can login to main view page', () => {
+  beforeEach(async () => {
+    mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
+    render(<App />);
+    await waitForElementToBeRemoved(() => screen.queryByRole('status'));
+
+    navigateToLoginView();
+    await screen.findByTestId('login-container');
+    mockedAxios.mockResolvedValueOnce(
+      axiosResponse<User>({ email: 'thom@test.com', id: 'id value' }, 404)
+    );
+  });
+
+  afterEach(() => {
+    resetToHomeRoute();
+    jest.clearAllMocks();
+  });
+
+  it('should be able to login to main view page', async () => {
+    login();
+    const loginButton = screen.queryByRole('submit') as HTMLButtonElement;
+
+    await waitFor(() => expect(loginButton.getAttribute('loading')).toBe('1'));
+    const mainViewContainer = await screen.findByTestId('main-view');
+    expect(mainViewContainer).toBeInTheDocument();
+
+    const welcomeText: HTMLParagraphElement = screen.getByText(
+      'Welcome thom@test.com'
+    ) as HTMLParagraphElement;
+    const logoutButton: HTMLButtonElement = screen.getByText(
+      'Logout'
+    ) as HTMLButtonElement;
+    expect(welcomeText).toBeInTheDocument();
+    expect(logoutButton).toBeInTheDocument();
+  });
+});
+
+const navigateToLoginView = (): void => {
+  const loginLink = screen.getByText('Sign In');
+  expect(loginLink).toBeInTheDocument();
+  userEvent.click(loginLink);
+};
+
+const login = (): void => {
+  enterCredentials();
+  const loginButton = screen.getByText('Login');
+  userEvent.click(loginButton);
+};
+
+const enterCredentials = (): {
+  emailInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+} => {
+  const emailInput = screen.getByRole('email') as HTMLInputElement;
+  const passwordInput = screen.getByRole('password') as HTMLInputElement;
+  userEvent.type(emailInput, 'thom@test.com');
+  userEvent.type(passwordInput, 'password');
+  return { emailInput, passwordInput };
+};
 
 const axiosResponse = <T,>(
   response: T,
@@ -122,3 +157,7 @@ const axiosResponse = <T,>(
   headers: {},
   config: {}
 });
+
+const resetToHomeRoute = (): void => {
+  window.history.pushState({}, '', '/');
+};

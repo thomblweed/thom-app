@@ -1,18 +1,18 @@
 import React from 'react';
-import { theme, ThemeProvider } from 'thom-components';
+import { ThemeProvider } from 'thom-components';
 
-import UserProvider from './state/authProvider';
+import AuthProvider from './state/authProvider';
 import Layout from './components/Layout';
 import Router from './router';
 
 const App = (): JSX.Element => (
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <UserProvider>
-        <Layout>
+    <ThemeProvider>
+      <Layout>
+        <AuthProvider>
           <Router />
-        </Layout>
-      </UserProvider>
+        </AuthProvider>
+      </Layout>
     </ThemeProvider>
   </React.StrictMode>
 );

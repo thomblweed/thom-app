@@ -1,5 +1,6 @@
 enum FieldType {
   TEXT = 'text',
+  EMAIL = 'email',
   PASSWORD = 'password'
 }
 
@@ -17,6 +18,7 @@ interface FormField {
 interface FormButton {
   type: ButtonType;
   label: string;
+  id: string;
 }
 
 interface FormSchema {

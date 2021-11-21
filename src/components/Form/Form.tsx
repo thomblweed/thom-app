@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
-import { FormField, FormSchema } from '../../interfaces/form-schema';
-import { FieldFactory } from './FieldFactory';
+import './form.scss';
+import { FormField, FormSchema } from './form-schema';
+import Field from './Fields/Field';
 
 interface FormProps<T> {
   testId: string | undefined;
@@ -12,43 +13,42 @@ interface FormProps<T> {
   schema: FormSchema;
 }
 
-const formCss = {
-  width: '100%'
-};
-
 const Form = <T,>({
   testId,
   formSubmit,
   formSubmitting,
   schema
 }: FormProps<T>): ReactElement => {
-  const { register, handleSubmit } = useForm<T>();
+  const methods = useForm<T>();
 
   return (
-    <form
-      style={formCss}
-      data-testid={testId}
-      onSubmit={handleSubmit(formSubmit)}
-    >
-      {schema.fields?.map((field: FormField) => (
-        <FieldFactory
-          key={field.name}
-          field={field}
-          disabled={formSubmitting}
-          register={register}
-        />
-      ))}
-      {schema.buttons?.map((button) => (
-        <Button
-          label={button.label}
-          loading={formSubmitting}
-          disabled={formSubmitting}
-          type={button.type}
-          role={button.type}
-          data-testid={`${button.label.toLowerCase()}-button`}
-        />
-      ))}
-    </form>
+    <FormProvider {...methods}>
+      <form
+        className={'form'}
+        data-testid={testId}
+        onSubmit={methods.handleSubmit(formSubmit)}
+      >
+        {schema.fields?.map((field: FormField) => (
+          <Field
+            key={field.name}
+            name={field.name}
+            label={field.label}
+            type={field.type}
+            disabled={formSubmitting}
+          />
+        ))}
+        {schema.buttons?.map((button) => (
+          <Button
+            key={button.id}
+            label={button.label}
+            loading={formSubmitting}
+            disabled={formSubmitting}
+            type={button.type}
+            role={button.type}
+          />
+        ))}
+      </form>
+    </FormProvider>
   );
 };
 

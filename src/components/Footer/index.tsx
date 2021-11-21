@@ -1,29 +1,17 @@
 import React, { ReactElement } from 'react';
+import { Container } from 'thom-components';
 
-import Container from '../Container';
+import './footer.scss';
 
 interface FooterProps {
   footerText: string;
 }
 
-const footerCss = {
-  background: '#eeeeee',
-  padding: '1rem'
-};
-
-const footerNameCss = {
-  fontSize: '1rem'
-};
-
-const footerCopyCss = {
-  fontSize: '0.875rem'
-};
-
 const Footer = ({ footerText }: FooterProps): ReactElement => (
-  <footer style={footerCss}>
+  <footer className='footer'>
     <Container size='large'>
-      <p style={footerNameCss}>{footerText}</p>
-      <p style={footerCopyCss}>Copyright &copy; {new Date().getFullYear()}</p>
+      <p className='footerName'>{footerText}</p>
+      <p className='copyright'>Copyright &copy; {new Date().getFullYear()}</p>
     </Container>
   </footer>
 );

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosResponse, Method } from 'axios';
 
 import { config } from '../config';
@@ -14,7 +14,7 @@ export enum Status {
 }
 
 interface Response {
-  axiosResponse: AxiosResponse<any> | null;
+  axiosResponse: AxiosResponse<unknown> | null;
   status: Status;
 }
 
@@ -25,14 +25,13 @@ const useAxios = <T>(
   type: Method,
   manual?: boolean
 ): Axios<T> => {
-  const axiosRef = useRef<(data?: T) => Promise<void>>();
   const [axiosState, setAxiosState] = useState<Response>({
     axiosResponse: null,
     status: Status.INITIAL
   });
 
-  useEffect(() => {
-    axiosRef.current = async (data?: T) => {
+  const callAxios = useCallback(
+    async (data?: T) => {
       try {
         setAxiosState((state) => ({ ...state, status: Status.LOADING }));
         const res = await axios({
@@ -45,16 +44,15 @@ const useAxios = <T>(
       } catch (error) {
         setAxiosState((state) => ({ ...state, status: Status.ERROR }));
       }
-    };
-    !axiosState.axiosResponse && !manual && axiosRef.current();
-  }, [axiosState.axiosResponse, relativeUrl, manual]);
+    },
+    [relativeUrl, type]
+  );
 
-  return [
-    axiosState,
-    (data?: T) => {
-      axiosRef.current && axiosRef.current(data);
-    }
-  ];
+  useEffect(() => {
+    !axiosState.axiosResponse && !manual && callAxios();
+  }, [axiosState.axiosResponse, manual, callAxios]);
+
+  return [axiosState, callAxios];
 };
 
 export { useAxios };

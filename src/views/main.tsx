@@ -1,27 +1,50 @@
-import React, { useContext } from 'react';
-import { Button } from 'thom-components';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Container, ContentLoading } from 'thom-components';
 import { Status } from '../hooks/useAxios';
 
 import { AuthContext } from '../state/authProvider';
 
-const Main = () => {
-  const { user, userStatus, signout } = useContext(AuthContext);
-  const busy = userStatus === Status.LOADING;
+const Main = (): JSX.Element => {
+  const { user, userStatus, signout, getUser } = useContext(AuthContext);
+  const isLoading =
+    userStatus === Status.LOADING || userStatus === Status.INITIAL;
+  const authenticated = user.id;
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
   return (
-    <div data-testid='main-container'>
-      <h1>thom app</h1>
-      <p data-testid='welcome-email'>
-        Welcome <strong>{user.email}</strong>
-      </p>
-      <Button
-        label='Logout'
-        data-testid='logout-button'
-        onClick={() => signout()}
-        disabled={busy}
-        loading={busy}
+    <Container data-testid='main-view' size='large'>
+      <ContentLoading
+        loading={isLoading}
+        loadingSchema={[
+          {
+            lines: [
+              { width: '25%', id: 'line1' },
+              { width: '25%', id: 'line2' }
+            ],
+            buttons: [{ id: 'button1' }]
+          }
+        ]}
       />
-    </div>
+      {isLoading ? null : (
+        <>
+          <h1>thom app</h1>
+          <p>Welcome {authenticated ? user.email : 'Guest'}</p>
+          {authenticated ? (
+            <Button
+              label='Logout'
+              data-testid='logout-button'
+              onClick={() => signout()}
+            />
+          ) : (
+            <Link to={'/login'}>Sign In</Link>
+          )}
+        </>
+      )}
+    </Container>
   );
 };
 

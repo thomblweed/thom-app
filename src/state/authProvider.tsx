@@ -1,20 +1,21 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { Context, createContext, FC } from 'react';
 
 import { Auth, useAuth } from '../hooks/useAuth';
 import { Status } from '../hooks/useAxios';
-import { Credentials } from '../interfaces/credentials';
 import { emptyUser } from '../interfaces/user';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
   user: emptyUser,
   userStatus: Status.INITIAL,
-  signin: (data: Credentials) => {},
-  signout: () => {}
+  signin: () => {},
+  signout: () => {},
+  getUser: () => {}
 });
 
-const UserProvider: FC = ({ children }) => {
+const AuthProvider: FC = ({ children }) => {
   const auth: Auth = useAuth();
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
 
-export default UserProvider;
+export default AuthProvider;

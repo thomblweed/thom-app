@@ -9,14 +9,16 @@ interface Auth {
   userStatus: Status;
   signin: (data: Credentials) => void;
   signout: () => void;
+  getUser: () => void;
 }
 
 const useAuth = (): Auth => {
   const [user, setUser] = useState<User>(emptyUser);
   const [userStatus, setUserStatus] = useState<Status>(Status.INITIAL);
-  const [{ axiosResponse: userResponse, status }] = useAxios(
+  const [{ axiosResponse: userResponse, status }, getUser] = useAxios(
     '/api/users/currentuser',
-    'GET'
+    'GET',
+    true
   );
   const [{ axiosResponse: loginResponse, status: loginStatus }, signin] =
     useAxios<Credentials>('/api/users/signin', 'POST', true);
@@ -33,18 +35,18 @@ const useAuth = (): Auth => {
     setUserStatus(logoutStatus);
   }, [logoutStatus]);
   useEffect(() => {
-    loginResponse && setUser(loginResponse.data);
+    loginResponse && setUser(loginResponse.data as User);
   }, [loginResponse]);
   useEffect(() => {
-    userResponse && setUser(userResponse.data);
+    userResponse && setUser(userResponse.data as User);
   }, [userResponse]);
   useEffect(() => {
     logoutResponse && setUser(emptyUser);
   }, [logoutResponse]);
 
   return useMemo(() => {
-    return { user, userStatus, signin, signout };
-  }, [user, userStatus, signin, signout]);
+    return { user, userStatus, signin, signout, getUser };
+  }, [user, userStatus, signin, signout, getUser]);
 };
 
 export { useAuth, Auth };
