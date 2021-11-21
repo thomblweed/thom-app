@@ -3,8 +3,6 @@ www/*.css*
 www/*.js*
 .env
 
-# parcel
-.parcel-cache
 dist
 serve
 build

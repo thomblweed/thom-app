@@ -28,6 +28,9 @@ const buildOptions = {
       console.info(`watch rebuild result ::`, result);
       refresh();
     }
+  },
+  loader: {
+    '.woff2': 'dataurl'
   }
 };
 
