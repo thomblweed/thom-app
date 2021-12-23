@@ -35,7 +35,7 @@ const buildOptions = {
 };
 
 const serverOptions = {
-  port: 2000,
+  port: 1234,
   root: 'www',
   rootFilename: 'index.html'
 };

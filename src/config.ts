@@ -1,10 +1,10 @@
-interface Config {
-  [key: string]: {
+type Config = {
+  [key in 'development' | 'test' | 'production']: {
     api: {
       baseUrl: string;
     };
   };
-}
+};
 
 const config: Config = {
   development: {
@@ -13,6 +13,11 @@ const config: Config = {
     }
   },
   test: {
+    api: {
+      baseUrl: 'http://testurl'
+    }
+  },
+  production: {
     api: {
       baseUrl: 'http://testurl'
     }

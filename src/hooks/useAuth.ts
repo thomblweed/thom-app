@@ -44,9 +44,16 @@ const useAuth = (): Auth => {
     logoutResponse && setUser(emptyUser);
   }, [logoutResponse]);
 
-  return useMemo(() => {
-    return { user, userStatus, signin, signout, getUser };
-  }, [user, userStatus, signin, signout, getUser]);
+  return useMemo(
+    () => ({
+      user,
+      userStatus,
+      signin,
+      signout,
+      getUser
+    }),
+    [user, userStatus, signin, signout, getUser]
+  );
 };
 
 export { useAuth, Auth };

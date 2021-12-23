@@ -38,7 +38,7 @@ const useAxios = <T>(
           method: type,
           url: new URL(relativeUrl, baseUrl).toString(),
           withCredentials: true,
-          ...(data && { data: data })
+          ...(data && { data })
         });
         setAxiosState({ axiosResponse: res, status: Status.DONE });
       } catch (error) {
