@@ -1,5 +1,7 @@
+type Environment = 'development' | 'test' | 'production';
+
 type Config = {
-  [key in 'development' | 'test' | 'production']: {
+  [key in Environment]: {
     api: {
       baseUrl: string;
     };
@@ -24,4 +26,5 @@ const config: Config = {
   }
 };
 
-export { config, Config };
+export type { Config, Environment };
+export { config };

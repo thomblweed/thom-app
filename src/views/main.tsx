@@ -7,7 +7,7 @@ import { AuthContext } from '../state/authProvider';
 
 const Main = (): JSX.Element => {
   const { user, userStatus, signout, getUser } = useContext(AuthContext);
-  const isLoading =
+  const loading =
     userStatus === Status.LOADING || userStatus === Status.INITIAL;
   const authenticated = user.id;
 
@@ -18,7 +18,7 @@ const Main = (): JSX.Element => {
   return (
     <Container data-testid='main-view' size='large'>
       <ContentLoading
-        loading={isLoading}
+        loading={loading}
         loadingSchema={[
           {
             lines: [
@@ -29,7 +29,7 @@ const Main = (): JSX.Element => {
           }
         ]}
       />
-      {isLoading ? null : (
+      {loading ? null : (
         <>
           <h1>thom app</h1>
           <p>Welcome {authenticated ? user.email : 'Guest'}</p>

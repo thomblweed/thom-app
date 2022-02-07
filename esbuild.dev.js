@@ -13,7 +13,7 @@ const devBuild = async (buildOptions) => {
 
 const buildOptions = {
   entryPoints: ['src/index.tsx'],
-  outdir: 'www/',
+  outdir: 'public/',
   bundle: true,
   minify: true,
   define: { 'process.env.NODE_ENV': '"development"' },
@@ -36,7 +36,7 @@ const buildOptions = {
 
 const serverOptions = {
   port: 1234,
-  root: 'www',
+  root: 'public',
   rootFilename: 'index.html'
 };
 
