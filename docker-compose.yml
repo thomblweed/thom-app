@@ -10,8 +10,13 @@ services:
       - MONGO_HOST=mongo-auth
       - SEED=true
     depends_on:
-      - 'mongo-auth'
+      - 'mongo-auth' # this doesn;t work enough, container needs a restart with docker restart <container_id>
   mongo-auth:
     image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+    # expose:
+    #   - 27017
     ports:
       - '27017:27017'
