@@ -3,10 +3,14 @@ import { sassPlugin } from 'esbuild-sass-plugin';
 
 build({
   entryPoints: ['src/index.tsx'],
-  outfile: 'dist/index.js',
+  outdir: 'public/',
   bundle: true,
   minify: true,
-  plugins: [sassPlugin()]
+  define: { 'process.env.NODE_ENV': '"production"' },
+  plugins: [sassPlugin()],
+  loader: {
+    '.woff2': 'dataurl'
+  }
 }).catch((error) => {
   console.log(`build error ::>>`, error);
   process.exit(1);
