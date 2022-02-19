@@ -7,7 +7,6 @@ const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
 const baseUrl: string = config[env].api.baseUrl;
 
 export const enum Status {
-  INITIAL = 'INITIAL',
   LOADING = 'LOADING',
   DONE = 'DONE',
   ERROR = 'ERROR'
@@ -27,13 +26,12 @@ const useAxios = <T>(
 ): Axios<T> => {
   const [axiosState, setAxiosState] = useState<Response>({
     axiosResponse: null,
-    status: Status.INITIAL
+    status: Status.LOADING
   });
 
   const callAxios = useCallback(
     async (data?: T) => {
       try {
-        setAxiosState((state) => ({ ...state, status: Status.LOADING }));
         const res = await axios({
           method: type,
           url: new URL(relativeUrl, baseUrl).toString(),

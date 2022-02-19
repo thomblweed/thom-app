@@ -12,13 +12,14 @@ interface Auth {
   getUser: () => void;
 }
 
+const statusNotLoading = (status: Status) => status !== Status.LOADING;
+
 const useAuth = (): Auth => {
   const [user, setUser] = useState<User>(emptyUser);
-  const [userStatus, setUserStatus] = useState<Status>(Status.INITIAL);
+  const [userStatus, setUserStatus] = useState<Status>(Status.LOADING);
   const [{ axiosResponse: userResponse, status }, getUser] = useAxios(
     '/api/users/currentuser',
-    'GET',
-    true
+    'GET'
   );
   const [{ axiosResponse: loginResponse, status: loginStatus }, signin] =
     useAxios<Credentials>('/api/users/signin', 'POST', true);
@@ -26,13 +27,13 @@ const useAuth = (): Auth => {
     useAxios<undefined>('/api/users/signout', 'POST', true);
 
   useEffect(() => {
-    setUserStatus(status);
+    statusNotLoading(status) && setUserStatus(status);
   }, [status]);
   useEffect(() => {
-    setUserStatus(loginStatus);
+    statusNotLoading(loginStatus) && setUserStatus(loginStatus);
   }, [loginStatus]);
   useEffect(() => {
-    setUserStatus(logoutStatus);
+    statusNotLoading(logoutStatus) && setUserStatus(logoutStatus);
   }, [logoutStatus]);
   useEffect(() => {
     loginResponse && setUser(loginResponse.data as User);

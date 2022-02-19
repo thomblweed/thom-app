@@ -8,12 +8,15 @@ serve(
   },
   {
     entryPoints: ['src/index.tsx'],
-    outdir: 'public/js',
+    outdir: 'public/',
     bundle: true,
     minify: true,
     sourcemap: true,
     define: { 'process.env.NODE_ENV': '"development"' },
-    plugins: [sassPlugin()]
+    plugins: [sassPlugin()],
+    loader: {
+      '.woff2': 'dataurl'
+    }
   }
 )
   .then((server) => {

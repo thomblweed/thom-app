@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
 import { Status } from '../hooks/useAxios';
@@ -6,14 +6,9 @@ import { Status } from '../hooks/useAxios';
 import { AuthContext } from '../state/authProvider';
 
 const Main = (): JSX.Element => {
-  const { user, userStatus, signout, getUser } = useContext(AuthContext);
-  const loading =
-    userStatus === Status.LOADING || userStatus === Status.INITIAL;
+  const { user, userStatus, signout } = useContext(AuthContext);
+  const loading = userStatus === Status.LOADING;
   const authenticated = user.id;
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
 
   return (
     <Container data-testid='main-view' size='large'>

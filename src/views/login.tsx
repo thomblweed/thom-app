@@ -13,7 +13,6 @@ import { Auth } from '../hooks/useAuth';
 const Login = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
   const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
-  console.log('user', user);
 
   useEffect(() => {
     user.id && navigate('/');
