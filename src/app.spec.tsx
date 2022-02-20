@@ -3,7 +3,6 @@ import axios, { AxiosResponse } from 'axios';
 import {
   render,
   screen,
-  waitFor,
   waitForElementToBeRemoved,
   within
 } from '@testing-library/react';
@@ -21,7 +20,7 @@ describe('when user is not logged in', () => {
   beforeEach(async () => {
     mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
     render(<App />);
-    await waitForElementToBeRemoved(() => screen.queryByRole('status'));
+    await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     mainViewContainer = screen.getByTestId('main-view');
   });
 
@@ -55,7 +54,7 @@ describe('when the user navigates to the login view', () => {
   beforeEach(async () => {
     mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
     render(<App />);
-    await waitForElementToBeRemoved(() => screen.queryByRole('status'));
+    await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
 
     navigateToLoginView();
     loginViewContainer = await screen.findByTestId('login-container');
@@ -71,8 +70,10 @@ describe('when the user navigates to the login view', () => {
   });
 
   it('should have login elements visable', () => {
-    const emailInput = within(loginViewContainer).getByRole('email');
-    const passwordInput = within(loginViewContainer).getByRole('password');
+    const emailInput = within(loginViewContainer).getByRole('textbox', {
+      name: 'Email Address'
+    });
+    const passwordInput = within(loginViewContainer).getByLabelText('Password');
     const loginButton = within(loginViewContainer).getByText('Login');
 
     expect(emailInput).toBeInTheDocument();
@@ -91,7 +92,7 @@ describe('Can login to main view page', () => {
   beforeEach(async () => {
     mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
     render(<App />);
-    await waitForElementToBeRemoved(() => screen.queryByRole('status'));
+    await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
 
     navigateToLoginView();
     await screen.findByTestId('login-container');
@@ -107,9 +108,7 @@ describe('Can login to main view page', () => {
 
   it('should be able to login to main view page', async () => {
     login();
-    const loginButton = screen.queryByRole('submit') as HTMLButtonElement;
 
-    await waitFor(() => expect(loginButton.getAttribute('loading')).toBe('1'));
     const mainViewContainer = await screen.findByTestId('main-view');
     expect(mainViewContainer).toBeInTheDocument();
 
@@ -140,8 +139,10 @@ const enterCredentials = (): {
   emailInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
 } => {
-  const emailInput = screen.getByRole('email') as HTMLInputElement;
-  const passwordInput = screen.getByRole('password') as HTMLInputElement;
+  const emailInput = screen.getByRole('textbox', {
+    name: 'Email Address'
+  }) as HTMLInputElement;
+  const passwordInput = screen.getByLabelText('Password') as HTMLInputElement;
   userEvent.type(emailInput, 'thom@test.com');
   userEvent.type(passwordInput, 'password');
   return { emailInput, passwordInput };

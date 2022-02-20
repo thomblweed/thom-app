@@ -16,10 +16,12 @@ const Field = ({ name, label, type, disabled }: FieldProps): ReactElement => {
   const input = register(name);
   return (
     <div className='formControl' id={name} role='group'>
-      <label className={'label'}>{label}</label>
+      <label htmlFor={input.name} className={'label'}>
+        {label}
+      </label>
       <Input
+        aria-label={`${label}`}
         type={type}
-        role={type}
         name={input.name}
         disabled={disabled}
         ref={input.ref}

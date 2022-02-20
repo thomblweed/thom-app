@@ -20,7 +20,7 @@ const renderWithAuthProvider = (element: JSX.Element, user: User) => {
     signin: jest.fn(),
     signout: jest.fn(),
     user,
-    userStatus: Status.INITIAL,
+    userStatus: Status.LOADING,
     getUser: jest.fn()
   };
   return render(
@@ -74,7 +74,9 @@ describe('when the user id is empty', () => {
     it('should render the email address input within the first group div', () => {
       const emailFormControl: HTMLElement =
         within(form).getAllByRole('group')[0];
-      const emailInput = within(emailFormControl).getByRole('email');
+      const emailInput = within(emailFormControl).getByRole('textbox', {
+        name: 'Email Address'
+      });
       expect(emailInput).toBeInTheDocument();
     });
 
@@ -88,14 +90,15 @@ describe('when the user id is empty', () => {
     it('should render the password input within the second group div', () => {
       const passwordFormControl: HTMLElement =
         within(form).getAllByRole('group')[1];
-      const passwordInput = within(passwordFormControl).getByRole('password');
+      const passwordInput =
+        within(passwordFormControl).getByLabelText('Password');
       expect(passwordInput).toBeInTheDocument();
     });
 
     it('should render the login button input within the form', () => {
-      const loginButton = within(form).getByRole('submit');
+      const loginButton = within(form).getByRole('button');
       expect(loginButton).toBeInTheDocument();
-      expect(loginButton.textContent).toBe('Login');
+      expect(within(loginButton).getByRole('progressbar')).toBeInTheDocument();
     });
   });
 });

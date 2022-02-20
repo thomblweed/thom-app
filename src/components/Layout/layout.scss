@@ -13,11 +13,27 @@ html {
 
 body {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-family: 'Thom', monospace, 'Arial', sans-serif;
   font-weight: 400;
-  line-height: 1.43;
+  line-height: 1.5;
   letter-spacing: 0.01071em;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
 }
 
 *,

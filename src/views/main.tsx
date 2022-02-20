@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
-import { Status } from '../hooks/useAxios';
 
+import { Status } from '../hooks/useAxios';
 import { AuthContext } from '../state/authProvider';
 
 const Main = (): JSX.Element => {
@@ -12,19 +12,19 @@ const Main = (): JSX.Element => {
 
   return (
     <Container data-testid='main-view' size='large'>
-      <ContentLoading
-        loading={loading}
-        loadingSchema={[
-          {
-            lines: [
-              { width: '25%', id: 'line1' },
-              { width: '25%', id: 'line2' }
-            ],
-            buttons: [{ id: 'button1' }]
-          }
-        ]}
-      />
-      {loading ? null : (
+      {loading ? (
+        <ContentLoading
+          loadingSchema={[
+            {
+              lines: [
+                { width: '25%', id: 'line1' },
+                { width: '25%', id: 'line2' }
+              ],
+              buttons: [{ id: 'button1' }]
+            }
+          ]}
+        />
+      ) : (
         <>
           <h1>thom app</h1>
           <p>Welcome {authenticated ? user.email : 'Guest'}</p>

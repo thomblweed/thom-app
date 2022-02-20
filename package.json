@@ -14,7 +14,8 @@
     "deps:restart": "npm run deps:down && npm run deps:up",
     "clean": "scripts/clean.sh",
     "compile": "tsc",
-    "lint": "eslint --ignore-pattern esbuild* --ignore-path .gitignore ."
+    "lint": "eslint --ignore-pattern esbuild* --ignore-path .gitignore .",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,7 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.1",
     "react-router-dom": "^6.2.1",
-    "thom-components": "^0.0.29"
+    "thom-components": "^0.0.31"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
@@ -63,6 +64,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-testing-library": "^5.0.5",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "sass": "^1.49.8",
     "thom-dev-server": "^1.0.0",

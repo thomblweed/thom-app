@@ -14,4 +14,4 @@ const Layout: FC<Layout> = ({ children }): JSX.Element => (
   </div>
 );
 
-export default Layout;
+export { Layout };
