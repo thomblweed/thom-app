@@ -15,7 +15,7 @@ serve(
     define: { 'process.env.NODE_ENV': '"development"' },
     plugins: [sassPlugin()],
     loader: {
-      '.woff2': 'dataurl'
+      '.woff': 'dataurl'
     }
   }
 )

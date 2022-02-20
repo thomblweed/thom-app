@@ -9,7 +9,7 @@ build({
   define: { 'process.env.NODE_ENV': '"production"' },
   plugins: [sassPlugin()],
   loader: {
-    '.woff2': 'dataurl'
+    '.woff': 'dataurl'
   }
 }).catch((error) => {
   console.log(`build error ::>>`, error);

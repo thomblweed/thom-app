@@ -7,7 +7,7 @@ import { emptyUser } from '../interfaces/user';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
   user: emptyUser,
-  userStatus: Status.INITIAL,
+  userStatus: Status.LOADING,
   signin: () => {},
   signout: () => {},
   getUser: () => {}

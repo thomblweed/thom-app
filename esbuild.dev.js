@@ -30,7 +30,7 @@ const buildOptions = {
     }
   },
   loader: {
-    '.woff2': 'dataurl'
+    '.woff': 'dataurl'
   }
 };
 
