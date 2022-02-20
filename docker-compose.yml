@@ -9,8 +9,7 @@ services:
     environment:
       - MONGO_HOST=mongo-auth
       - SEED=true
-    depends_on:
-      - 'mongo-auth' # this doesn't work enough, sometimes container needs a restart with docker restart <container_id>
+    restart: on-failure
   mongo-auth:
     image: mongo
     environment:
