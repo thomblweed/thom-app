@@ -29,11 +29,7 @@ const Main = (): JSX.Element => {
           <h1>thom app</h1>
           <p>Welcome {authenticated ? user.email : 'Guest'}</p>
           {authenticated ? (
-            <Button
-              label='Logout'
-              data-testid='logout-button'
-              onClick={() => signout()}
-            />
+            <Button label='Logout' onClick={() => signout()} />
           ) : (
             <Link to={'/login'}>Sign In</Link>
           )}
