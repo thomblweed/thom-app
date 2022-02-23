@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  up:
+    cmds:
+      - npm run deps:up
+      - npm run dev
+
+  down:
+    cmds:
+      - npm run deps:down
