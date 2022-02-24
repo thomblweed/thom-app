@@ -15,8 +15,8 @@ const Login = (): JSX.Element => {
   const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
 
   useEffect(() => {
-    user.id && navigate('/');
-  }, [user.id, navigate]);
+    user && navigate('/');
+  }, [user, navigate]);
 
   return (
     <Container data-testid='login-container' size='small'>

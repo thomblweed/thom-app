@@ -3,10 +3,9 @@ import React, { Context, createContext, FC } from 'react';
 
 import { Auth, useAuth } from '../hooks/useAuth';
 import { Status } from '../hooks/useAxios';
-import { emptyUser } from '../interfaces/user';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
-  user: emptyUser,
+  user: null,
   userStatus: Status.LOADING,
   signin: () => {},
   signout: () => {},

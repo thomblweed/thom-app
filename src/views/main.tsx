@@ -7,12 +7,12 @@ import { AuthContext } from '../state/authProvider';
 
 const Main = (): JSX.Element => {
   const { user, userStatus, signout } = useContext(AuthContext);
-  const loading = userStatus === Status.LOADING;
-  const authenticated = user.id;
+  const authenticating = userStatus === Status.LOADING;
+  const authenticated = user;
 
   return (
     <Container data-testid='main-view' size='large'>
-      {loading ? (
+      {authenticating ? (
         <ContentLoading
           loadingSchema={[
             {

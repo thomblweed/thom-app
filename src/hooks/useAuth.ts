@@ -1,11 +1,11 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Credentials } from '../interfaces/credentials';
-import { emptyUser, User } from '../interfaces/user';
+import { User } from '../interfaces/user';
 
 import { useAxios, Status } from './useAxios';
 
 interface Auth {
-  user: User;
+  user: User | null;
   userStatus: Status;
   signin: (data: Credentials) => void;
   signout: () => void;
@@ -15,7 +15,7 @@ interface Auth {
 const statusNotLoading = (status: Status) => status !== Status.LOADING;
 
 const useAuth = (): Auth => {
-  const [user, setUser] = useState<User>(emptyUser);
+  const [user, setUser] = useState<User | null>(null);
   const [userStatus, setUserStatus] = useState<Status>(Status.LOADING);
   const [{ axiosResponse: userResponse, status }, getUser] = useAxios(
     '/api/users/currentuser',
@@ -42,7 +42,7 @@ const useAuth = (): Auth => {
     userResponse && setUser(userResponse.data as User);
   }, [userResponse]);
   useEffect(() => {
-    logoutResponse && setUser(emptyUser);
+    logoutResponse && setUser(null);
   }, [logoutResponse]);
 
   return useMemo(
