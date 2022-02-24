@@ -2,7 +2,7 @@
   "name": "thom-app",
   "version": "0.0.1",
   "description": "app for demoing tech learnings",
-  "main": "index.js",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "npm run clean && node ./esbuild.dev.js",
