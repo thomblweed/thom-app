@@ -1,10 +1,12 @@
-interface Config {
-  [key: string]: {
+type Environment = 'development' | 'test' | 'production';
+
+type Config = {
+  [key in Environment]: {
     api: {
       baseUrl: string;
     };
   };
-}
+};
 
 const config: Config = {
   development: {
@@ -16,7 +18,13 @@ const config: Config = {
     api: {
       baseUrl: 'http://testurl'
     }
+  },
+  production: {
+    api: {
+      baseUrl: 'http://testurl'
+    }
   }
 };
 
-export { config, Config };
+export type { Config, Environment };
+export { config };

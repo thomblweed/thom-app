@@ -1,11 +1,9 @@
+import { Role } from './role';
+
 interface User {
   id: string;
   email: string;
+  role: Role;
 }
 
-const emptyUser: User = {
-  id: '',
-  email: ''
-};
-
-export { User, emptyUser };
+export { User };

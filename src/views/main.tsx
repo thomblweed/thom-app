@@ -1,44 +1,35 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
-import { Status } from '../hooks/useAxios';
 
+import { Status } from '../hooks/useAxios';
 import { AuthContext } from '../state/authProvider';
 
 const Main = (): JSX.Element => {
-  const { user, userStatus, signout, getUser } = useContext(AuthContext);
-  const isLoading =
-    userStatus === Status.LOADING || userStatus === Status.INITIAL;
-  const authenticated = user.id;
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
+  const { user, userStatus, signout } = useContext(AuthContext);
+  const authenticating = userStatus === Status.LOADING;
+  const authenticated = user;
 
   return (
     <Container data-testid='main-view' size='large'>
-      <ContentLoading
-        loading={isLoading}
-        loadingSchema={[
-          {
-            lines: [
-              { width: '25%', id: 'line1' },
-              { width: '25%', id: 'line2' }
-            ],
-            buttons: [{ id: 'button1' }]
-          }
-        ]}
-      />
-      {isLoading ? null : (
+      {authenticating ? (
+        <ContentLoading
+          loadingSchema={[
+            {
+              lines: [
+                { width: '25%', id: 'line1' },
+                { width: '25%', id: 'line2' }
+              ],
+              buttons: [{ id: 'button1' }]
+            }
+          ]}
+        />
+      ) : (
         <>
           <h1>thom app</h1>
           <p>Welcome {authenticated ? user.email : 'Guest'}</p>
           {authenticated ? (
-            <Button
-              label='Logout'
-              data-testid='logout-button'
-              onClick={() => signout()}
-            />
+            <Button label='Logout' onClick={() => signout()} />
           ) : (
             <Link to={'/login'}>Sign In</Link>
           )}

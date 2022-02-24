@@ -44,7 +44,6 @@ const Form = <T,>({
             loading={formSubmitting}
             disabled={formSubmitting}
             type={button.type}
-            role={button.type}
           />
         ))}
       </form>
@@ -52,4 +51,4 @@ const Form = <T,>({
   );
 };
 
-export default Form;
+export { Form };

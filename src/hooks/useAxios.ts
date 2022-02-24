@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosResponse, Method } from 'axios';
 
-import { config } from '../config';
+import { config, Environment } from '../config';
 
-const env: string = process.env.NODE_ENV || 'development';
+const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
 const baseUrl: string = config[env].api.baseUrl;
 
-export enum Status {
-  INITIAL,
-  LOADING,
-  DONE,
-  ERROR
+export const enum Status {
+  LOADING = 'LOADING',
+  DONE = 'DONE',
+  ERROR = 'ERROR'
 }
 
 interface Response {
@@ -27,18 +26,17 @@ const useAxios = <T>(
 ): Axios<T> => {
   const [axiosState, setAxiosState] = useState<Response>({
     axiosResponse: null,
-    status: Status.INITIAL
+    status: Status.LOADING
   });
 
   const callAxios = useCallback(
     async (data?: T) => {
       try {
-        setAxiosState((state) => ({ ...state, status: Status.LOADING }));
         const res = await axios({
           method: type,
           url: new URL(relativeUrl, baseUrl).toString(),
           withCredentials: true,
-          ...(data && { data: data })
+          ...(data && { data })
         });
         setAxiosState({ axiosResponse: res, status: Status.DONE });
       } catch (error) {

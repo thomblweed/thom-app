@@ -3,17 +3,20 @@ import { sassPlugin } from 'esbuild-sass-plugin';
 
 serve(
   {
-    servedir: 'www',
+    servedir: 'public',
     port: 1234
   },
   {
     entryPoints: ['src/index.tsx'],
-    outdir: 'www/js',
+    outdir: 'public/',
     bundle: true,
     minify: true,
     sourcemap: true,
     define: { 'process.env.NODE_ENV': '"development"' },
-    plugins: [sassPlugin()]
+    plugins: [sassPlugin()],
+    loader: {
+      '.woff': 'dataurl'
+    }
   }
 )
   .then((server) => {

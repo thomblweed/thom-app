@@ -13,7 +13,7 @@ const devBuild = async (buildOptions) => {
 
 const buildOptions = {
   entryPoints: ['src/index.tsx'],
-  outdir: 'www/',
+  outdir: 'public/',
   bundle: true,
   minify: true,
   define: { 'process.env.NODE_ENV': '"development"' },
@@ -28,12 +28,15 @@ const buildOptions = {
       console.info(`watch rebuild result ::`, result);
       refresh();
     }
+  },
+  loader: {
+    '.woff': 'dataurl'
   }
 };
 
 const serverOptions = {
-  port: 2000,
-  root: 'www',
+  port: 1234,
+  root: 'public',
   rootFilename: 'index.html'
 };
 

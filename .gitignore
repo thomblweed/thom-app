@@ -1,10 +1,8 @@
 node_modules
-www/*.css*
-www/*.js*
+public/*.css*
+public/*.js*
 .env
 
-# parcel
-.parcel-cache
 dist
 serve
 build

@@ -1,8 +1,8 @@
-// @font-face {
-//   font-family: 'Thom';
-//   src: url('../fonts/DankMono-Regular.woff2');
-// }
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+@font-face {
+  font-family: 'Thom';
+  src: url('../../assets/fonts/roboto-mono-v13-latin-regular.woff')
+    format('woff');
+}
 
 html {
   -webkit-box-sizing: border-box;
@@ -13,11 +13,27 @@ html {
 
 body {
   margin: 0;
-  font-size: 0.875rem;
-  font-family: 'Ubuntu Mono', monospace, 'Arial', sans-serif;
+  font-size: 1rem;
+  font-family: 'Thom', monospace, 'Arial', sans-serif;
   font-weight: 400;
-  line-height: 1.43;
+  line-height: 1.5;
   letter-spacing: 0.01071em;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
 }
 
 *,
