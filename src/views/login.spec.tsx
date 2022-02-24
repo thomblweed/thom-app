@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 
 import Login from './login';
-import { emptyUser, User } from '../interfaces/user';
+import { User } from '../interfaces/user';
 import { AuthContext } from '../state/authProvider';
 import { Auth } from '../hooks/useAuth';
 import { Status } from '../hooks/useAxios';
@@ -15,7 +15,7 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedNavigator
 }));
 
-const renderWithAuthProvider = (element: JSX.Element, user: User) => {
+const renderWithAuthProvider = (element: JSX.Element, user: User | null) => {
   const auth: Auth = {
     signin: jest.fn(),
     signout: jest.fn(),
@@ -28,10 +28,10 @@ const renderWithAuthProvider = (element: JSX.Element, user: User) => {
   );
 };
 
-describe('when the user id is empty', () => {
+describe('when the user is null', () => {
   let container: HTMLElement;
   beforeEach(async () => {
-    renderWithAuthProvider(<Login />, emptyUser);
+    renderWithAuthProvider(<Login />, null);
     container = await screen.findByTestId('login-container');
   });
 
@@ -103,10 +103,11 @@ describe('when the user id is empty', () => {
   });
 });
 
-describe('when the user id is populated', () => {
+describe('when the user is populated', () => {
   const user: User = {
     email: 'some@email.com',
-    id: 'aUserId'
+    id: 'aUserId',
+    role: 'admin'
   };
   beforeEach(() => {
     renderWithAuthProvider(<Login />, user);
