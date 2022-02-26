@@ -4,7 +4,7 @@ import axios, { AxiosResponse, Method } from 'axios';
 import { config, Environment } from '../config';
 
 const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
-const baseUrl: string = config[env].api.baseUrl;
+const baseUrl: string = config[env].api.auth.baseUrl;
 
 export const enum Status {
   LOADING = 'LOADING',

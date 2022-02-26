@@ -6,7 +6,6 @@ tasks:
   up:
     cmds:
       - npm run deps:up
-      - npm run dev
 
   down:
     cmds:

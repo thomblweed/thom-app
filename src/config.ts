@@ -3,7 +3,9 @@ type Environment = 'development' | 'test' | 'production';
 type Config = {
   [key in Environment]: {
     api: {
-      baseUrl: string;
+      auth: {
+        baseUrl: string;
+      };
     };
   };
 };
@@ -11,17 +13,23 @@ type Config = {
 const config: Config = {
   development: {
     api: {
-      baseUrl: 'http://localhost:3001'
+      auth: {
+        baseUrl: 'http://localhost:3001'
+      }
     }
   },
   test: {
     api: {
-      baseUrl: 'http://testurl'
+      auth: {
+        baseUrl: 'http://testurl'
+      }
     }
   },
   production: {
     api: {
-      baseUrl: 'http://testurl'
+      auth: {
+        baseUrl: 'http://testurl'
+      }
     }
   }
 };
