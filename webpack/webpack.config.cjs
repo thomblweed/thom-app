@@ -3,32 +3,30 @@ const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.NODE_ENV ?? 'development', // value should be either 'development' or 'production'
   entry: {
     // entry point of the application, what are the files that will start he project
-    main: path.resolve(__dirname, './src/index.tsx')
+    index: path.resolve(__dirname, '../src/index.tsx')
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, '../public'),
     // [name] looks at the entry point and determines the name of the output file i.e. main
     filename: '[name].[contenthash].js',
-    assetModuleFilename: '[name][ext]' // asset files will be named e.g. photo.jpg
+    assetModuleFilename: '[name][ext]', // asset files will be named e.g. photo.jpg
+    clean: true, // clean the output directory before building
+    publicPath: '/'
   },
-  // source map
   devtool: 'inline-source-map',
-  // dev server options/settings
   devServer: {
-    contentBase: path.resolve(__dirname, 'public'), // location for the files to be served from
+    historyApiFallback: true,
     port: 1234, // port to run the server on
     open: true, // open the browser automatically
-    hot: true, // hot module reloading, watches for changes in the src folder
-    watchContentBase: true // same as hot but also watches the contentBase folder for changes
+    hot: true // hot module reloading, watches for changes in the src folder
   },
   // loaders
   module: {
     rules: [
       {
-        test: /\.(tsx|ts)$/,
+        test: /\.tsx?$/,
         loader: 'esbuild-loader',
         options: {
           loader: 'tsx',
@@ -42,7 +40,7 @@ module.exports = {
       },
       {
         // built in to webpack V5, asset resource loader
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif|woff)$/,
         type: 'asset/resource'
       }
     ]
@@ -50,11 +48,12 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx']
   },
-  // plugins
   plugins: [
     new HTMLWebpackPlugin({
       filename: 'index.html',
-      title: 'thom app'
+      title: 'thom app',
+      inject: 'body',
+      template: path.resolve(__dirname, './template/index.html')
     })
   ],
   optimization: {
