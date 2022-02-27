@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('../../assets/fonts/roboto-mono-v13-latin-regular.woff')
+    format('woff');
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-size: 1rem;
+  font-family: 'Roboto Mono', monospace, 'Arial', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01071em;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+.root {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  .main {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: auto;
+    height: 100%;
+  }
+}
