@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 
-import Login from './login';
+import Login from './Login';
 import { User } from '../../interfaces/user';
 import { AuthContext } from './state/authProvider';
 import { Auth } from './hooks/useAuth';

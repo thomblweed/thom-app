@@ -1,7 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'thom-components';
 
-// import { AuthProvider } from './features/login/state/authProvider';
+// import { AuthProvider } from 'login/AuthProvider';
+
 import { Layout } from './components/Layout';
 import Router from './router';
 

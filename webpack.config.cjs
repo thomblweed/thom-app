@@ -1,11 +1,16 @@
 const path = require('path');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+const mode = process.env.NODE_ENV || 'deveklopment';
 
 module.exports = {
+  mode,
   entry: {
     // entry point of the application, what are the files that will start he project
-    index: path.resolve(__dirname, '../src/index.tsx')
+    index: path.resolve(__dirname, '../src/index.tsx'),
+    login: path.resolve(__dirname, '../src/features/login/login.tsx')
   },
   output: {
     path: path.resolve(__dirname, '../public'),
@@ -54,6 +59,17 @@ module.exports = {
       title: 'thom app',
       inject: 'body',
       template: path.resolve(__dirname, './template/index.html')
+    }),
+    new ModuleFederationPlugin({
+      name: 'login',
+      filename: 'remoteEntry.js',
+      remotes: {
+        index: 'index'
+      },
+      exposes: {
+        Login: './src/features/login/login.tsx'
+      },
+      shared: ['react', 'react-dom']
     })
   ],
   optimization: {

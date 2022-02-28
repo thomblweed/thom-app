@@ -5,15 +5,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "webpack serve --config ./webpack/webpack.config.cjs --mode development",
-    "build:dev": "webpack --config ./webpack/webpack.config.cjs --mode development",
+    "dev": "NODE_ENV=development webpack serve --config ./webpack/webpack.config.cjs --mode development",
+    "build:dev": "NODE_ENV=development webpack --config ./webpack/webpack.config.cjs",
     "test": "jest",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
     "deps:restart": "npm run deps:down && npm run deps:up",
     "clean": "scripts/clean.sh",
     "compile": "tsc",
-    "lint": "eslint --ignore-pattern esbuild* --ignore-path .gitignore .",
+    "lint": "eslint --ignore-pattern webpack* --ignore-path .gitignore .",
     "prepare": "husky install"
   },
   "repository": {
@@ -56,7 +56,6 @@
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
-    "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "esbuild-loader": "^2.18.0",
     "eslint": "8.9.0",

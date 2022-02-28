@@ -1,17 +1,19 @@
 const path = require('path');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-// const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 const mode = process.env.NODE_ENV || 'development';
+const deps = require('./package.json').dependencies;
 
 module.exports = {
   mode,
   entry: {
-    main: path.resolve(__dirname, './src/index.tsx')
+    index: path.resolve(__dirname, './src/index.tsx')
   },
   output: {
-    publicPath: 'auto'
+    // publicPath: 'auto'
+    publicPath: 'http://localhost:2000/'
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -50,18 +52,37 @@ module.exports = {
       title: 'thom app',
       inject: 'body',
       template: path.resolve(__dirname, './template/index.html')
+    }),
+    new ModuleFederationPlugin({
+      name: 'main',
+      filename: 'remoteEntry.js',
+      remotes: {
+        login: 'login@http://localhost:2001/remoteEntry.js'
+      },
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: deps['react-dom']
+        },
+        'react-router-dom': {
+          singleton: true,
+          requiredVersion: deps['react-router-dom']
+        },
+        axios: {
+          singleton: true,
+          requiredVersion: deps.axios
+        },
+        'thom-components': {
+          singleton: true,
+          requiredVersion: deps['thom-components']
+        }
+      }
     })
-    // new ModuleFederationPlugin({
-    //   name: 'login',
-    //   filename: 'remoteEntry.js',
-    //   remotes: {
-    //     index: 'index'
-    //   },
-    //   exposes: {
-    //     Login: './src/features/login/login.tsx'
-    //   },
-    //   shared: ['react', 'react-dom']
-    // })
   ],
   optimization: {
     minimizer: [
