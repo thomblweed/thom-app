@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Container } from 'thom-components';
 
 import { Form } from './components/Form';
@@ -8,7 +8,9 @@ import { Credentials } from './interfaces/credentials';
 import { loginSchema } from './schema/loginSchema';
 import { Status } from './enums/status.enum';
 
-const Login = (): JSX.Element => {
+import type { Login } from 'shared';
+
+const Login: Login = (): JSX.Element => {
   const { userStatus, signin }: Auth = useContext<Auth>(AuthContext);
 
   return (

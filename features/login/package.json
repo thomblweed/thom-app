@@ -4,7 +4,8 @@
   "description": "login feature",
   "scripts": {
     "dev": "NODE_ENV=development webpack serve",
-    "build:dev": "NODE_ENV=development webpack"
+    "build:dev": "NODE_ENV=development webpack",
+    "ts:defs": "tsc --declaration --outDir @types --emitDeclarationOnly"
   },
   "dependencies": {
     "axios": "^0.26.0",

@@ -1,0 +1,17 @@
+{
+  "name": "shared",
+  "description": "shared stuff",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "tsc --outDir dist",
+    "ts:defs": "tsc --declaration --outDir dist --emitDeclarationOnly"
+  },
+  "dependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/react": "^17.0.39",
+    "typescript": "^4.5.5"
+  }
+}

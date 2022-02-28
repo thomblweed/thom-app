@@ -3,6 +3,5 @@ public/*.css*
 public/*.js*
 .env
 
-dist
 serve
 build
