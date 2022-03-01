@@ -1,3 +1,3 @@
-import type { Login } from 'shared';
+import type { LoginFeature } from 'shared';
 
-export const Login: FC<Login> = () => JSX.Element;
+export const Login: FC<LoginFeature> = () => JSX.Element;

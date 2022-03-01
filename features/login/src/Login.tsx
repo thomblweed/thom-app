@@ -8,9 +8,9 @@ import { Credentials } from './interfaces/credentials';
 import { loginSchema } from './schema/loginSchema';
 import { Status } from './enums/status.enum';
 
-import type { Login } from 'shared';
+import type { LoginFeature } from 'shared';
 
-const Login: Login = (): JSX.Element => {
+const Login: LoginFeature = (): JSX.Element => {
   const { userStatus, signin }: Auth = useContext<Auth>(AuthContext);
 
   return (

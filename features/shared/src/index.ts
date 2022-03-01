@@ -1,3 +1,3 @@
 import 'react';
 
-export type Login = () => JSX.Element;
+export type LoginFeature = () => JSX.Element;

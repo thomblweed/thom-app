@@ -53,7 +53,8 @@ module.exports = {
       filename: 'remoteEntry.js',
       remotes: {},
       exposes: {
-        './Login': './src/Login.tsx'
+        './Login': './src/Login.tsx',
+        './AuthProvider': './src/state/authProvider.tsx'
       },
       shared: {
         ...deps,
@@ -64,10 +65,6 @@ module.exports = {
         'react-dom': {
           singleton: true,
           requiredVersion: deps['react-dom']
-        },
-        'react-router-dom': {
-          singleton: true,
-          requiredVersion: deps['react-router-dom']
         },
         axios: {
           singleton: true,

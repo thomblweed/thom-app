@@ -1,2 +1,2 @@
 import 'react';
-export declare type Login = () => JSX.Element;
+export declare type LoginFeature = () => JSX.Element;

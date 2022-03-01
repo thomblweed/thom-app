@@ -69,10 +69,6 @@ module.exports = {
           singleton: true,
           requiredVersion: deps['react-dom']
         },
-        'react-router-dom': {
-          singleton: true,
-          requiredVersion: deps['react-router-dom']
-        },
         axios: {
           singleton: true,
           requiredVersion: deps.axios
