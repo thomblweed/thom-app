@@ -1,4 +1,5 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Container } from 'thom-components';
 
 import { Form } from './components/Form';
@@ -11,7 +12,12 @@ import { Status } from './enums/status.enum';
 import type { LoginFeature } from 'shared';
 
 const Login: LoginFeature = (): JSX.Element => {
-  const { userStatus, signin }: Auth = useContext<Auth>(AuthContext);
+  const navigate: NavigateFunction = useNavigate();
+  const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
+
+  useEffect(() => {
+    user && navigate('/');
+  }, [user, navigate]);
 
   return (
     <Container data-testid='login-container' size='small'>
