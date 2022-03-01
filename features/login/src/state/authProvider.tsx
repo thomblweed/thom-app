@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { Context, createContext, FC } from 'react';
-import { Status } from '../enums/status.enum';
 
+import { AuthProviderState } from 'shared';
+
+import { Status } from '../enums/status.enum';
 import { Auth, useAuth } from '../hooks/useAuth';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
@@ -12,7 +14,7 @@ export const AuthContext: Context<Auth> = createContext<Auth>({
   getUser: () => {}
 });
 
-const AuthProvider: FC = ({ children }) => {
+const AuthProvider: AuthProviderState = ({ children }) => {
   const auth: Auth = useAuth();
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };

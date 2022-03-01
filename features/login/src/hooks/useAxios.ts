@@ -7,25 +7,28 @@ import { Status } from '../enums/status.enum';
 const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
 const baseUrl: string = config[env].api.auth.baseUrl;
 
-interface Response {
-  axiosResponse: AxiosResponse<unknown> | null;
+interface Response<ResponseType> {
+  axiosResponse: AxiosResponse<ResponseType> | null;
   status: Status;
 }
 
-type Axios<T> = [Response, (data?: T) => void];
+type Axios<DataType, ResponseType> = [
+  Response<ResponseType>,
+  (data?: DataType) => void
+];
 
-const useAxios = <T>(
+const useAxios = <DataType, ResponseType>(
   relativeUrl: string,
   type: Method,
   manual?: boolean
-): Axios<T> => {
-  const [axiosState, setAxiosState] = useState<Response>({
+): Axios<DataType, ResponseType> => {
+  const [axiosState, setAxiosState] = useState<Response<ResponseType>>({
     axiosResponse: null,
     status: Status.LOADING
   });
 
   const callAxios = useCallback(
-    async (data?: T) => {
+    async (data?: DataType) => {
       try {
         const res = await axios({
           method: type,
