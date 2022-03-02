@@ -6,6 +6,12 @@
     "dev": "NODE_ENV=development webpack serve",
     "build:dev": "NODE_ENV=development webpack"
   },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(scss)$": "<rootDir>/jest/styleMock.ts"
+    }
+  },
   "dependencies": {
     "axios": "^0.26.0",
     "react": "^17.0.2",
@@ -15,6 +21,10 @@
     "thom-components": "^0.0.31"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",

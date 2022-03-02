@@ -1,4 +1,5 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import axios, { AxiosResponse } from 'axios';
 import {
   render,
@@ -8,7 +9,7 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import App from './app';
+import { App } from './App';
 import { User } from '../../login/src/interfaces/user';
 
 jest.mock('axios', () => jest.fn());
