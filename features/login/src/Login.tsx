@@ -1,19 +1,18 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Container } from 'thom-components';
 
 import { Form } from './components/Form';
-import { AuthContext } from './state/authProvider';
+import { AuthContext } from './state/AuthContext';
 import { Auth } from './hooks/useAuth';
 import { Credentials } from './interfaces/credentials';
 import { loginSchema } from './schema/loginSchema';
-import { Status } from './enums/status.enum';
 
-import type { LoginFeature } from 'shared';
+import { LoginFeature, Status } from 'shared';
 
 const Login: LoginFeature = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
-  const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
+  const { user, userStatus, signin } = useContext<Auth>(AuthContext);
 
   useEffect(() => {
     user && navigate('/');

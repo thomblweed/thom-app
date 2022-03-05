@@ -1,14 +1,14 @@
 version: '3.9'
 services:
-  thom-app:
-    build:
-      context: .
-      dockerfile: dockerfile
-    volumes:
-      - ./src:/app/src
-    ports:
-      - 1234:1234
-    command: npm run dev
+  # thom-app:
+  #   build:
+  #     context: .
+  #     dockerfile: dockerfile
+  #   volumes:
+  #     - ./src:/app/src
+  #   ports:
+  #     - 1234:1234
+  #   command: npm run dev
   thom-auth:
     image: thomasnewman/thom-auth:0.0.3
     env_file:
@@ -16,7 +16,7 @@ services:
     ports:
       - 3001:3001
     environment:
-      - CORS_ORIGIN=http://localhost:1234
+      - CORS_ORIGIN=http://localhost:2000
       - MONGO_HOST=mongo-auth
       - SEED=true
     restart: on-failure

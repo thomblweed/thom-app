@@ -1,12 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, within } from '@testing-library/react';
+import { Status } from 'shared';
 
 import { Login } from './Login';
 import { User } from './interfaces/user';
-import { AuthContext } from './state/authProvider';
+import { AuthContext } from './state/AuthContext';
 import { Auth } from './hooks/useAuth';
-import { Status } from './enums/status.enum';
 
 const mockedNavigator = jest.fn();
 

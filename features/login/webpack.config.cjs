@@ -54,7 +54,9 @@ module.exports = {
       remotes: {},
       exposes: {
         './Login': './src/Login.tsx',
-        './AuthProvider': './src/state/authProvider.tsx'
+        './AuthProvider': './src/state/AuthProvider.tsx',
+        './AuthContext': './src/state/AuthContext.ts',
+        './Auth': './src/hooks/useAuth.ts'
       },
       shared: {
         ...deps,

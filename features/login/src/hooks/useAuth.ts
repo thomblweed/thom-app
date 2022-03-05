@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
+import { Status } from 'shared';
+
 import { Credentials } from '../interfaces/credentials';
 import { User } from '../interfaces/user';
-
-import { Status } from '../enums/status.enum';
 import { useAxios } from './useAxios';
 
 interface Auth {

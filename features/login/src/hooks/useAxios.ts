@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosResponse, Method } from 'axios';
+import { Status } from 'shared';
 
 import { config, Environment } from '../config';
-import { Status } from '../enums/status.enum';
 
 const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
 const baseUrl: string = config[env].api.auth.baseUrl;
