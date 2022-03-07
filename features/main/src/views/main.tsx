@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
 
-import { Status } from 'shared';
+import { Status, Auth } from 'shared';
 import { AuthContext } from 'login/AuthContext';
 
 const Main = (): JSX.Element => {
-  const { user, userStatus, signout } = useContext(AuthContext);
+  const { user, userStatus, signout } = useContext<Auth>(AuthContext);
   const authenticating = userStatus === Status.LOADING;
   const authenticated = user;
 

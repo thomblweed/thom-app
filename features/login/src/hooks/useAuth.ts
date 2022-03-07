@@ -1,17 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Status } from 'shared';
 
-import { Credentials } from '../interfaces/credentials';
-import { User } from '../interfaces/user';
+import { Auth, Credentials, User } from 'shared';
 import { useAxios } from './useAxios';
-
-interface Auth {
-  user: User | null;
-  userStatus: Status;
-  signin: (data: Credentials) => void;
-  signout: () => void;
-  getUser: () => void;
-}
 
 const statusNotLoading = (status: Status) => status !== Status.LOADING;
 
