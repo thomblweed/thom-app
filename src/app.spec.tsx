@@ -6,10 +6,11 @@ import {
   waitForElementToBeRemoved,
   within
 } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
 import App from './app';
-import { emptyUser, User } from './interfaces/user';
+import { User } from './interfaces/user';
 
 jest.mock('axios', () => jest.fn());
 const mockedAxios = axios as unknown as jest.Mock;
@@ -18,7 +19,7 @@ describe('when user is not logged in', () => {
   let mainViewContainer: HTMLElement;
 
   beforeEach(async () => {
-    mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
+    mockedAxios.mockResolvedValueOnce(axiosResponse<User | null>(null, 404));
     render(<App />);
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     mainViewContainer = screen.getByTestId('main-view');
@@ -52,7 +53,7 @@ describe('when the user navigates to the login view', () => {
   let loginViewContainer: HTMLElement;
 
   beforeEach(async () => {
-    mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
+    mockedAxios.mockResolvedValueOnce(axiosResponse<User | null>(null, 404));
     render(<App />);
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
 
@@ -90,14 +91,17 @@ describe('when the user navigates to the login view', () => {
 
 describe('Can login to main view page', () => {
   beforeEach(async () => {
-    mockedAxios.mockResolvedValueOnce(axiosResponse<User>(emptyUser, 404));
+    mockedAxios.mockResolvedValueOnce(axiosResponse<User | null>(null, 404));
     render(<App />);
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
 
     navigateToLoginView();
     await screen.findByTestId('login-container');
     mockedAxios.mockResolvedValueOnce(
-      axiosResponse<User>({ email: 'thom@test.com', id: 'id value' }, 404)
+      axiosResponse<User>(
+        { email: 'thom@test.com', id: 'id value', role: 'admin' },
+        404
+      )
     );
   });
 
