@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Status } from 'shared';
 
 import { Login } from './Login';
@@ -102,6 +103,12 @@ describe('when the user is null', () => {
       expect(within(loginButton).getByRole('progressbar')).toBeInTheDocument();
     });
   });
+
+  it('should be able to enter username and password', () => {
+    const { emailInput, passwordInput } = enterCredentials();
+    expect(emailInput.value).toBe('thom@test.com');
+    expect(passwordInput.value).toBe('password');
+  });
 });
 
 describe('when the user is populated', () => {
@@ -119,3 +126,16 @@ describe('when the user is populated', () => {
     expect(mockedNavigator).toHaveBeenCalledTimes(1);
   });
 });
+
+const enterCredentials = (): {
+  emailInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+} => {
+  const emailInput = screen.getByRole('textbox', {
+    name: 'Email Address'
+  }) as HTMLInputElement;
+  const passwordInput = screen.getByLabelText('Password') as HTMLInputElement;
+  userEvent.type(emailInput, 'thom@test.com');
+  userEvent.type(passwordInput, 'password');
+  return { emailInput, passwordInput };
+};

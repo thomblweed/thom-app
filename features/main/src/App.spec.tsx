@@ -12,6 +12,10 @@ import userEvent from '@testing-library/user-event';
 import { App } from './App';
 import { User } from 'shared';
 
+jest.mock('login/AuthProvider', () => {}, { virtual: true });
+jest.mock('login/AuthContext', () => {}, { virtual: true });
+jest.mock('login/Login', () => {}, { virtual: true });
+
 jest.mock('axios', () => jest.fn());
 const mockedAxios = axios as unknown as jest.Mock;
 
