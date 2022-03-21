@@ -1,5 +1,6 @@
 {
   "name": "shared",
+  "version": "0.0.1",
   "description": "shared stuff",
   "main": "./dist/index.d.ts",
   "type": "module",
