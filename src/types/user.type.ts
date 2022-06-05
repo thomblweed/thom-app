@@ -1,4 +1,4 @@
-import { Role } from './role';
+import { Role } from './role.type';
 
 interface User {
   id: string;

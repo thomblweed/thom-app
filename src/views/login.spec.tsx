@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import Login from './login';
-import { User } from '../interfaces/user';
+import { User } from '../types/user.type';
 import { AuthContext } from '../state/authProvider';
 import { Auth } from '../hooks/useAuth';
 import { Status } from '../hooks/useAxios';

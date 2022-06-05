@@ -10,7 +10,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
 import App from './app';
-import { User } from './interfaces/user';
+import { User } from './types/user.type';
 
 jest.mock('axios', () => jest.fn());
 const mockedAxios = axios as unknown as jest.Mock;

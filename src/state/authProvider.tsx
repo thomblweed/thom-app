@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { Context, createContext, FC, ReactNode } from 'react';
 
+import { Status } from '../enums/status.enum';
 import { Auth, useAuth } from '../hooks/useAuth';
-import { Status } from '../hooks/useAxios';
 
 export const AuthContext: Context<Auth> = createContext<Auth>({
   user: null,
