@@ -49,7 +49,7 @@ describe('when user is not logged in', () => {
   });
 });
 
-describe('when the user navigates to the login view', () => {
+describe.only('when the user navigates to the login view', () => {
   let loginViewContainer: HTMLElement;
 
   beforeEach(async () => {
