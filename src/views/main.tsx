@@ -3,24 +3,20 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
 
-import { axiosService } from '../service/axios.service';
+import { getCurrentUser, signoutUser } from '../service/user.service';
 import { User } from '../types/user.type';
 
 const Main = (): JSX.Element => {
   const queryClient = useQueryClient();
   const { data: user, isFetching: loadingUser } = useQuery<User>(
     'user',
-    async () => (await axiosService<User>('/api/users/currentuser')).data
+    getCurrentUser
   );
-  const { mutate: signout, isLoading: loggingOut } = useMutation(
-    async () =>
-      (await axiosService<undefined>('/api/users/signout', 'POST')).data,
-    {
-      onSuccess: () => {
-        queryClient.setQueryData('user', null);
-      }
+  const { mutate: signout, isLoading: loggingOut } = useMutation(signoutUser, {
+    onSuccess: () => {
+      queryClient.setQueryData('user', null);
     }
-  );
+  });
 
   return (
     <Container data-testid='main-view' size='large'>

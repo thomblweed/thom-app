@@ -15,6 +15,7 @@ interface Auth {
 
 const statusNotLoading = (status: Status) => status !== Status.LOADING;
 
+// stale code, keeping for reference
 const useAuth = (): Auth => {
   const [user, setUser] = useState<User | null>(null);
   const [userStatus, setUserStatus] = useState<Status>(Status.LOADING);
