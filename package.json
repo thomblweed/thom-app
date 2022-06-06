@@ -1,6 +1,6 @@
 {
   "name": "thom-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "app for demoing tech learnings",
   "private": true,
   "scripts": {
