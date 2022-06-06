@@ -1,9 +1,9 @@
 import { Role } from './role.type';
 
-interface User {
+type User = {
   id: string;
   email: string;
   role: Role;
-}
+};
 
 export { User };
