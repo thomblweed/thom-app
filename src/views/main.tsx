@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
 
@@ -7,19 +7,25 @@ import { axiosService } from '../service/axios.service';
 import { User } from '../types/user.type';
 
 const Main = (): JSX.Element => {
-  const { data: user, isLoading } = useQuery<User>(
+  const queryClient = useQueryClient();
+  const { data: user, isFetching: loadingUser } = useQuery<User>(
     'user',
     async () => (await axiosService<User>('/api/users/currentuser')).data
   );
-  const { mutate: signout } = useMutation(async () => {
-    await axiosService<undefined>('/api/users/signout', 'POST');
-  });
-  console.log('user', user);
+  const { mutate: signout, isLoading: loggingOut } = useMutation(
+    async () =>
+      (await axiosService<undefined>('/api/users/signout', 'POST')).data,
+    {
+      onSuccess: () => {
+        queryClient.setQueryData('user', null);
+      }
+    }
+  );
 
   return (
     <Container data-testid='main-view' size='large'>
       <h1>thom app</h1>
-      {isLoading ? (
+      {loadingUser || loggingOut ? (
         <ContentLoading
           loadingSchema={[
             {
