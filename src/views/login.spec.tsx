@@ -1,44 +1,46 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import {
+  act,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+  within
+} from '@testing-library/react';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 
+import * as UserService from '../service/user.service';
 import Login from './login';
-import { User } from '../types/user.type';
-import { AuthContext } from '../state/authProvider';
-import { Auth } from '../hooks/useAuth';
-import { Status } from '../hooks/useAxios';
+
+const spySigninUser = jest.spyOn(UserService, 'singinUser');
 
 const mockedNavigator = jest.fn();
-
 jest.mock('react-router-dom', () => ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...(jest.requireActual('react-router-dom') as any),
   useNavigate: () => mockedNavigator
 }));
 
-const renderWithAuthProvider = (element: JSX.Element, user: User | null) => {
-  const auth: Auth = {
-    signin: jest.fn(),
-    signout: jest.fn(),
-    user,
-    userStatus: Status.LOADING,
-    getUser: jest.fn()
-  };
-  return render(
-    <AuthContext.Provider value={auth}>{element}</AuthContext.Provider>
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: false
+    }
+  }
+});
+const renderWithQueryClientProvider = (element: JSX.Element) =>
+  render(
+    <QueryClientProvider client={queryClient}>{element}</QueryClientProvider>
   );
-};
 
-describe('when the user is null', () => {
+describe('when the Login component is rendered', () => {
   let container: HTMLElement;
   beforeEach(async () => {
-    renderWithAuthProvider(<Login />, null);
+    renderWithQueryClientProvider(<Login />);
     container = await screen.findByTestId('login-container');
-  });
-
-  it('should NOT call useNavigate once with "/"', () => {
-    expect(mockedNavigator).not.toHaveBeenCalledWith('/');
-    expect(mockedNavigator).toHaveBeenCalledTimes(0);
   });
 
   it('should render the Container div', () => {
@@ -99,22 +101,30 @@ describe('when the user is null', () => {
     it('should render the login button input within the form', () => {
       const loginButton = within(form).getByRole('button');
       expect(loginButton).toBeInTheDocument();
-      expect(within(loginButton).getByRole('progressbar')).toBeInTheDocument();
     });
   });
 });
 
-describe('when the user is populated', () => {
-  const user: User = {
-    email: 'some@email.com',
-    id: 'aUserId',
-    role: 'admin'
-  };
-  beforeEach(() => {
-    renderWithAuthProvider(<Login />, user);
+describe('When User signs in successfully', () => {
+  beforeEach(async () => {
+    spySigninUser.mockResolvedValue({
+      email: 'some@email.com',
+      id: 'aUserId',
+      role: 'admin'
+    });
+    renderWithQueryClientProvider(<Login />);
+    await userEvent.type(
+      screen.getByRole('textbox', {
+        name: 'Email Address'
+      }),
+      'test@testing.com'
+    );
+    await userEvent.type(screen.getByLabelText('Password'), 'cheese');
+    await userEvent.click(screen.getByRole('button'));
   });
+  afterEach(jest.clearAllMocks);
 
-  it('should call useNavigate once with "/"', () => {
+  it('should call useNavigate once with "/"', async () => {
     expect(mockedNavigator).toHaveBeenCalledWith('/');
     expect(mockedNavigator).toHaveBeenCalledTimes(1);
   });
