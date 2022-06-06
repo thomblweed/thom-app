@@ -1,12 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import {
-  act,
-  render,
-  screen,
-  waitForElementToBeRemoved,
-  within
-} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -102,10 +96,16 @@ describe('when the Login component is rendered', () => {
       const loginButton = within(form).getByRole('button');
       expect(loginButton).toBeInTheDocument();
     });
+
+    test('user should be able to enter username and password', async () => {
+      const { emailInput, passwordInput } = await enterCredentials();
+      expect(emailInput.value).toBe('thom@test.com');
+      expect(passwordInput.value).toBe('password');
+    });
   });
 });
 
-describe('When User signs in successfully', () => {
+describe('When user signs in successfully', () => {
   beforeEach(async () => {
     spySigninUser.mockResolvedValue({
       email: 'some@email.com',
@@ -113,14 +113,7 @@ describe('When User signs in successfully', () => {
       role: 'admin'
     });
     renderWithQueryClientProvider(<Login />);
-    await userEvent.type(
-      screen.getByRole('textbox', {
-        name: 'Email Address'
-      }),
-      'test@testing.com'
-    );
-    await userEvent.type(screen.getByLabelText('Password'), 'cheese');
-    await userEvent.click(screen.getByRole('button'));
+    await login();
   });
   afterEach(jest.clearAllMocks);
 
@@ -129,3 +122,22 @@ describe('When User signs in successfully', () => {
     expect(mockedNavigator).toHaveBeenCalledTimes(1);
   });
 });
+
+const enterCredentials = async (): Promise<{
+  emailInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+}> => {
+  const emailInput = screen.getByRole('textbox', {
+    name: 'Email Address'
+  }) as HTMLInputElement;
+  const passwordInput = screen.getByLabelText('Password') as HTMLInputElement;
+  await userEvent.type(emailInput, 'thom@test.com');
+  await userEvent.type(passwordInput, 'password');
+  return { emailInput, passwordInput };
+};
+
+const login = async (): Promise<void> => {
+  await enterCredentials();
+  const loginButton = screen.getByText('Login');
+  await userEvent.click(loginButton);
+};

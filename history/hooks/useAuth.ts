@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 
-import { Status } from '../enums/status.enum';
-import { Credentials } from '../types/credentials.type';
-import { User } from '../types/user.type';
-import { useAxios } from './useAxios';
+import { Status } from '../../src/enums/status.enum';
+import { Credentials } from '../../src/types/credentials.type';
+import { User } from '../../src/types/user.type';
+import { useAxios } from '../../src/hooks/useAxios';
 
 interface Auth {
   user: User | null;
