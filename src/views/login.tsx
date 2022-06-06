@@ -1,29 +1,32 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateFunction } from 'react-router';
+import { useMutation, useQueryClient } from 'react-query';
+import type { SubmitHandler } from 'react-hook-form';
 import { Container } from 'thom-components';
 
 import { Form } from '../components/Form';
-import { AuthContext } from '../state/authProvider';
-import { Status } from '../hooks/useAxios';
-import { Credentials } from '../interfaces/credentials';
+import type { Credentials } from '../types/credentials.type';
 import { loginSchema } from '../schema/loginSchema';
-import { Auth } from '../hooks/useAuth';
+import { User } from '../types/user.type';
+import { singinUser } from '../service/user.service';
 
 const Login = (): JSX.Element => {
+  const queryClient = useQueryClient();
   const navigate: NavigateFunction = useNavigate();
-  const { user, userStatus, signin }: Auth = useContext<Auth>(AuthContext);
-
-  useEffect(() => {
-    user && navigate('/');
-  }, [user, navigate]);
+  const { isLoading, mutate: signin } = useMutation(singinUser, {
+    onSuccess: (data: User) => {
+      queryClient.setQueryData('user', data);
+      navigate('/');
+    }
+  });
 
   return (
     <Container data-testid='login-container' size='small'>
       <Form<Credentials>
         testId='login-form'
-        formSubmit={signin}
-        formSubmitting={userStatus === Status.LOADING}
+        formSubmit={signin as SubmitHandler<Credentials>}
+        formSubmitting={isLoading}
         schema={loginSchema}
       />
     </Container>

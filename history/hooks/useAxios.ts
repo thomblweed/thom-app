@@ -1,16 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosResponse, Method } from 'axios';
 
-import { config, Environment } from '../config';
+import { config, Environment } from '../../src/config';
+import { Status } from '../../src/enums/status.enum';
 
 const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
 const baseUrl: string = config[env].api.auth.baseUrl;
-
-export const enum Status {
-  LOADING = 'LOADING',
-  DONE = 'DONE',
-  ERROR = 'ERROR'
-}
 
 interface Response {
   axiosResponse: AxiosResponse<unknown> | null;

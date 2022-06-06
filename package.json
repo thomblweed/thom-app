@@ -1,6 +1,6 @@
 {
   "name": "thom-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "app for demoing tech learnings",
   "private": true,
   "scripts": {
@@ -28,6 +28,7 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.3",
+    "react-query": "^3.39.1",
     "react-router-dom": "^6.3.0",
     "thom-components": "^0.1.1"
   },

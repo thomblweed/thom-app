@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Credentials } from '../interfaces/credentials';
-import { User } from '../interfaces/user';
 
-import { useAxios, Status } from './useAxios';
+import { Status } from '../../src/enums/status.enum';
+import { Credentials } from '../../src/types/credentials.type';
+import { User } from '../../src/types/user.type';
+import { useAxios } from '../../src/hooks/useAxios';
 
 interface Auth {
   user: User | null;
@@ -14,6 +15,7 @@ interface Auth {
 
 const statusNotLoading = (status: Status) => status !== Status.LOADING;
 
+// stale code, keeping for reference
 const useAuth = (): Auth => {
   const [user, setUser] = useState<User | null>(null);
   const [userStatus, setUserStatus] = useState<Status>(Status.LOADING);
