@@ -1,27 +1,15 @@
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { Link } from 'react-router-dom';
 import { Button, Container, ContentLoading } from 'thom-components';
 
-import { getCurrentUser, signoutUser } from '../service/user.service';
-import { User } from '../types/user.type';
+import { useAuth } from '../hooks/useAuth';
 
 const Main = (): JSX.Element => {
-  const queryClient = useQueryClient();
-  const { data: user, isFetching: loadingUser } = useQuery<User>(
-    'user',
-    getCurrentUser
-  );
-  const { mutate: signout, isLoading: loggingOut } = useMutation(signoutUser, {
-    onSuccess: () => {
-      queryClient.setQueryData('user', null);
-    }
-  });
+  const { user, busy, signout } = useAuth();
 
   return (
     <Container data-testid='main-view' size='large'>
       <h1>thom app</h1>
-      {loadingUser || loggingOut ? (
+      {busy ? (
         <ContentLoading
           loadingSchema={[
             {
@@ -33,11 +21,7 @@ const Main = (): JSX.Element => {
       ) : (
         <>
           <p>Welcome {user ? user.email : 'Guest'}</p>
-          {user ? (
-            <Button label='Logout' onClick={() => signout()} />
-          ) : (
-            <Link to={'/login'}>Sign In</Link>
-          )}
+          {user && <Button label='Logout' onClick={() => signout()} />}
         </>
       )}
     </Container>
