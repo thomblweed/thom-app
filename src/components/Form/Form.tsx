@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
@@ -18,7 +18,7 @@ const Form = <T,>({
   formSubmit,
   formSubmitting,
   schema
-}: FormProps<T>): ReactElement => {
+}: FormProps<T>): JSX.Element => {
   const methods = useForm<T>();
 
   return (
