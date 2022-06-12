@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from 'thom-components';
 
-import { Form } from '../components/Form';
-import type { Credentials } from '../types/credentials.type';
-import { loginSchema } from '../schema/loginSchema';
-import { useAuth } from '../hooks/useAuth';
+import { Form } from '../../components/Form';
+import { useAuth } from '../../hooks/useAuth';
+import type { Credentials } from '../../types/credentials.type';
+import { loginSchema } from '../../schema/loginSchema';
 
-const Login = (): JSX.Element => {
+export const Login = (): JSX.Element => {
   const { signinAsync, busy } = useAuth();
   const navigate = useNavigate();
 
@@ -30,5 +30,3 @@ const Login = (): JSX.Element => {
     </Container>
   );
 };
-
-export default Login;

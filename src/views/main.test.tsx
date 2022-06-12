@@ -11,7 +11,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 import * as UserService from '../service/user.service';
-import Main from './main';
+import { Main } from './main';
 
 const spyGetCurrentUser = jest.spyOn(UserService, 'getCurrentUser');
 const spySignoutUser = jest.spyOn(UserService, 'signoutUser');

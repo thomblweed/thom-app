@@ -3,7 +3,7 @@ import { Button, Container, ContentLoading } from 'thom-components';
 
 import { useAuth } from '../hooks/useAuth';
 
-const Main = (): JSX.Element => {
+export const Main = (): JSX.Element => {
   const { user, busy, signout } = useAuth();
 
   return (
@@ -27,5 +27,3 @@ const Main = (): JSX.Element => {
     </Container>
   );
 };
-
-export default Main;
