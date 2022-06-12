@@ -14,9 +14,10 @@ const PageNotFound = () => (
 const Router = (): JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route index element={<Main />} />
+      <Route path='/' element={<Main />}>
+        <Route path='blog' element={<Blog />} />
+      </Route>
       <Route path='/login' element={<Login />} />
-      <Route path='/blog' element={<Blog />} />
       <Route path='/*' element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>
