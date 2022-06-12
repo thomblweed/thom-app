@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavigateFunction } from 'react-router';
-import type { SubmitHandler } from 'react-hook-form';
 import { Container } from 'thom-components';
 
 import { Form } from '../components/Form';
@@ -10,18 +8,22 @@ import { loginSchema } from '../schema/loginSchema';
 import { useAuth } from '../hooks/useAuth';
 
 const Login = (): JSX.Element => {
-  const { user, signin, busy } = useAuth();
-  const navigate: NavigateFunction = useNavigate();
+  const { signinAsync, busy } = useAuth();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    user && navigate('/');
-  }, [user, navigate]);
+  const login = useCallback(
+    async (formData: Credentials): Promise<void> => {
+      await signinAsync(formData);
+      navigate('/');
+    },
+    [signinAsync, navigate]
+  );
 
   return (
     <Container data-testid='login-container' size='small'>
       <Form<Credentials>
         testId='login-form'
-        formSubmit={signin as SubmitHandler<Credentials>}
+        formSubmit={login}
         formSubmitting={busy}
         schema={loginSchema}
       />

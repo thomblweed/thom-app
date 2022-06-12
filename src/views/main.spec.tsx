@@ -58,11 +58,6 @@ describe('when user is not logged in', () => {
     const welcomeText = within(mainViewContainer).getByText('Welcome Guest');
     expect(welcomeText).toBeInTheDocument();
   });
-
-  it('should render a link to Sign In within the view container', () => {
-    const signInLink = within(mainViewContainer).getByText('Sign In');
-    expect(signInLink).toBeInTheDocument();
-  });
 });
 
 describe('When user is logged in', () => {
@@ -106,9 +101,14 @@ describe('When user is logged in', () => {
   });
 });
 
-describe('When user clicks the logs out button', () => {
+describe('When user clicks the log out button', () => {
   let mainViewContainer: HTMLElement;
   beforeEach(async () => {
+    spyGetCurrentUser.mockResolvedValue({
+      email: 'some@email.com',
+      id: 'aUserId',
+      role: 'admin'
+    });
     spySignoutUser.mockResolvedValue(null);
     renderWithQueryClientProvider(<Main />);
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
@@ -119,11 +119,6 @@ describe('When user clicks the logs out button', () => {
   it('should render the welcome text for a guest user within the view container', () => {
     const welcomeText = within(mainViewContainer).getByText('Welcome Guest');
     expect(welcomeText).toBeInTheDocument();
-  });
-
-  it('should render a link to Sign In within the view container', () => {
-    const signInLink = within(mainViewContainer).queryByText('Sign In');
-    expect(signInLink).toBeInTheDocument();
   });
 
   it('should NOT render a link to Logout within the view container', () => {

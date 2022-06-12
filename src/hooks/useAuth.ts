@@ -19,11 +19,14 @@ export const useAuth = () => {
       }
     }
   );
-  const { mutate: signin, isLoading: signingIn } = useMutation(signinUser, {
-    onSuccess: (data) => {
-      queryClient.setQueryData(USER_QUERY_KEY, data);
+  const { mutateAsync: signinAsync, isLoading: signingIn } = useMutation(
+    signinUser,
+    {
+      onSuccess: (data) => {
+        queryClient.setQueryData(USER_QUERY_KEY, data);
+      }
     }
-  });
+  );
   const { mutate: signout, isLoading: loggingOut } = useMutation(signoutUser, {
     onSuccess: () => {
       queryClient.setQueryData(USER_QUERY_KEY, undefined);
@@ -34,6 +37,6 @@ export const useAuth = () => {
     user,
     busy: loadingUser || loggingOut || signingIn,
     signout,
-    signin
+    signinAsync
   };
 };
