@@ -34,7 +34,7 @@ module.exports = {
         }
       },
       {
-        test: /\.s(a|c)ss$/,
+        test: /\.(c|sa|sc)ss$/,
         // read from right to left, i.e. the order of these loaders is important
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
@@ -46,6 +46,9 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      '~': path.resolve(__dirname, '../src')
+    },
     extensions: ['.tsx', '.ts', '.js', '.jsx']
   },
   plugins: [

@@ -1,6 +1,6 @@
 import { axiosService } from './axios.service';
-import { User } from '../types/user.type';
-import { Credentials } from '../types/credentials.type';
+import { User } from '~/types/user.type';
+import { Credentials } from '~/types/credentials.type';
 
 export const getCurrentUser = async () =>
   (await axiosService<undefined, User | undefined>('/api/users/currentuser'))

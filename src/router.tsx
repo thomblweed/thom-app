@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Main } from './views/main';
-import { Login } from './views/login';
-import { Blog } from './views/blog';
+import { Main, Login, Blog } from './views';
 
 const PageNotFound = () => (
   <div>

@@ -2,8 +2,8 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'thom-components';
 
-import { Layout } from './components/Layout';
-import Router from './router';
+import { Layout } from '~/components/Layout';
+import Router from '~/router';
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -10,7 +10,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
 import * as UserService from '../../service/user.service';
-import { Login } from './index';
+import { Login } from '.';
 
 const spySigninUser = jest.spyOn(UserService, 'signinUser');
 jest.spyOn(UserService, 'getCurrentUser').mockResolvedValue(undefined);

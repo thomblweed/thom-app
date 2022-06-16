@@ -4,7 +4,7 @@ import {
   getCurrentUser,
   signoutUser,
   signinUser
-} from '../service/user.service';
+} from '~/service/user.service';
 
 const USER_QUERY_KEY = 'user';
 

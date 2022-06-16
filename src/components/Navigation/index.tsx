@@ -12,7 +12,7 @@ type Navigation = {
 
 export const Navigation: FC<Navigation> = ({ items, content }) => (
   <nav>
-    <ul>
+    <ul className='flex flex-row md:flex-row md:space-x-4'>
       {items.map(({ value, route }) => (
         <li key={value}>{content({ value, route })}</li>
       ))}

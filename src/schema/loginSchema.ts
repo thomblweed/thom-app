@@ -2,7 +2,7 @@ import {
   ButtonType,
   FieldType,
   FormSchema
-} from '../components/Form/form-schema';
+} from '~/components/Form/form-schema';
 
 const loginSchema: FormSchema = {
   fields: [
