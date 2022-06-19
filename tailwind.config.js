@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Roboto Mono', 'Helvetica', 'Arial', 'sans-serif']
+      },
       colors: {
         primary: '#D68FBC',
         secondary: '#53A0C4',
@@ -15,5 +18,5 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [require('@tailwindcss/forms')]
 };

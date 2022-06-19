@@ -36,7 +36,7 @@ module.exports = {
       {
         test: /\.(c|sa|sc)ss$/,
         // read from right to left, i.e. the order of these loaders is important
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader']
       },
       {
         // built in to webpack V5, asset resource loader

@@ -2,7 +2,6 @@ import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
-import './form.scss';
 import { FormField, FormSchema } from './form-schema';
 import Field from './Fields/Field';
 
@@ -24,18 +23,19 @@ const Form = <T,>({
   return (
     <FormProvider {...methods}>
       <form
-        className={'form'}
+        className='w-full max-w-sm'
         data-testid={testId}
         onSubmit={methods.handleSubmit(formSubmit)}
       >
         {schema.fields?.map((field: FormField) => (
-          <Field
-            key={field.name}
-            name={field.name}
-            label={field.label}
-            type={field.type}
-            disabled={formSubmitting}
-          />
+          <div className='mb-6' key={field.name}>
+            <Field
+              name={field.name}
+              label={field.label}
+              type={field.type}
+              disabled={formSubmitting}
+            />
+          </div>
         ))}
         {schema.buttons?.map((button) => (
           <Button

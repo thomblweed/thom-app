@@ -13,7 +13,7 @@ export const Main = (): JSX.Element => {
     <Container data-testid='main-view' size='large'>
       <header>
         <div className='flex justify-between'>
-          <h1>thom app</h1>
+          <h1 className='text-3xl'>thom app</h1>
           <Navigation
             items={[
               { value: 'Home', route: '/' },

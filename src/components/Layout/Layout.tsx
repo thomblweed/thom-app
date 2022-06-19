@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react';
 
-import './layout.scss';
 import Footer from '../Footer';
 
 interface Layout {
@@ -8,8 +7,8 @@ interface Layout {
 }
 
 const Layout: FC<Layout> = ({ children }): JSX.Element => (
-  <div className='root'>
-    <main className='main'>{children}</main>
+  <div className='flex flex-col h-screen'>
+    <main className='xl:container xl:mx-auto h-full'>{children}</main>
     <Footer footerText={'thom app'} />
   </div>
 );
