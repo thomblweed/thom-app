@@ -11,7 +11,7 @@
     "test": "jest",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
-    "deps:restart": "npm run deps:down && npm run deps:up",
+    "deps:restart": "pnpm run deps:down && pnpm run deps:up",
     "clean": "scripts/clean.sh",
     "compile": "tsc",
     "lint": "eslint --ignore-pattern esbuild* --ignore-path .gitignore .",

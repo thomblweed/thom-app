@@ -1,10 +1,10 @@
-enum FieldType {
+const enum FieldType {
   TEXT = 'text',
   EMAIL = 'email',
   PASSWORD = 'password'
 }
 
-enum ButtonType {
+const enum ButtonType {
   SUBMIT = 'submit'
 }
 
