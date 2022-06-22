@@ -773,11 +773,6 @@ select {
   src: url('./assets/fonts/roboto-mono-v13-latin-regular.woff') format('woff');
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -822,11 +817,6 @@ select {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 .text-3xl {
