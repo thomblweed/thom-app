@@ -30,7 +30,7 @@ export const Main = (): JSX.Element => {
               ]}
             />
           ) : (
-            <Profile user={user} />
+            user && <Profile user={user} />
           )}
           {user && <Button label='Logout' onClick={() => signout()} />}
         </div>
