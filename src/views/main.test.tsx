@@ -53,11 +53,6 @@ describe('when user is not logged in', () => {
     const title = within(mainViewContainer).getByText('thom app');
     expect(title).toBeInTheDocument();
   });
-
-  it('should render the welcome text for a guest user within the view container', () => {
-    const welcomeText = within(mainViewContainer).getByText('Welcome Guest');
-    expect(welcomeText).toBeInTheDocument();
-  });
 });
 
 describe('When user is logged in', () => {
@@ -81,13 +76,6 @@ describe('When user is logged in', () => {
   it('should render the title within the view container', () => {
     const title = within(mainViewContainer).getByText('thom app');
     expect(title).toBeInTheDocument();
-  });
-
-  it('should render the welcome text for a guest user within the view container', () => {
-    const welcomeText = within(mainViewContainer).getByText(
-      'Welcome some@email.com'
-    );
-    expect(welcomeText).toBeInTheDocument();
   });
 
   it('should NOT render a link to Sign In within the view container', () => {
@@ -114,11 +102,6 @@ describe('When user clicks the log out button', () => {
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     mainViewContainer = screen.getByTestId('main-view');
     await userEvent.click(screen.getByText('Logout'));
-  });
-
-  it('should render the welcome text for a guest user within the view container', () => {
-    const welcomeText = within(mainViewContainer).getByText('Welcome Guest');
-    expect(welcomeText).toBeInTheDocument();
   });
 
   it('should NOT render a link to Logout within the view container', () => {

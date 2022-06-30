@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'thom-components';
 
@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
 });
 
 const App = (): JSX.Element => (
-  <React.StrictMode>
+  <StrictMode>
     <ThemeProvider>
       <Layout>
         <QueryClientProvider client={queryClient}>
@@ -24,7 +24,7 @@ const App = (): JSX.Element => (
         </QueryClientProvider>
       </Layout>
     </ThemeProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
 
 export default App;
