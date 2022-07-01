@@ -5,10 +5,12 @@ interface FooterProps {
 }
 
 const Footer = ({ footerText }: FooterProps): ReactElement => (
-  <footer className='bg-alternate py-4'>
+  <footer className='bg-dark-grey py-4'>
     <div className='xl:container xl:mx-auto'>
-      <p>{footerText}</p>
-      <p className='text-xs'>Copyright &copy; {new Date().getFullYear()}</p>
+      <p className='text-alternate'>{footerText}</p>
+      <p className='text-xs text-secondary'>
+        Copyright &copy; {new Date().getFullYear()}
+      </p>
     </div>
   </footer>
 );

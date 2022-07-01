@@ -9,7 +9,12 @@ type FieldProps = {
   disabled: boolean;
 };
 
-const Field = ({ name, label, type, disabled }: FieldProps): ReactElement => {
+export const Field = ({
+  name,
+  label,
+  type,
+  disabled
+}: FieldProps): ReactElement => {
   const { register } = useFormContext();
   const input = register(name);
   return (
@@ -29,5 +34,3 @@ const Field = ({ name, label, type, disabled }: FieldProps): ReactElement => {
     </div>
   );
 };
-
-export default Field;

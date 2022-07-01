@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'thom-components';
 
 import { Layout } from '~/components/Layout';
-import Router from '~/router';
+import { Router } from '~/router';
 
 const queryClient = new QueryClient({
   defaultOptions: {

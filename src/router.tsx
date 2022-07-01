@@ -9,7 +9,7 @@ const PageNotFound = () => (
   </div>
 );
 
-const Router = (): JSX.Element => (
+export const Router = (): JSX.Element => (
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<Main />}>
@@ -20,5 +20,3 @@ const Router = (): JSX.Element => (
     </Routes>
   </BrowserRouter>
 );
-
-export default Router;

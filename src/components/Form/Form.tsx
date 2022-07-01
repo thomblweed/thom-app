@@ -3,7 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
 import { FormField, FormSchema } from './form-schema';
-import Field from './Fields/Field';
+import { Field } from './Fields/Field';
 
 interface FormProps<T> {
   testId: string | undefined;
@@ -12,7 +12,7 @@ interface FormProps<T> {
   schema: FormSchema;
 }
 
-const Form = <T,>({
+export const Form = <T,>({
   testId,
   formSubmit,
   formSubmitting,
@@ -50,5 +50,3 @@ const Form = <T,>({
     </FormProvider>
   );
 };
-
-export { Form };

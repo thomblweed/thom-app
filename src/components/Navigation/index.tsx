@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, HTMLAttributes, ReactNode } from 'react';
 
 type NavContent = {
   value: string;
@@ -10,8 +10,12 @@ type Navigation = {
   content: (props: NavContent) => ReactNode;
 };
 
-export const Navigation: FC<Navigation> = ({ items, content }) => (
-  <nav>
+export const Navigation: FC<Navigation & HTMLAttributes<HTMLElement>> = ({
+  items,
+  content,
+  ...rest
+}) => (
+  <nav {...rest}>
     <ul className='flex flex-row md:flex-row md:space-x-4'>
       {items.map(({ value, route }) => (
         <li key={value}>{content({ value, route })}</li>
