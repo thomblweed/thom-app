@@ -15,7 +15,7 @@ export const Navigation: FC<Navigation & HTMLAttributes<HTMLElement>> = ({
   content,
   ...rest
 }) => (
-  <nav {...rest}>
+  <nav className='flex items-center' {...rest}>
     <ul className='flex flex-row md:flex-row md:space-x-4'>
       {items.map(({ value, route }) => (
         <li key={value}>{content({ value, route })}</li>

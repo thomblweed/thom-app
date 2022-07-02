@@ -8,6 +8,9 @@
   button {
     @apply text-black;
   }
+  h1 {
+    @apply text-3xl text-primary;
+  }
 }
 
 @font-face {
