@@ -11,43 +11,41 @@ export const Main = (): JSX.Element => {
 
   return (
     <div className='h-full' data-testid='main-view'>
-      <header>
-        <div className='flex columns-3'>
-          <h1 className='w-1/5'>thom app</h1>
-          <div className='w-3/5 flex'>
-            <Navigation
-              items={[
-                { value: 'Home', route: '/' },
-                { value: 'Blog', route: '/blog' }
+      <header className='flex items-center columns-3 mt-2 h-12'>
+        <h1 className='w-1/5'>thom app</h1>
+        <div className='w-3/5'>
+          <Navigation
+            items={[
+              { value: 'Home', route: '/' },
+              { value: 'Blog', route: '/blog' }
+            ]}
+            content={({ value, route }) => (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'underline underline-offset-8' : 'text-alternate'
+                }
+                to={route}
+              >
+                {value}
+              </NavLink>
+            )}
+          />
+        </div>
+        <div className='grow flex items-center'>
+          {busy ? (
+            <ContentLoading
+              loadingSchema={[
+                {
+                  lines: [{ width: '100%', id: 'line1' }]
+                }
               ]}
-              content={({ value, route }) => (
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'underline underline-offset-8' : 'text-alternate'
-                  }
-                  to={route}
-                >
-                  {value}
-                </NavLink>
-              )}
             />
-          </div>
-          <div className='w-1/5'>
-            {busy ? (
-              <ContentLoading
-                loadingSchema={[
-                  {
-                    lines: [{ width: '100%', id: 'line1' }]
-                  }
-                ]}
-              />
-            ) : user ? (
-              <>
-                <Profile user={user} />
-                <Button label='Logout' onClick={() => signout()} />
-              </>
-            ) : null}
-          </div>
+          ) : user ? (
+            <>
+              <Profile user={user} />
+              <Button label='Logout' onClick={() => signout()} />
+            </>
+          ) : null}
         </div>
       </header>
       <Outlet />
