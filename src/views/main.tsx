@@ -10,7 +10,7 @@ export const Main = (): JSX.Element => {
   const { user, busy, signout } = useAuth();
 
   return (
-    <div className='h-full' data-testid='main-view'>
+    <div data-testid='main-view'>
       <header className='flex items-center columns-3 mt-2 h-12'>
         <h1 className='w-1/5'>thom app</h1>
         <div className='w-3/5'>
