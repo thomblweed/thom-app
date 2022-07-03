@@ -23,19 +23,18 @@ export const Form = <T,>({
   return (
     <FormProvider {...methods}>
       <form
-        className='w-full max-w-sm'
+        className='m-auto w-2/5'
         data-testid={testId}
         onSubmit={methods.handleSubmit(formSubmit)}
       >
         {schema.fields?.map((field: FormField) => (
-          <div className='mb-6' key={field.name}>
-            <Field
-              name={field.name}
-              label={field.label}
-              type={field.type}
-              disabled={formSubmitting}
-            />
-          </div>
+          <Field
+            key={field.name}
+            name={field.name}
+            label={field.label}
+            type={field.type}
+            disabled={formSubmitting}
+          />
         ))}
         {schema.buttons?.map((button) => (
           <Button

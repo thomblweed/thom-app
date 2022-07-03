@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container } from 'thom-components';
 
 import { Form } from '~/components/Form';
 import { useAuth } from '~/hooks/useAuth';
@@ -20,13 +19,13 @@ export const Login = (): JSX.Element => {
   );
 
   return (
-    <Container data-testid='login-container' size='small'>
+    <div className='flex h-full' data-testid='login-container'>
       <Form<Credentials>
         testId='login-form'
         formSubmit={login}
         formSubmitting={busy}
         schema={loginSchema}
       />
-    </Container>
+    </div>
   );
 };

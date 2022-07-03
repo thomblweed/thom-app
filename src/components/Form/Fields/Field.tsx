@@ -18,8 +18,8 @@ export const Field = ({
   const { register } = useFormContext();
   const input = register(name);
   return (
-    <div className='formControl' id={name} role='group'>
-      <label htmlFor={input.name} className={'label'}>
+    <div className='mb-4' id={name} role='group'>
+      <label className='inline-block mb-2 text-secondary' htmlFor={input.name}>
         {label}
       </label>
       <Input
