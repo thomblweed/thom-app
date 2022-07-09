@@ -10,6 +10,7 @@ import { useAuth } from '~/hooks/useAuth';
 export const Header = () => {
   const { user, busy, signout } = useAuth();
   const device = useContext(DeviceContext);
+  console.log('device', device);
 
   return (
     <header className='flex columns-3 mt-2'>

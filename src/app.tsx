@@ -16,15 +16,15 @@ const queryClient = new QueryClient({
 });
 
 const App = (): JSX.Element => (
-  // <StrictMode>
-  <ThemeProvider>
-    <Layout>
-      <QueryClientProvider client={queryClient}>
-        <Router />
-      </QueryClientProvider>
-    </Layout>
-  </ThemeProvider>
-  // </StrictMode>
+  <StrictMode>
+    <ThemeProvider>
+      <Layout>
+        <QueryClientProvider client={queryClient}>
+          <Router />
+        </QueryClientProvider>
+      </Layout>
+    </ThemeProvider>
+  </StrictMode>
 );
 
 export default App;
