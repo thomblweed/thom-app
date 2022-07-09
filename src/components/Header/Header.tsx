@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, ContentLoading } from 'thom-components';
 
 import { Navigation } from '~/components/Navigation';
 import { Profile } from '~/components/Profile';
+import { DeviceContext } from '~/state/context/DeviceContext';
 import { useAuth } from '~/hooks/useAuth';
-import { useDevice } from '~/hooks/useDevice';
 
 export const Header = () => {
   const { user, busy, signout } = useAuth();
-  const device = useDevice();
+  const device = useContext(DeviceContext);
 
   return (
     <header className='flex columns-3 mt-2'>

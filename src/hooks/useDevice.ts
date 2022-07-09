@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
-import { useWindowSize } from './useWindowSize';
 
-type Device = 'mobile' | 'tablet' | 'desktop';
+import { Device } from '~/types/device.type';
+import { useWindowSize } from './useWindowSize';
 
 export const useDevice = () => {
   const { width, height } = useWindowSize();
 
-  return useMemo<Device>(() => {
+  const device = useMemo<Device>(() => {
     if (width < 480 || height < 480) {
       return 'mobile';
     } else if (
@@ -19,4 +19,6 @@ export const useDevice = () => {
       return 'desktop';
     }
   }, [width, height]);
+
+  return useMemo(() => device, [device]);
 };
