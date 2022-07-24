@@ -13,7 +13,7 @@ import * as UserService from '../../service/user.service';
 import { Login } from '.';
 
 const spySigninUser = jest.spyOn(UserService, 'signinUser');
-jest.spyOn(UserService, 'getCurrentUser').mockResolvedValue(undefined);
+jest.spyOn(UserService, 'getCurrentUser').mockResolvedValue(null);
 
 const mockedNavigator = jest.fn();
 jest.mock('react-router-dom', () => ({
