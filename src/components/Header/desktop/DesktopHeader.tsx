@@ -10,8 +10,8 @@ import { useAuth } from '~/hooks/useAuth';
 export const DesktopHeader = () => {
   const { user, busy, signout } = useAuth();
   return (
-    <header className='flex columns-3 mt-2'>
-      <div className='w-2/5'>
+    <header className='flex items-center columns-3 mt-2'>
+      <div className='w-2/5 min-w-[200px]'>
         <Logo />
       </div>
       <div className='w-3/5'>

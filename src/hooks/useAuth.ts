@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import {
   getCurrentUser,
@@ -11,11 +11,11 @@ const USER_QUERY_KEY = 'user';
 export const useAuth = () => {
   const queryClient = useQueryClient();
   const { data: user, isFetching: loadingUser } = useQuery(
-    USER_QUERY_KEY,
+    [USER_QUERY_KEY],
     getCurrentUser,
     {
       onError: () => {
-        user && queryClient.setQueryData(USER_QUERY_KEY, undefined);
+        user && queryClient.setQueryData([USER_QUERY_KEY], null);
       }
     }
   );
@@ -23,13 +23,13 @@ export const useAuth = () => {
     signinUser,
     {
       onSuccess: (data) => {
-        queryClient.setQueryData(USER_QUERY_KEY, data);
+        queryClient.setQueryData([USER_QUERY_KEY], data);
       }
     }
   );
   const { mutate: signout, isLoading: loggingOut } = useMutation(signoutUser, {
     onSuccess: () => {
-      queryClient.setQueryData(USER_QUERY_KEY, undefined);
+      queryClient.setQueryData([USER_QUERY_KEY], null);
     }
   });
 

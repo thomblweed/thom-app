@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const Logo = () => (
-  <span className='text-primary text-4xl'>thom app</span>
+  <div className='text-primary text-4xl whitespace-nowrap'>thom app</div>
 );
