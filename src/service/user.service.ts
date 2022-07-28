@@ -1,18 +1,16 @@
 import { axiosService } from './axios.service';
-import { User } from '~/types/user.type';
-import { Credentials } from '~/types/credentials.type';
+import type { Credentials, User } from '~/types';
+import { config, Environment } from '~/config';
+
+const env = (process.env.NODE_ENV as Environment) ?? 'development';
+const authUrl = config[env].api.auth;
 
 export const getCurrentUser = async () =>
-  (await axiosService<null, User | null>('/api/users/currentuser')).data;
+  (await axiosService<null, User | null>(authUrl.getUser)).data;
 
 export const signoutUser = async () =>
-  (await axiosService<undefined, null>('/api/users/signout', 'POST')).data;
+  (await axiosService<null, null>(authUrl.logout, 'POST')).data;
 
 export const signinUser = async (credentials: Credentials) =>
-  (
-    await axiosService<Credentials, User>(
-      '/api/users/signin',
-      'POST',
-      credentials
-    )
-  ).data;
+  (await axiosService<Credentials, User>(authUrl.login, 'POST', credentials))
+    .data;

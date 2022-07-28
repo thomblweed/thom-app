@@ -5,6 +5,9 @@ type Config = {
     api: {
       auth: {
         baseUrl: string;
+        login: string;
+        logout: string;
+        getUser: string;
       };
     };
   };
@@ -14,21 +17,30 @@ const config: Config = {
   development: {
     api: {
       auth: {
-        baseUrl: 'http://localhost:3001'
+        baseUrl: 'http://localhost:3001/api/users',
+        login: '/signin',
+        logout: '/signout',
+        getUser: '/currentuser'
       }
     }
   },
   test: {
     api: {
       auth: {
-        baseUrl: 'http://testurl'
+        baseUrl: 'http://testurl',
+        login: '/login',
+        logout: '/logout',
+        getUser: '/currentuser'
       }
     }
   },
   production: {
     api: {
       auth: {
-        baseUrl: 'http://testurl'
+        baseUrl: '',
+        login: '/login',
+        logout: '/logout',
+        getUser: ''
       }
     }
   }
