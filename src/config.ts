@@ -1,4 +1,4 @@
-type Environment = 'development' | 'test' | 'production';
+type Environment = 'development' | 'integration' | 'test' | 'production';
 
 type Config = {
   [key in Environment]: {
@@ -20,6 +20,16 @@ const config: Config = {
         baseUrl: 'http://localhost:3001/api/users',
         login: '/signin',
         logout: '/signout',
+        getUser: '/currentuser'
+      }
+    }
+  },
+  integration: {
+    api: {
+      auth: {
+        baseUrl: '',
+        login: '/login',
+        logout: '/logout',
         getUser: '/currentuser'
       }
     }

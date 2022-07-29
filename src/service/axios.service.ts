@@ -1,16 +1,33 @@
-import axios, { AxiosResponse, Method } from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method
+} from 'axios';
 
-import { config, Environment } from '~/config';
+import { Environment } from '~/config';
+const env = (process.env.NODE_ENV as Environment) ?? 'development';
 
-const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
-const baseURL: string = config[env].api.auth.baseUrl;
+const defaultConfig: AxiosRequestConfig = {
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  withCredentials: env === 'development' ? true : false
+};
 
-const instance = axios.create({
-  baseURL,
-  timeout: 4000
-});
+export const createAxiosInstance = (
+  baseURL: string,
+  configOverride?: AxiosRequestConfig
+): AxiosInstance =>
+  axios.create({
+    baseURL,
+    ...defaultConfig,
+    ...configOverride
+  });
 
 export const axiosService = async <Body, Response>(
+  instance: AxiosInstance,
   url: string,
   method?: Method,
   data?: Body
@@ -18,6 +35,5 @@ export const axiosService = async <Body, Response>(
   await instance.request({
     url,
     method: method || 'GET',
-    withCredentials: true,
     ...(data && { data })
   });
