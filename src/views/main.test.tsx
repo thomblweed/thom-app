@@ -60,7 +60,7 @@ describe('When user is logged in', () => {
 
   beforeEach(async () => {
     spyGetCurrentUser.mockResolvedValue({
-      email: 'some@email.com',
+      username: 'some@email.com',
       id: 'aUserId',
       role: 'admin'
     });
@@ -93,7 +93,7 @@ describe('When user clicks the log out button', () => {
   let mainViewContainer: HTMLElement;
   beforeEach(async () => {
     spyGetCurrentUser.mockResolvedValue({
-      email: 'some@email.com',
+      username: 'some@email.com',
       id: 'aUserId',
       role: 'admin'
     });

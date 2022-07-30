@@ -115,7 +115,7 @@ describe('when the Login component is rendered', () => {
 describe('When user signs in successfully', () => {
   beforeEach(async () => {
     spySigninUser.mockResolvedValue({
-      email: 'some@email.com',
+      username: 'some@email.com',
       id: 'aUserId',
       role: 'admin'
     });

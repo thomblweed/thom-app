@@ -6,4 +6,4 @@ type ProfileProps = {
   user: User;
 };
 
-export const Profile = ({ user }: ProfileProps) => <span>{user.email}</span>;
+export const Profile = ({ user }: ProfileProps) => <span>{user.username}</span>;
