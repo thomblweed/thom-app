@@ -7,7 +7,7 @@ import { Navigation } from '~/components/Navigation';
 import { Profile } from '~/components/Profile';
 import { useAuth } from '~/hooks/useAuth';
 
-export const DesktopHeader = () => {
+const DesktopHeader = () => {
   const { user, busy, signout } = useAuth();
   return (
     <header className='flex items-center columns-3 mt-2'>
@@ -51,3 +51,5 @@ export const DesktopHeader = () => {
     </header>
   );
 };
+
+export default DesktopHeader;

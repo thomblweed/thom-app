@@ -7,6 +7,10 @@ export const useDevice = () => {
   const { width, height } = useWindowSize();
 
   const device = useMemo<Device>(() => {
+    if (width === 0 && height === 0) {
+      return undefined;
+    }
+
     if (width < 480 || height < 480) {
       return 'mobile';
     } else if (

@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:app": "webpack serve --config ./webpack/webpack.config.cjs --mode development",
+    "dev:app": "webpack serve --config ./webpack/webpack.dev.cjs",
     "dev:css": "tailwind ./src/index.css -o ./src/tailwind.css --watch",
-    "build:dev": "webpack --config ./webpack/webpack.config.cjs --mode development",
+    "build": "pnpm run clean && webpack --config ./webpack/webpack.prod.cjs",
+    "build:dev": "webpack --config ./webpack/webpack.dev.cjs",
     "test": "jest",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
@@ -31,7 +32,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
-    "react-query": "^4.0.0",
     "react-router-dom": "^6.3.0",
     "thom-components": "^0.1.1"
   },
@@ -64,7 +64,9 @@
     "ts-jest": "^28.0.7",
     "typescript": "^4.7.4",
     "webpack": "^5.73.0",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3"
+    "webpack-dev-server": "^4.9.3",
+    "webpack-merge": "^5.8.0"
   }
 }

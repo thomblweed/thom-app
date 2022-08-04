@@ -2,8 +2,10 @@ import React from 'react';
 
 import { Logo } from '~/components/Logo';
 
-export const MobileHeader = () => (
+const MobileHeader = () => (
   <header className='mt-2'>
     <Logo />
   </header>
 );
+
+export default MobileHeader;
