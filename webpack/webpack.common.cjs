@@ -22,6 +22,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'esbuild-loader',
+        exclude: /node_modules/,
         options: {
           loader: 'tsx',
           target: 'es2015'
@@ -30,6 +31,7 @@ module.exports = {
       {
         // built in to webpack V5, asset resource loader
         test: /\.(png|jpe?g|gif|woff)$/,
+        exclude: /node_modules/,
         type: 'asset/resource'
       }
     ]
@@ -60,11 +62,6 @@ module.exports = {
         vendor: {
           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
           name: 'vendor',
-          chunks: 'all'
-        },
-        forms: {
-          test: /[\\/]node_modules[\\/](react-hook-form)[\\/]/,
-          name: 'react-hook-form',
           chunks: 'all'
         }
       }

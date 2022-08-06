@@ -25,5 +25,8 @@ module.exports = merge(common, {
     new BundleAnalyzerPlugin({
       generateStatsFile: true
     })
-  ]
+  ],
+  optimization: {
+    concatenateModules: true
+  }
 });
