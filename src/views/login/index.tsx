@@ -1,7 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { lazy, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Form } from '~/components/Form';
+import type { FormType } from '~/components/Form';
+const Form = lazy(() =>
+  import('~/components/Form').then(({ Form }) => ({ default: Form }))
+) as FormType;
 import { useAuth } from '~/hooks/useAuth';
 import type { Credentials } from '~/types/credentials.type';
 import { loginSchema } from '~/schema/loginSchema';

@@ -23,7 +23,7 @@ export const Form = <T,>({
   return (
     <FormProvider {...methods}>
       <form
-        className='m-auto w-2/5'
+        className='m-auto'
         data-testid={testId}
         onSubmit={methods.handleSubmit(formSubmit)}
       >
@@ -49,3 +49,5 @@ export const Form = <T,>({
     </FormProvider>
   );
 };
+
+export type FormType = typeof Form;

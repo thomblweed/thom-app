@@ -6,7 +6,6 @@ const MobileHeader = lazy(() => import('./mobile/MobileHeader'));
 
 export const Header = () => {
   const device = useContext(DeviceContext);
-  console.log('device', device);
 
   return (
     <>
