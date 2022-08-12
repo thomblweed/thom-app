@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'media',
-  content: ['./src/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{html,ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {

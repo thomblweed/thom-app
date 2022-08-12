@@ -17,7 +17,7 @@ module.exports = merge(common, {
       {
         test: /\.(c|sa|sc)ss$/,
         // read from right to left - the order of these loaders is important
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       }
     ]
   },
