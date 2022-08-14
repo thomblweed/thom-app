@@ -10,7 +10,8 @@ module.exports = merge(common, {
     historyApiFallback: true,
     port: 1234,
     open: true,
-    hot: true // hot module reloading, watches for changes in the src folder
+    hot: true,
+    compress: true
   },
   module: {
     rules: [
@@ -21,11 +22,7 @@ module.exports = merge(common, {
       }
     ]
   },
-  plugins: [
-    new BundleAnalyzerPlugin({
-      generateStatsFile: true
-    })
-  ],
+  plugins: [new BundleAnalyzerPlugin()],
   optimization: {
     concatenateModules: true
   }
