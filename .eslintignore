@@ -1,4 +1,4 @@
 esbuild*
 webpack*
 history
-*.config*
+*.config.js

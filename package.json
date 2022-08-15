@@ -13,7 +13,7 @@
     "deps:restart": "pnpm run deps:down && pnpm run deps:up",
     "clean": "scripts/clean.sh",
     "compile": "tsc",
-    "lint": "eslint --ignore-path .gitignore .",
+    "lint": "eslint .",
     "prepare": "husky install"
   },
   "repository": {
@@ -47,6 +47,7 @@
     "@typescript-eslint/parser": "^5.30.7",
     "autoprefixer": "^10.4.8",
     "babel-loader": "^8.2.5",
+    "compression-webpack-plugin": "^10.0.0",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.13",
     "esbuild-loader": "^2.19.0",
