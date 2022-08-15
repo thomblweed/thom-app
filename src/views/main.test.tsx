@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   render,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
   within
 } from '@testing-library/react';
@@ -37,6 +38,7 @@ describe('when user is not logged in', () => {
   beforeEach(async () => {
     spyGetCurrentUser.mockRejectedValue({ statusCode: 401 });
     renderWithQueryClientProvider(<Main />);
+    await screen.findByRole('progressbar');
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     mainViewContainer = screen.getByTestId('main-view');
   });
