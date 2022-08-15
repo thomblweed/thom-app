@@ -1,10 +1,9 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'thom-components';
 
-import './form.scss';
 import { FormField, FormSchema } from './form-schema';
-import Field from './Fields/Field';
+import { Field } from './Fields/Field';
 
 interface FormProps<T> {
   testId: string | undefined;
@@ -13,18 +12,18 @@ interface FormProps<T> {
   schema: FormSchema;
 }
 
-const Form = <T,>({
+export const Form = <T,>({
   testId,
   formSubmit,
   formSubmitting,
   schema
-}: FormProps<T>): ReactElement => {
+}: FormProps<T>): JSX.Element => {
   const methods = useForm<T>();
 
   return (
     <FormProvider {...methods}>
       <form
-        className={'form'}
+        className='m-auto'
         data-testid={testId}
         onSubmit={methods.handleSubmit(formSubmit)}
       >
@@ -51,4 +50,4 @@ const Form = <T,>({
   );
 };
 
-export { Form };
+export type FormType = typeof Form;

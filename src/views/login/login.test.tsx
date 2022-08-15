@@ -1,13 +1,19 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { render, screen, within } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+  within
+} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
-import * as UserService from '../service/user.service';
-import Login from './login';
+import * as UserService from '../../service/user.service';
+import { Login } from '.';
 
-const spySigninUser = jest.spyOn(UserService, 'singinUser');
+const spySigninUser = jest.spyOn(UserService, 'signinUser');
+jest.spyOn(UserService, 'getCurrentUser').mockResolvedValue(null);
 
 const mockedNavigator = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -34,6 +40,7 @@ describe('when the Login component is rendered', () => {
   let container: HTMLElement;
   beforeEach(async () => {
     renderWithQueryClientProvider(<Login />);
+    await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     container = await screen.findByTestId('login-container');
   });
 
@@ -108,7 +115,7 @@ describe('when the Login component is rendered', () => {
 describe('When user signs in successfully', () => {
   beforeEach(async () => {
     spySigninUser.mockResolvedValue({
-      email: 'some@email.com',
+      username: 'some@email.com',
       id: 'aUserId',
       role: 'admin'
     });

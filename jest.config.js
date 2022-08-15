@@ -3,6 +3,6 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleNameMapper: {
-    '\\.(scss)$': '<rootDir>/jest/styleMock.ts'
+    '^~/(.*)$': '<rootDir>/src/$1'
   }
 };

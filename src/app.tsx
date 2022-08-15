@@ -1,9 +1,9 @@
-import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import React, { StrictMode } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'thom-components';
 
-import { Layout } from './components/Layout';
-import Router from './router';
+import { Layout } from '~/components/Layout';
+import { Router } from '~/router';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
 });
 
 const App = (): JSX.Element => (
-  <React.StrictMode>
+  <StrictMode>
     <ThemeProvider>
       <Layout>
         <QueryClientProvider client={queryClient}>
@@ -24,7 +24,7 @@ const App = (): JSX.Element => (
         </QueryClientProvider>
       </Layout>
     </ThemeProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
 
 export default App;

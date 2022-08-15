@@ -1,17 +1,25 @@
-import { axiosService } from './axios.service';
-import { User } from '../types/user.type';
-import { Credentials } from '../types/credentials.type';
+import { axiosService, createAxiosInstance } from './axios.service';
+import type { Credentials, User } from '~/types';
+import { config, Environment } from '~/config';
+
+const env = (process.env.NODE_ENV as Environment) ?? 'development';
+const authAPIConfig = config[env].api.auth;
+
+const axiosInstance = createAxiosInstance(authAPIConfig.baseUrl);
 
 export const getCurrentUser = async () =>
-  (await axiosService<undefined, User>('/api/users/currentuser')).data;
+  (await axiosService<null, User | null>(axiosInstance, authAPIConfig.getUser))
+    .data;
 
 export const signoutUser = async () =>
-  (await axiosService<undefined, null>('/api/users/signout', 'POST')).data;
+  (await axiosService<null, null>(axiosInstance, authAPIConfig.logout, 'POST'))
+    .data;
 
-export const singinUser = async (credentials: Credentials) =>
+export const signinUser = async (credentials: Credentials) =>
   (
     await axiosService<Credentials, User>(
-      '/api/users/signin',
+      axiosInstance,
+      authAPIConfig.login,
       'POST',
       credentials
     )

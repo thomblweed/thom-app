@@ -2,8 +2,6 @@ import React, { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Input, InputType } from 'thom-components';
 
-import './formControl.scss';
-
 type FieldProps = {
   name: string;
   label: string;
@@ -11,12 +9,17 @@ type FieldProps = {
   disabled: boolean;
 };
 
-const Field = ({ name, label, type, disabled }: FieldProps): ReactElement => {
+export const Field = ({
+  name,
+  label,
+  type,
+  disabled
+}: FieldProps): ReactElement => {
   const { register } = useFormContext();
   const input = register(name);
   return (
-    <div className='formControl' id={name} role='group'>
-      <label htmlFor={input.name} className={'label'}>
+    <div className='mb-4' id={name} role='group'>
+      <label className='inline-block mb-2 text-secondary' htmlFor={input.name}>
         {label}
       </label>
       <Input
@@ -31,5 +34,3 @@ const Field = ({ name, label, type, disabled }: FieldProps): ReactElement => {
     </div>
   );
 };
-
-export default Field;

@@ -1,19 +1,39 @@
-import axios, { AxiosResponse, Method } from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method
+} from 'axios';
 
-import { config, Environment } from '../config';
+import { Environment } from '~/config';
+const env = (process.env.NODE_ENV as Environment) ?? 'development';
 
-const env: Environment = (process.env.NODE_ENV as Environment) ?? 'development';
-const baseURL: string = config[env].api.auth.baseUrl;
+const defaultConfig: AxiosRequestConfig = {
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  withCredentials: env === 'development' ? true : false
+};
+
+export const createAxiosInstance = (
+  baseURL: string,
+  configOverride?: AxiosRequestConfig
+): AxiosInstance =>
+  axios.create({
+    baseURL,
+    ...defaultConfig,
+    ...configOverride
+  });
 
 export const axiosService = async <Body, Response>(
-  relativeUrl: string,
-  type?: Method,
+  instance: AxiosInstance,
+  url: string,
+  method?: Method,
   data?: Body
-): Promise<AxiosResponse<Response>> => {
-  return await axios({
-    method: type || 'GET',
-    url: new URL(relativeUrl, baseURL).toString(),
-    withCredentials: true,
+): Promise<AxiosResponse<Response>> =>
+  await instance.request({
+    url,
+    method: method || 'GET',
     ...(data && { data })
   });
-};

@@ -5,8 +5,10 @@ version: '3'
 tasks:
   up:
     cmds:
-      - npm run deps:up
-
+      - pnpm run deps:up
   down:
     cmds:
-      - npm run deps:down
+      - pnpm run deps:down
+  restart:
+    cmds:
+      - pnpm run deps:restart

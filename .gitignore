@@ -1,7 +1,8 @@
 node_modules
-public/*.css*
-public/*.js*
+public
+src/tailwind.css
 .env
+.DS_STORE
 
 dist
 serve
