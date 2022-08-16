@@ -48,3 +48,12 @@ resource "aws_s3_object" "object_font_woff" {
   etag     = filemd5("../../public/${each.value}")
   acl      = "public-read"
 }
+
+resource "aws_s3_object" "object_css" {
+  for_each = fileset("../../public/", "*.css")
+  bucket   = aws_s3_bucket.s3_bucket.bucket
+  key      = each.value
+  source   = "../../public/${each.value}"
+  etag     = filemd5("../../public/${each.value}")
+  acl      = "public-read"
+}

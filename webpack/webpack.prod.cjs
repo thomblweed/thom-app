@@ -1,5 +1,6 @@
 const common = require('./webpack.common.cjs');
 const { merge } = require('webpack-merge');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // TODO: uncomment once compression with CLoudFront sorted
 // const CompressionPlugin = require('compression-webpack-plugin');
 
@@ -9,10 +10,10 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.(c|sa|sc)ss$/,
-        use: ['css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
       }
     ]
-  }
+  },
   // plugins: [
   //   new CompressionPlugin({
   //     filename: '[path][base].br',
@@ -21,4 +22,9 @@ module.exports = merge(common, {
   //     // deleteOriginalAssets: true
   //   })
   // ]
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'styles.css'
+    })
+  ]
 });
