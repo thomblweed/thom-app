@@ -1,6 +1,7 @@
 const common = require('./webpack.common.cjs');
 const { merge } = require('webpack-merge');
-const CompressionPlugin = require('compression-webpack-plugin');
+// TODO: uncomment once compression with CLoudFront sorted
+// const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -11,13 +12,13 @@ module.exports = merge(common, {
         use: ['css-loader']
       }
     ]
-  },
-  plugins: [
-    new CompressionPlugin({
-      filename: '[path][base].br',
-      algorithm: 'brotliCompress',
-      test: /\.(js|css|svg)$/
-      // deleteOriginalAssets: true
-    })
-  ]
+  }
+  // plugins: [
+  //   new CompressionPlugin({
+  //     filename: '[path][base].br',
+  //     algorithm: 'brotliCompress',
+  //     test: /\.(js|css|svg)$/
+  //     // deleteOriginalAssets: true
+  //   })
+  // ]
 });
