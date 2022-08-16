@@ -27,7 +27,7 @@ const config: Config = {
   integration: {
     api: {
       auth: {
-        baseUrl: '',
+        baseUrl: 'http://integration',
         login: '/login',
         logout: '/logout',
         getUser: '/currentuser'
@@ -47,10 +47,10 @@ const config: Config = {
   production: {
     api: {
       auth: {
-        baseUrl: '',
+        baseUrl: 'http://localhost',
         login: '/login',
         logout: '/logout',
-        getUser: ''
+        getUser: '/currentuser'
       }
     }
   }
