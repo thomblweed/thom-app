@@ -76,19 +76,21 @@ resource "aws_s3_object" "object_javascript" {
 }
 
 resource "aws_s3_object" "object_font_woff" {
-  for_each = fileset("../../dist/", "*.woff")
-  bucket   = aws_s3_bucket.s3_bucket.bucket
-  key      = each.value
-  source   = "../../dist/${each.value}"
-  etag     = filemd5("../../dist/${each.value}")
-  acl      = "public-read"
+  for_each     = fileset("../../dist/", "*.woff")
+  bucket       = aws_s3_bucket.s3_bucket.bucket
+  key          = each.value
+  source       = "../../dist/${each.value}"
+  content_type = "font/woff"
+  etag         = filemd5("../../dist/${each.value}")
+  acl          = "public-read"
 }
 
 resource "aws_s3_object" "object_css" {
-  for_each = fileset("../../dist/", "*.css")
-  bucket   = aws_s3_bucket.s3_bucket.bucket
-  key      = each.value
-  source   = "../../dist/${each.value}"
-  etag     = filemd5("../../dist/${each.value}")
-  acl      = "public-read"
+  for_each     = fileset("../../dist/", "*.css")
+  bucket       = aws_s3_bucket.s3_bucket.bucket
+  key          = each.value
+  source       = "../../dist/${each.value}"
+  content_type = "text/css"
+  etag         = filemd5("../../dist/${each.value}")
+  acl          = "public-read"
 }
