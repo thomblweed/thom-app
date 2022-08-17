@@ -47,7 +47,7 @@ const config: Config = {
   production: {
     api: {
       auth: {
-        baseUrl: 'http://localhost',
+        baseUrl: 'https://1rj8dux9jk.execute-api.eu-west-2.amazonaws.com/auth',
         login: '/login',
         logout: '/logout',
         getUser: '/currentuser'

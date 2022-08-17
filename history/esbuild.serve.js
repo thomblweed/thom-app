@@ -3,12 +3,12 @@ import { sassPlugin } from 'esbuild-sass-plugin';
 
 serve(
   {
-    servedir: 'public',
+    servedir: 'dist',
     port: 1234
   },
   {
     entryPoints: ['src/index.tsx'],
-    outdir: 'public/',
+    outdir: 'dist/',
     bundle: true,
     minify: true,
     sourcemap: true,

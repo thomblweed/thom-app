@@ -1,5 +1,5 @@
 esbuild*
 webpack*
 history
-public
+dist
 *.config.js

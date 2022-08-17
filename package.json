@@ -5,12 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "webpack serve --config ./webpack/webpack.dev.cjs",
-    "build": "pnpm run clean && webpack --config ./webpack/webpack.prod.cjs",
+    "build": "pnpm run clean:dist && webpack --config ./webpack/webpack.prod.cjs",
     "test": "jest",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
     "deps:restart": "pnpm run deps:down && pnpm run deps:up",
-    "clean": "scripts/clean.sh",
+    "clean:dist": "scripts/clean-dist.sh",
+    "clean:terraform": "scripts/clean-terraform.sh",
     "compile": "tsc",
     "lint": "eslint .",
     "prepare": "husky install"
