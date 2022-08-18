@@ -40,6 +40,7 @@ describe('when the Login component is rendered', () => {
   let container: HTMLElement;
   beforeEach(async () => {
     renderWithQueryClientProvider(<Login />);
+    await screen.findByRole('progressbar');
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     container = await screen.findByTestId('login-container');
   });

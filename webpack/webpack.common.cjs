@@ -8,14 +8,13 @@ module.exports = {
     main: path.resolve(__dirname, '../src/index.tsx')
   },
   output: {
-    path: path.resolve(__dirname, '../public'),
+    path: path.resolve(__dirname, '../dist'),
     // [name] looks at the entry point and determines the name of the output file i.e. main
     filename: '[name].[contenthash].bundle.js',
     // `chunkFilename` provides a template for naming code-split bundles (optional)
     chunkFilename: '[name].[contenthash].bundle.js',
     assetModuleFilename: '[name][ext]', // asset files will be named e.g. photo.jpg
-    clean: true, // clean the output directory before building
-    publicPath: '/'
+    clean: true // clean the output directory before building
   },
   module: {
     rules: [

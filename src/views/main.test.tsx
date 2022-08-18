@@ -37,6 +37,7 @@ describe('when user is not logged in', () => {
   beforeEach(async () => {
     spyGetCurrentUser.mockRejectedValue({ statusCode: 401 });
     renderWithQueryClientProvider(<Main />);
+    await screen.findByRole('progressbar');
     await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'));
     mainViewContainer = screen.getByTestId('main-view');
   });
