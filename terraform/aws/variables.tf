@@ -15,3 +15,13 @@ variable "app_bucket_name" {
   type        = string
   default     = "thom-app"
 }
+
+variable "root_object" {
+  type    = string
+  default = "index.html"
+}
+
+variable "source_directory" {
+  type    = string
+  default = "../../dist"
+}

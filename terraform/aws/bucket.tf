@@ -10,25 +10,25 @@ resource "aws_s3_bucket" "s3_bucket" {
 
 resource "aws_s3_bucket_acl" "bucket_acl" {
   bucket = aws_s3_bucket.s3_bucket.id
-  acl    = "public-read"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_website_configuration" "website_config" {
   bucket = aws_s3_bucket.s3_bucket.bucket
   index_document {
-    suffix = "index.html"
+    suffix = var.root_object
   }
 }
 
-resource "aws_s3_bucket_cors_configuration" "bucket_cors" {
-  bucket = aws_s3_bucket.s3_bucket.bucket
-  cors_rule {
-    allowed_headers = ["Authorization", "Content-Length"]
-    allowed_methods = ["GET", "POST"]
-    allowed_origins = ["*"]
-    max_age_seconds = 5000
-  }
-}
+# resource "aws_s3_bucket_cors_configuration" "bucket_cors" {
+#   bucket = aws_s3_bucket.s3_bucket.bucket
+#   cors_rule {
+#     allowed_headers = ["Authorization", "Content-Length"]
+#     allowed_methods = ["GET", "POST"]
+#     allowed_origins = ["*"]
+#     max_age_seconds = 5000
+#   }
+# }
 
 data "aws_iam_policy_document" "iam_policy" {
   statement {
@@ -56,41 +56,41 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 
 # bucket objects
 resource "aws_s3_object" "object_html" {
-  for_each     = fileset("../../dist/", "*.html")
+  for_each     = fileset("${var.source_directory}/", "*.html")
   bucket       = aws_s3_bucket.s3_bucket.bucket
   key          = each.value
-  source       = "../../dist/${each.value}"
+  source       = "${var.source_directory}/${each.value}"
   content_type = "text/html"
-  etag         = filemd5("../../dist/${each.value}")
-  acl          = "public-read"
+  etag         = filemd5("${var.source_directory}/${each.value}")
+  acl          = "private"
 }
 
 resource "aws_s3_object" "object_javascript" {
-  for_each     = fileset("../../dist/", "*.js")
+  for_each     = fileset("${var.source_directory}/", "*.js")
   bucket       = aws_s3_bucket.s3_bucket.bucket
   key          = each.value
-  source       = "../../dist/${each.value}"
+  source       = "${var.source_directory}/${each.value}"
   content_type = "application/x-javascript"
-  etag         = filemd5("../../dist/${each.value}")
-  acl          = "public-read"
+  etag         = filemd5("${var.source_directory}/${each.value}")
+  acl          = "private"
 }
 
 resource "aws_s3_object" "object_font_woff" {
-  for_each     = fileset("../../dist/", "*.woff")
+  for_each     = fileset("${var.source_directory}/", "*.woff")
   bucket       = aws_s3_bucket.s3_bucket.bucket
   key          = each.value
-  source       = "../../dist/${each.value}"
+  source       = "${var.source_directory}/${each.value}"
   content_type = "font/woff"
-  etag         = filemd5("../../dist/${each.value}")
-  acl          = "public-read"
+  etag         = filemd5("${var.source_directory}/${each.value}")
+  acl          = "private"
 }
 
 resource "aws_s3_object" "object_css" {
-  for_each     = fileset("../../dist/", "*.css")
+  for_each     = fileset("${var.source_directory}/", "*.css")
   bucket       = aws_s3_bucket.s3_bucket.bucket
   key          = each.value
-  source       = "../../dist/${each.value}"
+  source       = "${var.source_directory}/${each.value}"
   content_type = "text/css"
-  etag         = filemd5("../../dist/${each.value}")
-  acl          = "public-read"
+  etag         = filemd5("${var.source_directory}/${each.value}")
+  acl          = "private"
 }
