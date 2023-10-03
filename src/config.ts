@@ -1,6 +1,6 @@
-type Environment = 'development' | 'integration' | 'test' | 'production';
+export type Environment = 'development' | 'integration' | 'test' | 'production';
 
-type Config = {
+export type Config = {
   [key in Environment]: {
     api: {
       auth: {
@@ -13,7 +13,7 @@ type Config = {
   };
 };
 
-const config: Config = {
+export const config: Config = {
   development: {
     api: {
       auth: {
@@ -47,7 +47,7 @@ const config: Config = {
   production: {
     api: {
       auth: {
-        baseUrl: process.env.PROD_AUTH_URL || 'http://localhost',
+        baseUrl: 'http://localhost',
         login: '/login',
         logout: '/logout',
         getUser: '/currentuser'
@@ -56,5 +56,3 @@ const config: Config = {
   }
 };
 
-export type { Config, Environment };
-export { config };
