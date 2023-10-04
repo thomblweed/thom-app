@@ -1,29 +1,34 @@
-import React from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from 'thom-components';
+import React from "react";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import { Button } from "thom-components";
 
-import { FormField, FormSchema } from './form-schema';
-import { Field } from './Fields/Field';
+import { Field } from "./Fields/Field";
+import { FormField, FormSchema } from "./form-schema";
 
-interface FormProps<T> {
+interface FormProps<T extends FieldValues> {
   testId: string | undefined;
   formSubmit: SubmitHandler<T>;
   formSubmitting: boolean;
   schema: FormSchema;
 }
 
-export const Form = <T,>({
+export const Form = <T extends FieldValues>({
   testId,
   formSubmit,
   formSubmitting,
-  schema
+  schema,
 }: FormProps<T>): JSX.Element => {
   const methods = useForm<T>();
 
   return (
     <FormProvider {...methods}>
       <form
-        className='m-auto'
+        className="m-auto"
         data-testid={testId}
         onSubmit={methods.handleSubmit(formSubmit)}
       >

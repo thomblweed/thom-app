@@ -3,7 +3,6 @@
     "jsx": "react",
     "module": "ESNext",
     "lib": ["ES6", "DOM"],
-    "emitDeclarationOnly": true,
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -19,7 +18,8 @@
     "allowJs": true,
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "noEmit": true
   },
   "include": ["./src"],
   "exclude": ["node_modules", "dist", "jest", "history"]
