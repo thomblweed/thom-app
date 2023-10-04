@@ -21,4 +21,4 @@ jobs:
               args: [--frozen-lockfile, --strict-peer-dependencies]
 
       - name: Unit Test
-        run: pnpm t
+        run: pnpm test:no-watch

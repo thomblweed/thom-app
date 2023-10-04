@@ -27,7 +27,7 @@
     "react/prop-types": 0,
     "testing-library/no-render-in-lifecycle": [
       "error",
-      { "allowTestingFrameworkSetupHook": "beforeAll" }
+      { "allowTestingFrameworkSetupHook": "beforeEach" }
     ]
   },
   "settings": {

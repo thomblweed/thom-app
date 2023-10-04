@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-render-in-lifecycle */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@testing-library/jest-dom";
 import {

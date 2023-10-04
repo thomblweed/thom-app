@@ -7,6 +7,7 @@
     "dev": "webpack serve --config ./webpack/webpack.dev.cjs",
     "build": "pnpm run clean:dist && webpack --config ./webpack/webpack.prod.cjs",
     "test": "vitest",
+    "test:no-watch": "vitest -w=false",
     "coverage": "vitest run --coverage",
     "deps:up": "docker compose up -d",
     "deps:down": "docker compose down --rmi local",
